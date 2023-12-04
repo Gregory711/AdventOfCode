@@ -1,0 +1,4 @@
+Ran python -m venv advent  
+Then just ran source advent/bin/activate to start it
+Then ran pip install pydantic
+also run proj with python engine.py test.txt

@@ -1,0 +1,12 @@
+536753 is too high.
+Maybe - followed by a number counts as a negative number?
+If so subtract 3154 (well maybe less cause if - not a symbol then not all of those negative numbers included)
+536753-3154=533599 is too low so maybe that was it will find just the negative numbers connected to symbol
+not sure if the negative can count if its connected to a symbol?
+that was counted as too low (533599)
+644
+so 536753-644=536109
+too high
+went to r/adventofcode and looked at posts w/o spoilers of people who do good on test cases but not on actual input
+Turns out that no minus not = negative numbers BUT newline character at end could be wrongly detected as symbol
+yep, using str.rstrip() for now on to remove all kinds of trailing whitespace
