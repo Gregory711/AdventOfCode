@@ -50,7 +50,7 @@ for line in file1:
 		if int(line[start:end]) in win:
 			cards += copies[card]
 			matchCount += 1
-			print("Card: "+str(card)+" hit match #"+str(matchCount)+" increasing its copies to "+str(cards))
+			#print("Card: "+str(card)+" hit match #"+str(matchCount)+" increasing its copies to "+str(cards))
 			if not (card + matchCount) in copies:
 				copies[card+matchCount] = 1 + copies[card]
 			else:
