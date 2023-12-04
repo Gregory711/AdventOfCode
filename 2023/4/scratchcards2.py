@@ -38,6 +38,7 @@ for line in file1:
 		start = end + 1
 	# Iterate over each selected number
 	cards = 0
+	matchCount = 0
 	start = line.index(' ', start) +  1
 	while start < len(line):
 		while line[start] == ' ':
@@ -48,10 +49,11 @@ for line in file1:
 			end = len(line)
 		if int(line[start:end]) in win:
 			cards += copies[card]
+			matchCount += 1
 			if not (card + cards) in copies:
-				copies[card+cards] = copies[card]
+				copies[card+matchCount] = copies[card]
 			else:
-				copies[card+cards] += copies[card]
+				copies[card+matchCount] += copies[card]
 		#print(line[start:end])
 		start = end + 1
 	sum += cards + 1
