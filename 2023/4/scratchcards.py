@@ -27,5 +27,16 @@ for line in file1:
 		while line[start] == ' ':
 			start += 1
 		end = line.index(' ', start)
+		#print(line[start:end])
+		start = end + 1
+	# Iterate over each selected number
+	start = line.index(' ', start) +  1
+	while start < len(line):
+		while line[start] == ' ':
+			start += 1
+		try:
+			end = line.index(' ', start)
+		except ValueError:
+			end = len(line)
 		print(line[start:end])
 		start = end + 1
