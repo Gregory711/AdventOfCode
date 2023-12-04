@@ -9,4 +9,5 @@ e.g.
 Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
 worth 8 points
 Given a text file find the value of all the cards combined!
+test.txt worth 13
 """
