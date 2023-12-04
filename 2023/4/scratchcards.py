@@ -11,3 +11,21 @@ worth 8 points
 Given a text file find the value of all the cards combined!
 test.txt worth 13
 """
+
+import sys
+
+name = sys.argv[1]
+
+file1 = open(name, 'r')
+
+# Iterate over each card
+for line in file1:
+	line = line.rstrip()
+	# Iterate over each winning number
+	start = line.index(':') + 2
+	while start < len(line) and line[start] != '|':
+		while line[start] == ' ':
+			start += 1
+		end = line.index(' ', start)
+		print(line[start:end])
+		start = end + 1
