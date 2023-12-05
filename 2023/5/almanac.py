@@ -5,6 +5,7 @@ name = sys.argv[1]
 file1 = open(name, 'r')
 
 seeds = []
+inMap = False
 
 for line in file1:
 	line = line.rstrip()
@@ -17,4 +18,10 @@ for line in file1:
 				end = len(line)
 			seeds.append(int(line[start:end]))
 			start = end + 1
+	elif len(line) == 0:
+		if inMap:
+			inMap = False
+	elif not line[0].isdigit():
+		inMap = True
+	else:
 print(seeds)
