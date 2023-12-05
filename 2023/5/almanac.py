@@ -23,5 +23,16 @@ for line in file1:
 			inMap = False
 	elif not line[0].isdigit():
 		inMap = True
+		maps = []
 	else:
-print(seeds)
+		end = line.index(' ')
+		destStart = int(line[0:end])
+		start = end + 1
+		end = line.index(' ', start)
+		srcStart = int(line[start:end])
+		start = end + 1
+		end = len(line)
+		rangeLen = int(line[start:end])
+		maps.append((destStart, srcStart, rangeLen))
+#print(maps)
+#print(seeds)
