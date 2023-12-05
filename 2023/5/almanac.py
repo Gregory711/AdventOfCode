@@ -20,7 +20,16 @@ for line in file1:
 			start = end + 1
 	elif len(line) == 0:
 		if inMap:
+			#print("starting map")
 			inMap = False
+			for i in range(len(seeds)):
+				seeded = False
+				for m in maps:
+					if not seeded and seeds[i] >= m[1] and seeds[i] < (m[1] + m[2]):
+						before = seeds[i]
+						seeds[i] = (seeds[i] - m[1]) + m[0]
+						seeded = True
+						#print(str(before)+" maps to "+str(seeds[i]))
 	elif not line[0].isdigit():
 		inMap = True
 		maps = []
@@ -35,4 +44,12 @@ for line in file1:
 		rangeLen = int(line[start:end])
 		maps.append((destStart, srcStart, rangeLen))
 #print(maps)
+for i in range(len(seeds)):
+	seeded = False
+	for m in maps:
+		if not seeded and seeds[i] >= m[1] and seeds[i] < (m[1] + m[2]):
+			before = seeds[i]
+			seeds[i] = (seeds[i] - m[1]) + m[0]
+			seeded = True
 #print(seeds)
+print(min(seeds))
