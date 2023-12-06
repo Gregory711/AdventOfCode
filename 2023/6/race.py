@@ -24,5 +24,16 @@ for line in file1:
 				dists.append(int(line[start:(i+1)]))
 			start = None
 		i += 1
-print(times)
-print(dists)
+
+result = 1
+for race in range(len(times)):
+	ways = 0
+	for speed in range(times[race]):
+		dist = speed * (times[race] - speed)
+		#print(str(speed) + " speed times " + str(times[race]-speed) + " time equals dist " + str(dist))
+		if dist > dists[race]:
+			ways += 1
+		#print(str(ways) + " ways to beat record is now")
+	result *= ways
+	#print("results is now " + str(result))
+print(result)
