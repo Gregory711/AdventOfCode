@@ -37,7 +37,7 @@ for line in file1:
 			except ValueError:
 				end = len(line)
 			if startRange != None:
-				seedRanges.append((startRange, int(line[start:end]) ))
+				seedRanges.append((startRange, startRange + int(line[start:end]) - 1 ))
 				startRange = None
 			else:
 				startRange = int(line[start:end])
