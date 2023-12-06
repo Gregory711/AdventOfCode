@@ -21,11 +21,27 @@ name = sys.argv[1]
 
 file1 = open(name, 'r')
 
-seeds = []
+seedRanges = []
 inMap = False
+startRange = None
 
 for line in file1:
 	line = line.rstrip()
+	if len(seedRanges) == 0:
+		start = line.index(' ') + 1
+		while start < len(line):
+			try:
+				end = line.index(' ', start)
+			except ValueError:
+				end = len(line)
+			if startRange != None:
+				seedRanges.append((startRange, int(line[start:end]) ))
+				startRange = None
+			else:
+				startRange = int(line[start:end])
+			start = end + 1
+print(seedRanges)
+'''
 	if len(seeds) == 0:
 		start = line.index(' ') + 1
 		while start < len(line):
@@ -70,3 +86,4 @@ for i in range(len(seeds)):
 			seeded = True
 #print(seeds)
 print(min(seeds))
+'''
