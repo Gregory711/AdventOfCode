@@ -1,3 +1,18 @@
+# Algorithm:
+# 1. Record each initial seed range as tuple in seeds list
+# 2. For each map do the following:
+#	a. For each seed range do the following:
+#		1. If a portion of the seed range is below the source range from the map then:
+#			Add a new range from bottom of seed range (inclusive) to bottom of the
+#			source range to a new seed list.
+#		2. If a portion of the seed range is on the source range from the map then:
+#			Add a new range from max(bottom of source range, bottom of the seed
+#			range) to min(top of source range, top of the seed range) to the new
+#			seed list (using adjusted numbers for range!).
+#		3. If a portion of the seed range is above the source range from the map then:
+#			Add a new range from top of source range (exclusive) to top of the
+#			seed range to a new seed list.
+
 import sys
 
 name = sys.argv[1]
