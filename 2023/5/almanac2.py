@@ -12,6 +12,8 @@
 #		3. If a portion of the seed range is above the source range from the map then:
 #			Add a new range from top of source range (exclusive) to top of the
 #			seed range to a new seed list.
+#	b. Replace the old seed seed range with the new one
+# 3. Iterate over the final seed range and print the lowest lower bound
 
 import sys
 
