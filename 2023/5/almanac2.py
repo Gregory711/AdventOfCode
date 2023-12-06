@@ -49,7 +49,6 @@ for line in file1:
 	elif not line[0].isdigit():
 		print("entering map")
 		inMap = True
-		tempSeedRanges = []
 		updatedSeedRanges = []
 	else:
 		print("reading next seed range in map")
@@ -71,15 +70,19 @@ for line in file1:
 			if seedRange[0] < srcStart:
 				begin = seedRange[0]
 				conclude = min(seedRange[1], srcStart + rangeLen - 1)
-				# Adjust for dest mapping
+				# Edit this range in the seedRange list to only include the part that isn't being mapped and added to the updated list (or delete if none left)
+				print("todo")
+				# Adjust for dest mapping and add the new range to the updated list
 				begin += destStart
 				conclude += destStart
-				tempSeedRanges.append((begin, conclude))
+				updatedSeedRanges.append((begin, conclude))
 			# Find the portion (if any) of the seed range that is on the map
 			if seedRange[0] >= srcStart and seedRange[1] <= (srcStart + rangeLen - 1):
 				begin = max(seedRange[0], srcStart)
 				conclude = min(seedRange[1], srcStart + rangeLen - 1)
-				# Adjust for dest mapping
+				# Edit this range in the seedRange list to only include the part that isn't being mapped and added to the updated list (or delete if none left)
+				print("todo")
+				# Adjust for dest mapping and add the new range to the updated list
 				begin += destStart
 				conclude += destStart
 				updatedSeedRanges.append((begin, conclude))
@@ -87,10 +90,12 @@ for line in file1:
 			if seedRange[1] > (srcStart + rangeLen - 1):
 				begin = max(seedRange[1], srcStart + rangeLen - 1)
 				conclude = seedRange[1]
-				# Adjust for dest mapping
+				# Edit this range in the seedRange list to only include the part that isn't being mapped and added to the updated list (or delete if none left)
+				print("todo")
+				# Adjust for dest mapping and add the new range to the updated list
 				begin += destStart
 				conclude += destStart
-				tempSeedRanges.append((begin, conclude))
+				updatedSeedRanges.append((begin, conclude))
 print(seedRanges)
 '''
 	elif len(line) == 0:
