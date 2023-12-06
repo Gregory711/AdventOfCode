@@ -68,7 +68,13 @@ for line in file1:
 		for seedRange in seedRanges:
 			# Find the portion (if any) of the seed range that is below the map and add it to updatedSeedRanges
 			if seedRange[0] < srcStart:
-				#updatedSeedRanges.append(seedRange[0],
+				begin = seedRange[0]
+				conclude = min(seedRange[1], srcStart + rangeLen - 1)
+				# Adjust for dest mapping
+				begin += destStart
+				conclude += destStart
+				updatedSeedRanges.append((begin, conclude))
+			# Find the portion (if any) of the seed range that is on the map
 print(seedRanges)
 '''
 	elif len(line) == 0:
