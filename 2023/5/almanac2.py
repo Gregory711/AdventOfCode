@@ -49,7 +49,26 @@ for line in file1:
 	elif not line[0].isdigit():
 		print("entering map")
 		inMap = True
+		updatedSeedRanges = []
 	else:
+		print("reading next seed range in map")
+		end = line.index(' ')
+		destStart = int(line[0:end])
+		start = end + 1
+		end = line.index(' ', start)
+		srcStart = int(line[start:end])
+		start = end + 1
+		end = len(line)
+		rangeLen = int(line[start:end])
+		# destStart is the beginning of the numbers that the current seeds are mapped to
+		# srcStart is the beginning of the numbers of seeds that are being mapped to new numbers
+		# rangeLen is the number of seeds that could be mapped at a maximum in this range
+		
+		# Iterate over the seed ranges for the map
+		for seedRange in seedRanges:
+			# Find the portion (if any) of the seed range that is below the map and add it to updatedSeedRanges
+			if seedRange[0] < srcStart:
+				#updatedSeedRanges.append(seedRange[0],
 print(seedRanges)
 '''
 	elif len(line) == 0:
@@ -68,15 +87,6 @@ print(seedRanges)
 		inMap = True
 		maps = []
 	else:
-		end = line.index(' ')
-		destStart = int(line[0:end])
-		start = end + 1
-		end = line.index(' ', start)
-		srcStart = int(line[start:end])
-		start = end + 1
-		end = len(line)
-		rangeLen = int(line[start:end])
-		maps.append((destStart, srcStart, rangeLen))
 #print(maps)
 for i in range(len(seeds)):
 	seeded = False
