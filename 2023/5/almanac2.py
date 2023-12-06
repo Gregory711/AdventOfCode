@@ -83,6 +83,13 @@ for line in file1:
 				conclude += destStart
 				updatedSeedRanges.append((begin, conclude))
 			# Find the portion (if any) of the seed range that is above the map
+			if seedRange[1] > (srcStart + rangeLen - 1):
+				begin = max(seedRange[1], srcStart + rangeLen - 1)
+				conclude = seedRange[1]
+				# Adjust for dest mapping
+				begin += destStart
+				conclude += destStart
+				updatedSeedRanges.append((begin, conclude))
 print(seedRanges)
 '''
 	elif len(line) == 0:
