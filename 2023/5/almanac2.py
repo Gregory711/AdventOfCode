@@ -49,6 +49,7 @@ for line in file1:
 	elif not line[0].isdigit():
 		print("entering map")
 		inMap = True
+		tempSeedRanges = []
 		updatedSeedRanges = []
 	else:
 		print("reading next seed range in map")
@@ -73,7 +74,7 @@ for line in file1:
 				# Adjust for dest mapping
 				begin += destStart
 				conclude += destStart
-				updatedSeedRanges.append((begin, conclude))
+				tempSeedRanges.append((begin, conclude))
 			# Find the portion (if any) of the seed range that is on the map
 			if seedRange[0] >= srcStart and seedRange[1] <= (srcStart + rangeLen - 1):
 				begin = max(seedRange[0], srcStart)
@@ -89,7 +90,7 @@ for line in file1:
 				# Adjust for dest mapping
 				begin += destStart
 				conclude += destStart
-				updatedSeedRanges.append((begin, conclude))
+				tempSeedRanges.append((begin, conclude))
 print(seedRanges)
 '''
 	elif len(line) == 0:
