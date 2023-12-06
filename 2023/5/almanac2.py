@@ -40,17 +40,16 @@ for line in file1:
 			else:
 				startRange = int(line[start:end])
 			start = end + 1
+	elif len(line) == 0:
+		if inMap:
+			print("exiting map")
+			inMap = False
+	elif not line[0].isdigit():
+		print("entering map")
+		inMap = True
+	else:
 print(seedRanges)
 '''
-	if len(seeds) == 0:
-		start = line.index(' ') + 1
-		while start < len(line):
-			try:
-				end = line.index(' ', start)
-			except ValueError:
-				end = len(line)
-			seeds.append(int(line[start:end]))
-			start = end + 1
 	elif len(line) == 0:
 		if inMap:
 			#print("starting map")
