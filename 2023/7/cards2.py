@@ -21,8 +21,15 @@ def handType(hand):
 			counts[card] = 1
 		else:
 			counts[card] += 1
+	# If J is the most common card type it pretends to be the next most common card
+	# Otherwise J pretends to be the most common card type
+	jCount = 0
+	if 'J' in counts and len(counts) > 1:
+		jCount = counts['J']
+		del counts['J']
 	counts = dict(sorted(counts.items(), key=lambda item: item[1], reverse=True))
 	countsOnly = list(counts.values())
+	countsOnly[0] += jCount
 	#print(counts)
 	if countsOnly[0] == 5:
 		return 7 # Five of a kind
@@ -49,7 +56,7 @@ def cardValue(card):
 	elif card == 'Q':
 		return 12
 	elif card == 'J':
-		return 11
+		return 0
 	elif card == 'T':
 		return 10
 	else:
