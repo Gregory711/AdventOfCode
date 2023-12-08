@@ -30,22 +30,22 @@ for line in file1:
 	if origin[-1] == 'A':
 		locs.append(origin)
 #print(hauntedMap)
-print(locs)
+#print(locs)
 
-'''
 found = False
 steps = 0
-loc = 'AAA'
 
 while not found:
 	for step in directions:
 		steps += 1
-		if step == 'L':
-			loc = hauntedMap[loc][0]
-		else:
-			loc = hauntedMap[loc][1]
-		if loc == 'ZZZ':
-			found = True
+		found = True
+		for i in range(len(locs)):
+			if step == 'L':
+				locs[i] = hauntedMap[locs[i]][0]
+			else:
+				locs[i] = hauntedMap[locs[i]][1]
+			if locs[i][-1] != 'Z':
+				found = False
+		if found:	
 			break
 print(steps)
-'''
