@@ -26,4 +26,20 @@ for line in file1:
 	j = line.index(')')
 	right = line[i:j]
 	hauntedMap[origin] = (left, right)
-print(hauntedMap)
+#print(hauntedMap)
+
+found = False
+steps = 0
+loc = 'AAA'
+
+while not found:
+	for step in directions:
+		steps += 1
+		if step == 'L':
+			loc = hauntedMap[loc][0]
+		else:
+			loc = hauntedMap[loc][1]
+		if loc == 'ZZZ':
+			found = True
+			break
+print(steps)
