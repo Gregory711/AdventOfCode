@@ -7,6 +7,7 @@ file1 = open(name, 'r')
 directions = ''
 hauntedMap = {}
 empty = True
+locs = []
 
 for line in file1:
 	line = line.rstrip()
@@ -26,8 +27,12 @@ for line in file1:
 	j = line.index(')')
 	right = line[i:j]
 	hauntedMap[origin] = (left, right)
+	if origin[-1] == 'A':
+		locs.append(origin)
 #print(hauntedMap)
+print(locs)
 
+'''
 found = False
 steps = 0
 loc = 'AAA'
@@ -43,3 +48,4 @@ while not found:
 			found = True
 			break
 print(steps)
+'''
