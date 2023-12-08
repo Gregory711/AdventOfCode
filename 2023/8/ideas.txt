@@ -1,0 +1,2 @@
+Keep track of which nodes each ghost has visited in order so if hit a repeat can quit and just use
+modulus to see where he is at the future step where all non cycling ghosts have hit Z
