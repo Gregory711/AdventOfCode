@@ -20,6 +20,8 @@ Answer is just sum of the predictions (e.g. 18) for each (in test.txt its 114)
 Note: the real input contains negative numbers, is sometimes decreasing, and is sometimes not equal diffs
 
 Algorithm:
+Will just use the following part 1 algorithm with one difference: just reverse the lists!
+
 Technically do not need to store the entire rows but input data small enough too and might need on part 2 so might as well.
 So start out by reading in row into list, will only store for duration of for in loop cycle to simplify things.
 The next step will be to create a list of lists (called derived) to add the derived lists to and maintain a flag variable allZeros to know when to stop
@@ -43,6 +45,7 @@ for line in file1:
 			j += 1
 		values.append(int(line[i:j]))
 		i = j + 1
+	values.reverse()
 	#print(values)
 	derived = []
 	derived.append(values)
