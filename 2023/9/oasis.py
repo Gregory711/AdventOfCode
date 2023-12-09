@@ -22,6 +22,7 @@ Note: the real input contains negative numbers, is sometimes decreasing, and is 
 Algorithm:
 Technically do not need to store the entire rows but input data small enough too and might need on part 2 so might as well.
 So start out by reading in row into list, will only store for duration of for in loop cycle to simplify things.
+The next step will be to create a list of lists (called derived) to add the derived lists to and maintain a flag variable allZeros to know when to stop
 '''
 
 import sys
@@ -39,4 +40,18 @@ for line in file1:
 			j += 1
 		values.append(int(line[i:j]))
 		i = j + 1
-	print(values)
+	#print(values)
+	derived = []
+	derived.append(values)
+	allZeros = False
+	while not allZeros:
+		allZeros = True
+		diffs = []
+		for i in range(len(derived[-1])-1):
+			diff = derived[-1][i+1] - derived[-1][i]
+			diffs.append(diff)
+			if diff != 0:
+				allZeros = False
+		derived.append(diffs)
+	print(derived)
+	print(" ")
