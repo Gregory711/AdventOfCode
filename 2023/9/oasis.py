@@ -23,6 +23,7 @@ Algorithm:
 Technically do not need to store the entire rows but input data small enough too and might need on part 2 so might as well.
 So start out by reading in row into list, will only store for duration of for in loop cycle to simplify things.
 The next step will be to create a list of lists (called derived) to add the derived lists to and maintain a flag variable allZeros to know when to stop
+The next step will be to just sum the end of each derived list and add it to a total sum which is the answer!
 '''
 
 import sys
@@ -31,7 +32,9 @@ name = sys.argv[1]
 
 file1 = open(name, 'r')
 
+sum = 0
 for line in file1:
+	localSum = 0
 	values = []
 	i = 0
 	while i < len(line):
@@ -53,5 +56,10 @@ for line in file1:
 			if diff != 0:
 				allZeros = False
 		derived.append(diffs)
-	print(derived)
-	print(" ")
+	#print(derived) 
+	#print(" ")
+	for diffs in derived:
+		localSum += diffs[-1]
+	#print(localSum)
+	sum += localSum
+print(sum)
