@@ -51,6 +51,7 @@ def getLongestPath(graph, toVisit):
 		pathLen = pathLens[visiting]
 		#print("Visiting: ("+str(row)+", "+str(col)+")")
 		# Changing current node to ❌ for testing temporarily
+		'''
 		temp = graph[row][col]
 		graph[row][col] = '❌'
 		for line in graph:
@@ -58,6 +59,7 @@ def getLongestPath(graph, toVisit):
 		graph[row][col] = temp
 		print("Path len:" + str(pathLen))
 		print("")
+		'''
 
 		above = below = left = right = False
 
@@ -83,7 +85,7 @@ def getLongestPath(graph, toVisit):
 		# S = start = finished loop
 		if graph[row][col] == 'S' and pathLen > longestPath:
 			longestPath = pathLen
-			print("found path with len: " + str(pathLen))
+			#print("found path with len: " + str(pathLen))
 
 		abovePipe = belowPipe = leftPipe = rightPipe = None
 		if inBounds(graph, row-1, col):
@@ -127,7 +129,7 @@ if inBounds(graph, row-1, col):
 	pathLens[(row-1, col)] = 0
 	seen.add(toVisit[-1])
 	path = max(path, getLongestPath(graph, toVisit))
-print("finished up")
+#print("finished up")
 pathLens = {}
 seen = set()
 if inBounds(graph, row+1, col):
@@ -135,7 +137,7 @@ if inBounds(graph, row+1, col):
 	pathLens[(row+1, col)] = 0
 	seen.add(toVisit[-1])
 	path = max(path, getLongestPath(graph, toVisit))
-print("finished down")
+#print("finished down")
 pathLens = {}
 seen = set()
 if inBounds(graph, row, col-1):
@@ -143,7 +145,7 @@ if inBounds(graph, row, col-1):
 	pathLens[(row, col-1)] = 0
 	seen.add(toVisit[-1])
 	path = max(path, getLongestPath(graph, toVisit))
-print("finished left")
+#print("finished left")
 pathLens = {}
 seen = set()
 if inBounds(graph, row, col+1):
@@ -151,5 +153,5 @@ if inBounds(graph, row, col+1):
 	pathLens[(row, col+1)] = 0
 	seen.add(toVisit[-1])
 	path = max(path, getLongestPath(graph, toVisit))
-print("finished right")
+#print("finished right")
 print(math.ceil(path / 2))
