@@ -95,19 +95,19 @@ def getLongestPath(graph, toVisit):
 		if inBounds(graph, row, col+1):
 			rightPipe = graph[row][col+1]
 
-		if above and abovePipe != None and (row-1, col) not in seen and (abovePipe == '|' or abovePipe == '7' or abovePipe == 'F'):
+		if above and abovePipe != None and (row-1, col) not in seen and (abovePipe == '|' or abovePipe == '7' or abovePipe == 'F' or abovePipe == 'S'):
 			toVisit.append((row-1, col))
 			pathLens[(row-1, col)] = pathLen+1
 			seen.add(toVisit[-1])
-		if below and belowPipe != None and (row+1, col) not in seen and (belowPipe == '|' or belowPipe == 'L' or belowPipe == 'J'):
+		if below and belowPipe != None and (row+1, col) not in seen and (belowPipe == '|' or belowPipe == 'L' or belowPipe == 'J' or belowPipe == 'S'):
 			toVisit.append((row+1, col))
 			pathLens[(row+1, col)] = pathLen+1
 			seen.add(toVisit[-1])
-		if left and leftPipe != None and (row, col-1) not in seen and (leftPipe == '-' or leftPipe == 'L' or leftPipe == 'F'):
+		if left and leftPipe != None and (row, col-1) not in seen and (leftPipe == '-' or leftPipe == 'L' or leftPipe == 'F' or leftPipe == 'S'):
 			toVisit.append((row, col-1))
 			pathLens[(row, col-1)] = pathLen+1
 			seen.add(toVisit[-1])
-		if right and rightPipe != None and (row, col+1) not in seen and (rightPipe == '-' or rightPipe == 'J' or rightPipe == '7'):
+		if right and rightPipe != None and (row, col+1) not in seen and (rightPipe == '-' or rightPipe == 'J' or rightPipe == '7' or rightPipe == 'S'):
 			toVisit.append((row, col+1))
 			pathLens[(row, col+1)] = pathLen+1
 			seen.add(toVisit[-1])
