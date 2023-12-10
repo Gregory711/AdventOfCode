@@ -43,6 +43,9 @@ def inBounds(graph, row, col):
 
 # Add initial pipes off start
 toVisit = []
+seen = set()
+row = startRow
+col = startColumn
 if inBounds(graph, row-1, col):
 	toVisit.append((row-1, col))
 	seen.add(toVisit[-1])
@@ -56,7 +59,6 @@ if inBounds(graph, row, col+1):
 	toVisit.append((row, col+1))
 	seen.add(toVisit[-1])
 
-seen = set()
 found = False
 pathLen = 0
 
