@@ -44,30 +44,34 @@ def inBounds(graph, row, col):
 
 # Add initial pipes off start
 toVisit = []
+pathLens = {}
 seen = set()
 row = startRow
 col = startColumn
 if inBounds(graph, row-1, col):
 	toVisit.append((row-1, col))
+	pathLens[(row-1, col)] = 0
 	seen.add(toVisit[-1])
 if inBounds(graph, row+1, col):
 	toVisit.append((row+1, col))
+	pathLens[(row+1, col)] = 0
 	seen.add(toVisit[-1])
 if inBounds(graph, row, col-1):
 	toVisit.append((row, col-1))
+	pathLens[(row, col-1)] = 0
 	seen.add(toVisit[-1])
 if inBounds(graph, row, col+1):
 	toVisit.append((row, col+1))
+	pathLens[(row, col+1)] = 0
 	seen.add(toVisit[-1])
 
-pathLen = 0
 longestPath = -1
 
 while len(toVisit) > 0:
-	pathLen += 1
 	visiting = toVisit.pop()
 	row = visiting[0]
 	col = visiting[1]
+	pathLen = pathLens[visiting]
 	#print("Visiting: ("+str(row)+", "+str(col)+")")
 	# Changing current node to ❌ for testing temporarily
 	temp = graph[row][col]
@@ -75,6 +79,7 @@ while len(toVisit) > 0:
 	for line in graph:
 		print(''.join(line))
 	graph[row][col] = temp
+	print("Path len:" + str(pathLen))
 	print("")
 
 	above = below = left = right = False
@@ -104,14 +109,18 @@ while len(toVisit) > 0:
 	
 	if above and inBounds(graph, row-1, col) and (row-1, col) not in seen:
 		toVisit.append((row-1, col))
+		pathLens[(row-1, col)] = pathLen+1
 		seen.add(toVisit[-1])
 	if below and inBounds(graph, row+1, col) and (row+1, col) not in seen:
 		toVisit.append((row+1, col))
+		pathLens[(row+1, col)] = pathLen+1
 		seen.add(toVisit[-1])
 	if left and inBounds(graph, row, col-1) and (row, col-1) not in seen:
 		toVisit.append((row, col-1))
+		pathLens[(row, col-1)] = pathLen+1
 		seen.add(toVisit[-1])
 	if right and inBounds(graph, row, col+1) and (row, col+1) not in seen:
 		toVisit.append((row, col+1))
+		pathLens[(row, col+1)] = pathLen+1
 		seen.add(toVisit[-1])
 print(math.ceil(longestPath / 2))
