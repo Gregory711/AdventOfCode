@@ -31,25 +31,32 @@ for r in range(len(graph)):
 #print(startColumn)
 
 toVisit = []
-toVisit.append((startRow, startColumn))
 seen = set()
 found = False
+pathLen = 0
+
+# Add initial pipes off start
+row == startRow
+col == startColumn
+for r in range(-1, 1+1):
+	if r == -1 and row == 0:
+		continue
+	elif r == 1 and row == (len(graph)-1):
+		continue
+	for c in range(-1, 1+1):
+		if c == -1 and col == 0:
+			continue
+		elif c == 1 and col == (len(graph[r])-1):
+			continue
+		# | = vertical pipe = connects nodes above and below
+		# - = horizontal pipe = connects nodes left and right
+		# L = 90 degree bend = connects above and right
+		# J = 90 degree bend = connects above and left
+		# 7 = 90 degree bend = connects below and left
+		# F = 90 degree bend = connects below and right
+		# . = ground (no pipe)
 
 while not found:
+	pathLen += 1
 	visiting = toVisit.pop()
-	row = visiting[0]
-	col = visiting[1]
-	for r in range(-1, 1+1):
-		if r == -1 and row == 0:
-			continue
-		elif r == 1 and row == (len(graph)-1):
-			continue
-		for c in range(-1, 1+1):
-			if c == -1 and col == 0:
-				continue
-			elif c == 1 and col == (len(graph[r])-1):
-				continue
-			elif r == 0 and c == 0:
-				continue
-			print(graph[row+r][col+c])
 	found = True # temp test
