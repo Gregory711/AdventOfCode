@@ -54,11 +54,20 @@ def inBounds(graph, row, col):
 
 def getLongestPath(graph, toVisit):
 	longestPath = -1
+	pathNodes = []
 	while len(toVisit) > 0:
 		visiting = toVisit.pop()
 		row = visiting[0]
 		col = visiting[1]
 		pathLen = pathLens[visiting]
+
+		# Upsert node to pathNodes
+		if len(pathNodes) > 0:
+			while len(pathNodes) > 0 and pathLens[pathNodes[-1]] >= pathLen:
+				pathNodes.pop()
+		pathNodes.append(visiting)
+
+
 		#print("Visiting: ("+str(row)+", "+str(col)+")")
 		# Changing current node to ❌ for testing temporarily
 		'''
@@ -125,11 +134,12 @@ def getLongestPath(graph, toVisit):
 			seen.add(toVisit[-1])
 		if (startRow, startColumn) in seen:
 			seen.remove((startRow, startColumn))
-	return longestPath
+	return longestPath, pathNodes
 
 # Add initial pipes off start
 path = -1
 toVisit = []
+pathNodes = []
 pathLens = {}
 seen = set()
 row = startRow
@@ -138,7 +148,10 @@ if inBounds(graph, row-1, col):
 	toVisit.append((row-1, col))
 	pathLens[(row-1, col)] = 0
 	seen.add(toVisit[-1])
-	path = max(path, getLongestPath(graph, toVisit))
+	tempPath, tempNodes = getLongestPath(graph, toVisit)
+	if tempPath > path:
+		path = tempPath
+		pathNodes = tempNodes
 #print("finished up")
 pathLens = {}
 seen = set()
@@ -146,7 +159,10 @@ if inBounds(graph, row+1, col):
 	toVisit.append((row+1, col))
 	pathLens[(row+1, col)] = 0
 	seen.add(toVisit[-1])
-	path = max(path, getLongestPath(graph, toVisit))
+	tempPath, tempNodes = getLongestPath(graph, toVisit)
+	if tempPath > path:
+		path = tempPath
+		pathNodes = tempNodes
 #print("finished down")
 pathLens = {}
 seen = set()
@@ -154,7 +170,10 @@ if inBounds(graph, row, col-1):
 	toVisit.append((row, col-1))
 	pathLens[(row, col-1)] = 0
 	seen.add(toVisit[-1])
-	path = max(path, getLongestPath(graph, toVisit))
+	tempPath, tempNodes = getLongestPath(graph, toVisit)
+	if tempPath > path:
+		path = tempPath
+		pathNodes = tempNode
 #print("finished left")
 pathLens = {}
 seen = set()
@@ -162,6 +181,10 @@ if inBounds(graph, row, col+1):
 	toVisit.append((row, col+1))
 	pathLens[(row, col+1)] = 0
 	seen.add(toVisit[-1])
-	path = max(path, getLongestPath(graph, toVisit))
+	tempPath, tempNodes = getLongestPath(graph, toVisit)
+	if tempPath > path:
+		path = tempPath
+		pathNodes = tempNode
 #print("finished right")
-print(math.ceil(path / 2))
+#print(math.ceil(path / 2))
+print(pathNodes)
