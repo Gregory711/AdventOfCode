@@ -1,8 +1,18 @@
-# Algorithm:
-# Read in graph
-# Find S
-# Depth first search accounting for the pipe directions to get the path
-# Return half of the distance of the path rounding up e.g. in test data it would be ceil(7/2)=4
+'''
+Algorithm:
+Read in graph
+Find S
+Depth first search account for the pipe directions to get the path (add to list)
+For each row in graph:
+	Go left to right maintaining state whether 'in' loop or not, add tiles that are in loop to a list
+For each tile in tiles list:
+	If not marked for removal:
+		Do a breadth first search (up/down/left/right) until hit loop sections that cannot be squeezed through
+		Can squeeze through a section if the section doesn't connect to its neighbor
+		Add every encountered tile in tiles list to temp list (including starting tile)
+		If any encountered tile not in tile list (i.e. its from outside the loop) then mark every tile in temp list for removal
+Print number of tiles in tile list that are not marked for removal
+'''
 
 import sys
 import math
