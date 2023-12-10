@@ -61,13 +61,40 @@ pathLen = 0
 while not found:
 	pathLen += 1
 	visiting = toVisit.pop()
+	seen.add(visiting)
+	row = visiting[0]
+	col = visiting[1]
+
+	above = below = left = right = False
 
 	# | = vertical pipe = connects nodes above and below
+	if graph[row][col] == '|':
+		above = below = True
 	# - = horizontal pipe = connects nodes left and right
+	if graph[row][col] == '-':
+		left = right = True
 	# L = 90 degree bend = connects above and right
+	if graph[row][col] == 'L':
+		above = right = True
 	# J = 90 degree bend = connects above and left
+	if graph[row][col] == 'J':
+		above = left = True
 	# 7 = 90 degree bend = connects below and left
+	if graph[row][col] == '7':
+		below = left = True
 	# F = 90 degree bend = connects below and right
+	if graph[row][col] == 'F':
+		below = right = True
 	# . = ground (no pipe)
-
-	found = True # temp test
+	# S = start = finished loop
+	if graph[row][col] == 'S':
+		found = True
+	
+	if above and inBounds(graph, row-1, col) and (row-1, col) not in seen:
+		toVisit.append((row-1, col))
+	if below and inBounds(graph, row+1, col) and (row+1, col) not in seen:
+		toVisit.append((row+1, col))
+	if left and inBounds(graph, row, col-1) and (row, col-1) not in seen:
+		toVisit.append((row, col-1))
+	if right and inBounds(graph, row, col+1) and (row, col+1) not in seen:
+		toVisit.append((row, col+1))
