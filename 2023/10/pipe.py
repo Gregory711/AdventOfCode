@@ -45,12 +45,16 @@ def inBounds(graph, row, col):
 toVisit = []
 if inBounds(graph, row-1, col):
 	toVisit.append((row-1, col))
+	seen.add(toVisit[-1])
 if inBounds(graph, row+1, col):
 	toVisit.append((row+1, col))
+	seen.add(toVisit[-1])
 if inBounds(graph, row, col-1):
 	toVisit.append((row, col-1))
+	seen.add(toVisit[-1])
 if inBounds(graph, row, col+1):
 	toVisit.append((row, col+1))
+	seen.add(toVisit[-1])
 
 seen = set()
 found = False
@@ -59,7 +63,6 @@ pathLen = 0
 while not found:
 	pathLen += 1
 	visiting = toVisit.pop()
-	seen.add(visiting)
 	row = visiting[0]
 	col = visiting[1]
 
@@ -90,10 +93,14 @@ while not found:
 	
 	if above and inBounds(graph, row-1, col) and (row-1, col) not in seen:
 		toVisit.append((row-1, col))
+		seen.add(toVisit[-1])
 	if below and inBounds(graph, row+1, col) and (row+1, col) not in seen:
 		toVisit.append((row+1, col))
+		seen.add(toVisit[-1])
 	if left and inBounds(graph, row, col-1) and (row, col-1) not in seen:
 		toVisit.append((row, col-1))
+		seen.add(toVisit[-1])
 	if right and inBounds(graph, row, col+1) and (row, col+1) not in seen:
 		toVisit.append((row, col+1))
+		seen.add(toVisit[-1])
 print(pathLen)
