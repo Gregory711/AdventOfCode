@@ -5,6 +5,7 @@
 # Return half of the distance of the path rounding up e.g. in test data it would be ceil(7/2)=4
 
 import sys
+import math
 
 name = sys.argv[1]
 
@@ -105,4 +106,4 @@ while not found:
 	if right and inBounds(graph, row, col+1) and (row, col+1) not in seen:
 		toVisit.append((row, col+1))
 		seen.add(toVisit[-1])
-print(pathLen)
+print(math.ceil(pathLen / 2))
