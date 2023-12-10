@@ -30,11 +30,6 @@ for r in range(len(graph)):
 #print(startRow)
 #print(startColumn)
 
-toVisit = []
-seen = set()
-found = False
-pathLen = 0
-
 # Returns True if valid coordinate (e.g. not -1) and False otherwise
 def inBounds(graph, row, col):
 	if row < 0 or col < 0:
@@ -46,24 +41,33 @@ def inBounds(graph, row, col):
 	else:
 		return True
 
+# Returns list of tuples of format (row, col) that are in bounds and surround given coordinate
+def getAdjacent(graph, row, col):
+	adj = []
+	for i in range(-1, 1+1):
+		for j in range(-1, 1+1):
+			r = row+i
+			c = col+j
+			if inBounds(graph, r, c):
+				adj.append((r, c))
+	return adj
+
 # Add initial pipes off start
-row == startRow
-col == startColumn
-for i in range(-1, 1+1):
-	for j in range(-1, 1+1):
-		r = row + i
-		c = col + j
-		if not inBounds(graph, r, c):
-			continue
-		# | = vertical pipe = connects nodes above and below
-		# - = horizontal pipe = connects nodes left and right
-		# L = 90 degree bend = connects above and right
-		# J = 90 degree bend = connects above and left
-		# 7 = 90 degree bend = connects below and left
-		# F = 90 degree bend = connects below and right
-		# . = ground (no pipe)
+toVisit = getAdjacent(graph, startRow, startColumn)
+seen = set()
+found = False
+pathLen = 0
 
 while not found:
 	pathLen += 1
 	visiting = toVisit.pop()
+
+	# | = vertical pipe = connects nodes above and below
+	# - = horizontal pipe = connects nodes left and right
+	# L = 90 degree bend = connects above and right
+	# J = 90 degree bend = connects above and left
+	# 7 = 90 degree bend = connects below and left
+	# F = 90 degree bend = connects below and right
+	# . = ground (no pipe)
+
 	found = True # temp test
