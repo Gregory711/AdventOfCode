@@ -18,4 +18,14 @@ for line in file1:
 	for node in line:
 		row.append(node)
 	graph.append(row)
-print(graph)
+#print(graph)
+
+startRow = startColumn = None
+
+for r in range(len(graph)):
+	for c in range(len(graph[r])):
+		if graph[r][c] == 'S':
+			startRow = r
+			startColumn = c
+print(startRow)
+print(startColumn)
