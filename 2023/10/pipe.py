@@ -68,6 +68,14 @@ while len(toVisit) > 0:
 	visiting = toVisit.pop()
 	row = visiting[0]
 	col = visiting[1]
+	#print("Visiting: ("+str(row)+", "+str(col)+")")
+	# Changing current node to ❌ for testing temporarily
+	temp = graph[row][col]
+	graph[row][col] = '❌'
+	for line in graph:
+		print(''.join(line))
+	graph[row][col] = temp
+	print("")
 
 	above = below = left = right = False
 
