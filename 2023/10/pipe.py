@@ -35,18 +35,23 @@ seen = set()
 found = False
 pathLen = 0
 
+# Returns True if valid coordinate (e.g. not -1) and False otherwise
+def inBounds(graph, row, col):
+	if row < 0 or col < 0:
+		return False
+	elif row >= len(graph):
+		return False
+	elif col >= len(graph[row]):
+		return False
+	else:
+		return True
+
 # Add initial pipes off start
 row == startRow
 col == startColumn
 for r in range(-1, 1+1):
-	if r == -1 and row == 0:
-		continue
-	elif r == 1 and row == (len(graph)-1):
-		continue
 	for c in range(-1, 1+1):
-		if c == -1 and col == 0:
-			continue
-		elif c == 1 and col == (len(graph[r])-1):
+		if not inBounds(graph, row+r, col+c):
 			continue
 		# | = vertical pipe = connects nodes above and below
 		# - = horizontal pipe = connects nodes left and right
