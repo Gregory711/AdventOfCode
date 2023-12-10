@@ -49,9 +49,11 @@ def inBounds(graph, row, col):
 # Add initial pipes off start
 row == startRow
 col == startColumn
-for r in range(-1, 1+1):
-	for c in range(-1, 1+1):
-		if not inBounds(graph, row+r, col+c):
+for i in range(-1, 1+1):
+	for j in range(-1, 1+1):
+		r = row + i
+		c = col + j
+		if not inBounds(graph, r, c):
 			continue
 		# | = vertical pipe = connects nodes above and below
 		# - = horizontal pipe = connects nodes left and right
