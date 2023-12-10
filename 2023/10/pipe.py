@@ -101,6 +101,8 @@ def getLongestPath(graph, toVisit):
 			toVisit.append((row, col+1))
 			pathLens[(row, col+1)] = pathLen+1
 			seen.add(toVisit[-1])
+		if (startRow, startColumn) in seen:
+			seen.remove((startRow, startColumn))
 	return longestPath
 
 # Add initial pipes off start
