@@ -83,6 +83,7 @@ def getLongestPath(graph, toVisit):
 		# S = start = finished loop
 		if graph[row][col] == 'S' and pathLen > longestPath:
 			longestPath = pathLen
+			print("found path with len: " + str(pathLen))
 		
 		if above and inBounds(graph, row-1, col) and (row-1, col) not in seen:
 			toVisit.append((row-1, col))
@@ -114,6 +115,7 @@ if inBounds(graph, row-1, col):
 	pathLens[(row-1, col)] = 0
 	seen.add(toVisit[-1])
 	path = max(path, getLongestPath(graph, toVisit))
+print("finished up")
 pathLens = {}
 seen = set()
 if inBounds(graph, row+1, col):
@@ -121,6 +123,7 @@ if inBounds(graph, row+1, col):
 	pathLens[(row+1, col)] = 0
 	seen.add(toVisit[-1])
 	path = max(path, getLongestPath(graph, toVisit))
+print("finished down")
 pathLens = {}
 seen = set()
 if inBounds(graph, row, col-1):
@@ -128,6 +131,7 @@ if inBounds(graph, row, col-1):
 	pathLens[(row, col-1)] = 0
 	seen.add(toVisit[-1])
 	path = max(path, getLongestPath(graph, toVisit))
+print("finished left")
 pathLens = {}
 seen = set()
 if inBounds(graph, row, col+1):
@@ -135,4 +139,5 @@ if inBounds(graph, row, col+1):
 	pathLens[(row, col+1)] = 0
 	seen.add(toVisit[-1])
 	path = max(path, getLongestPath(graph, toVisit))
+print("finished right")
 print(math.ceil(path / 2))
