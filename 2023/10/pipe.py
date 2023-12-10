@@ -60,10 +60,10 @@ if inBounds(graph, row, col+1):
 	toVisit.append((row, col+1))
 	seen.add(toVisit[-1])
 
-found = False
 pathLen = 0
+longestPath = -1
 
-while not found:
+while len(toVisit) > 0:
 	pathLen += 1
 	visiting = toVisit.pop()
 	row = visiting[0]
@@ -91,8 +91,8 @@ while not found:
 		below = right = True
 	# . = ground (no pipe)
 	# S = start = finished loop
-	if graph[row][col] == 'S':
-		found = True
+	if graph[row][col] == 'S' and pathLen > longestPath:
+		longestPath = pathLen
 	
 	if above and inBounds(graph, row-1, col) and (row-1, col) not in seen:
 		toVisit.append((row-1, col))
@@ -106,4 +106,4 @@ while not found:
 	if right and inBounds(graph, row, col+1) and (row, col+1) not in seen:
 		toVisit.append((row, col+1))
 		seen.add(toVisit[-1])
-print(math.ceil(pathLen / 2))
+print(math.ceil(longestPath / 2))
