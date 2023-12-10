@@ -41,19 +41,17 @@ def inBounds(graph, row, col):
 	else:
 		return True
 
-# Returns list of tuples of format (row, col) that are in bounds and surround given coordinate
-def getAdjacent(graph, row, col):
-	adj = []
-	for i in range(-1, 1+1):
-		for j in range(-1, 1+1):
-			r = row+i
-			c = col+j
-			if inBounds(graph, r, c):
-				adj.append((r, c))
-	return adj
-
 # Add initial pipes off start
-toVisit = getAdjacent(graph, startRow, startColumn)
+toVisit = []
+if inBounds(graph, row-1, col):
+	toVisit.append((row-1, col))
+if inBounds(graph, row+1, col):
+	toVisit.append((row+1, col))
+if inBounds(graph, row, col-1):
+	toVisit.append((row, col-1))
+if inBounds(graph, row, col+1):
+	toVisit.append((row, col+1))
+
 seen = set()
 found = False
 pathLen = 0
@@ -98,3 +96,4 @@ while not found:
 		toVisit.append((row, col-1))
 	if right and inBounds(graph, row, col+1) and (row, col+1) not in seen:
 		toVisit.append((row, col+1))
+print(pathLen)
