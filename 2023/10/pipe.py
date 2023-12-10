@@ -84,20 +84,30 @@ def getLongestPath(graph, toVisit):
 		if graph[row][col] == 'S' and pathLen > longestPath:
 			longestPath = pathLen
 			print("found path with len: " + str(pathLen))
-		
-		if above and inBounds(graph, row-1, col) and (row-1, col) not in seen:
+
+		abovePipe = belowPipe = leftPipe = rightPipe = None
+		if inBounds(graph, row-1, col):
+			abovePipe = graph[row-1][col]
+		if inBounds(graph, row+1, col):
+			belowPipe = graph[row+1][col]
+		if inBounds(graph, row, col-1):
+			leftPipe = graph[row][col-1]
+		if inBounds(graph, row, col+1):
+			rightPipe = graph[row][col+1]
+
+		if above and abovePipe != None and (row-1, col) not in seen and (abovePipe == '|' or abovePipe == '7' or abovePipe == 'F'):
 			toVisit.append((row-1, col))
 			pathLens[(row-1, col)] = pathLen+1
 			seen.add(toVisit[-1])
-		if below and inBounds(graph, row+1, col) and (row+1, col) not in seen:
+		if below and belowPipe != None and (row+1, col) not in seen and (belowPipe == '|' or belowPipe == 'L' or belowPipe == 'J'):
 			toVisit.append((row+1, col))
 			pathLens[(row+1, col)] = pathLen+1
 			seen.add(toVisit[-1])
-		if left and inBounds(graph, row, col-1) and (row, col-1) not in seen:
+		if left and leftPipe != None and (row, col-1) not in seen and (leftPipe == '-' or leftPipe == 'L' or leftPipe == 'F'):
 			toVisit.append((row, col-1))
 			pathLens[(row, col-1)] = pathLen+1
 			seen.add(toVisit[-1])
-		if right and inBounds(graph, row, col+1) and (row, col+1) not in seen:
+		if right and rightPipe != None and (row, col+1) not in seen and (rightPipe == '-' or rightPipe == 'J' or rightPipe == '7'):
 			toVisit.append((row, col+1))
 			pathLens[(row, col+1)] = pathLen+1
 			seen.add(toVisit[-1])
