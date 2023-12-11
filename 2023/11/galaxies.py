@@ -17,8 +17,13 @@ name = sys.argv[1]
 file1 = open(name, 'r')
 
 galaxies = []
+emptyRows = 0
 for row, line in enumerate(file1):
+	rowIsEmpty = True
 	for col, char in enumerate(line):
 		if char == '#':
-			galaxies.append([row, col])
+			galaxies.append([row+emptyRows, col])
+			rowIsEmpty = False
+	if rowIsEmpty:
+		emptyRows += 1
 print(galaxies)
