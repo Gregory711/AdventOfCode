@@ -18,12 +18,26 @@ file1 = open(name, 'r')
 
 galaxies = []
 emptyRows = 0
+maxCol = -1
 for row, line in enumerate(file1):
 	rowIsEmpty = True
 	for col, char in enumerate(line):
 		if char == '#':
 			galaxies.append([row+emptyRows, col])
 			rowIsEmpty = False
+			maxCol = max(maxCol, col)
 	if rowIsEmpty:
 		emptyRows += 1
 print(galaxies)
+
+notEmptyCols = set()
+for galaxy in galaxies:
+	if galaxy[1] not in notEmptyCols:
+		notEmptyCols.add(galaxy[1])
+print(notEmptyCols)
+
+emptyCols = []
+for col in range(maxCol+1):
+	if col not in notEmptyCols:
+		emptyCols.append(col+len(emptyCols))
+print(emptyCols)
