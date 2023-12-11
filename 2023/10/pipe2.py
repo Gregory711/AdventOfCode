@@ -187,4 +187,9 @@ if inBounds(graph, row, col+1):
 		pathNodes = tempNode
 #print("finished right")
 #print(math.ceil(path / 2))
-print(pathNodes)
+#print(pathNodes)
+
+# pathNodes now contains coordinate tuples for every node in the loop
+# will now fill in tiles with coordinate tuple for every node encircled by the loop (but some may squeeze out)
+tiles = []
+print(tiles)
