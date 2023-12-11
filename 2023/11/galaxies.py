@@ -9,3 +9,16 @@ Iterate over each row again and use number list to calculate row part of solutio
 Repeat process for column
 Print answer!
 '''
+
+import sys
+
+name = sys.argv[1]
+
+file1 = open(name, 'r')
+
+galaxies = []
+for row, line in enumerate(file1):
+	for col, char in enumerate(line):
+		if char == '#':
+			galaxies.append([row, col])
+print(galaxies)
