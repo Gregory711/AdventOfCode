@@ -23,4 +23,14 @@ O..#.OO...  7
 #....###..  2
 #....#....  1
 The numbers on right are their distance to south support beams, multiply it by them and you get 136 the total load and answer!
+
+Algorithm:
+Read in input into graph.
+Iterate over each column keeping track of highest unblocked empty spot and when encounter 0 swap and update it and update total load.
+For each column:
+	Keep track of highest unblocked empty space initialized to -1
+	Iterate over rows highest to lowest, if cell is:
+		#: Set unblocked empty space to -1
+		0: Swap with unblocked if not -1 (and iterate from it to here to find new empty space or -1), either way use final location to update total load
+		.: Set empty space to if -1 currently
 '''
