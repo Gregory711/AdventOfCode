@@ -42,5 +42,45 @@ file1 = open(name, 'r')
 
 graph = []
 for line in file1:
-	graph.append(line.rstrip())
-print(graph)
+	row = line.rstrip()
+	r = []
+	for cell in row:
+		r.append(cell)
+	graph.append(r)
+#print(graph)a
+
+load = 0
+for col in range(len(graph[0])):
+	unblocked = -1
+	for row in range(len(graph)):
+		cell = graph[row][col]
+		#if col == 0:
+			#print(cell)
+		if cell == '#':
+			#if col == 0:
+				#print('Blocked!')
+			unblocked = -1
+		elif cell == 'O':
+			if unblocked != -1:
+				graph[row][col] = '.'
+				graph[unblocked][col] = 'O'
+				load += len(graph) - unblocked
+				unblocked += 1
+				#if col == 0:
+					#print('Rolling stones')
+			else:
+				load += len(graph) - row
+				#print('Stoned')
+		elif unblocked == -1:
+			unblocked = row
+			#if col == 0:
+				#print('unblocked!')
+		#if col == 0:
+			#print(unblocked)
+for row in graph:
+	r = '';
+	for col in row:
+		r += col
+	#print(r)
+print(load)
+						
