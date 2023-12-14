@@ -34,3 +34,13 @@ For each column:
 		0: Swap with unblocked if not -1 (and iterate from it to here to find new empty space or -1), either way use final location to update total load
 		.: Set empty space to if -1 currently
 '''
+import sys
+
+name = sys.argv[1]
+
+file1 = open(name, 'r')
+
+graph = []
+for line in file1:
+	graph.append(line.rstrip())
+print(graph)
