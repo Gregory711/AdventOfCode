@@ -18,4 +18,13 @@ input = None
 for line in file1:
 	input = line.rstrip()
 
-print(input)
+start = 0
+while start < len(input):
+	try:
+		end = input.index(',', start)
+	except ValueError:
+		end = len(input)
+	value = input[start:end]
+	print(value)
+	start = end + 1
+	
