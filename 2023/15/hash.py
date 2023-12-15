@@ -8,3 +8,14 @@ For each char in the value:
 	Set current value to itself modulus 256
 Print the sum of current values for each value
 '''
+import sys
+
+name = sys.argv[1]
+
+file1 = open(name, 'r')
+
+input = None
+for line in file1:
+	input = line.rstrip()
+
+print(input)
