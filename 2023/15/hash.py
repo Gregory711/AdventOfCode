@@ -18,13 +18,18 @@ input = None
 for line in file1:
 	input = line.rstrip()
 
-start = 0
+start = sum = 0
 while start < len(input):
 	try:
 		end = input.index(',', start)
 	except ValueError:
 		end = len(input)
 	value = input[start:end]
-	print(value)
+	current = 0
+	for char in value:
+		current += ord(char)
+		current *= 17
+		current %= 256
+	sum += current
 	start = end + 1
-	
+print(sum)
