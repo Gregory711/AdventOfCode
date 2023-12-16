@@ -20,10 +20,25 @@ Classes:
 
 Functions:
 -getNewDirections
- Params: Beam b, Cell[][] graph
+ Params: Beam b
  Returns: char[] directions or None if hits wall
 -getNewRow
  Params: int row, char direction
  Returns: int newRow
 -getNewCol
+
+Algorithm:
+Read in input into 2d array of Cells
+Create a list of Beams and add a Beam at 0,0 with direction right to represent the starting beam and mark Cell direction bool
+while there are Beams in the list:
+  for each Beam in list:
+    for directions in getNewDirections for Beam:
+      if !Cell has direction:
+        mark Cell direction bool
+        add new beam to new beam list
+  Beam set becomes new beam list
+for each Cell:
+  if any Cells directions true:
+    increment sum
+print sum!
 '''
