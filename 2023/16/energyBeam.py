@@ -66,26 +66,17 @@ class Beam(BaseModel):
 	col: int
 	direction: Direction
 
+# Returns list containing Directions based on beams direction and the value it is hitting (ignoring where it is going including if it will hit wall)
 @validate_call
-def getNewDirections(b: Beam, value: str, rowCount: int, colCount: int):
-	d = []
+def getNewDirections(beamDirection: Direction, value: str):
+	directions = []
 	if value == '.':
-		d.append(b.direction)
-	elif value == '|' and (b.direction == DIRECTION.UP or b.direction == DIRECTION.DOWN):
-		d.append(b.direction)
-	elif value == '-' and (b.direction == DIRECTION.LEFT or b.DIRECTION.RIGHT):
-		d.append(b.direction)
-	'''
-	if b.col > 0:
-		d.append(Direction.LEFT)
-	if b.col < colCount:
-		d.append(Direction.RIGHT)
-	if b.row > 0:
-		d.append(Direciton.UP)
-	if b.row < rowCount:
-		d.append(Direction.DOWN)
-	'''
-	return d
+		directions.append(beamDirection)
+	elif value == '|' and (beamDirection == Direction.UP or beamDirection == Direction.DOWN):
+		directions.append(beamDirection)
+	elif value == '-' and (beamDirection == Direction.LEFT or beamDirection == Direction.RIGHT):
+		directions.append(beamDirection)
+	return directions
 
 graph = []
 for line in file1:
