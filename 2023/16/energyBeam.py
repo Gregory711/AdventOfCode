@@ -42,3 +42,23 @@ for each Cell:
     increment sum
 print sum!
 '''
+import sys
+from pydantic import BaseModel
+from typing import List
+
+name = sys.argv[1]
+
+file1 = open(name, 'r')
+
+class Cell(BaseModel):
+	value: str
+	beamed: List[bool] = [False, False, False, False] #left,right,up,down
+
+graph = []
+for line in file1:
+	line = line.rstrip()
+	row = []
+	for val in line:
+		row.append(Cell(value=val))
+	graph.append(row)
+#print(graph)
