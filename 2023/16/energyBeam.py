@@ -67,8 +67,15 @@ class Beam(BaseModel):
 	direction: Direction
 
 @validate_call
-def getNewDirections(b: Beam, rowCount: int, colCount: int):
+def getNewDirections(b: Beam, value: str, rowCount: int, colCount: int):
 	d = []
+	if value == '.':
+		d.append(b.direction)
+	elif value == '|' and (b.direction == DIRECTION.UP or b.direction == DIRECTION.DOWN):
+		d.append(b.direction)
+	elif value == '-' and (b.direction == DIRECTION.LEFT or b.DIRECTION.RIGHT):
+		d.append(b.direction)
+	'''
 	if b.col > 0:
 		d.append(Direction.LEFT)
 	if b.col < colCount:
@@ -77,6 +84,7 @@ def getNewDirections(b: Beam, rowCount: int, colCount: int):
 		d.append(Direciton.UP)
 	if b.row < rowCount:
 		d.append(Direction.DOWN)
+	'''
 	return d
 
 graph = []
