@@ -43,7 +43,7 @@ for each Cell:
 print sum!
 '''
 import sys
-from pydantic import BaseModel
+from pydantic import BaseModel, ValidationError, validate_call
 from typing import List
 
 name = sys.argv[1]
@@ -57,7 +57,20 @@ class Cell(BaseModel):
 class Beam(BaseModel):
 	row: int
 	col: int
-	direction: str
+	direction: int
+
+@validate_call
+def getNewDirections(b: Beam, rowCount: int, colCount: int):
+	d = []
+	if b.col > 0:
+		d.append(0) # left
+	if b.col < colCount:
+		d.append(1) # right
+	if b.row > 0:
+		d.append(2) # up
+	if b.row < rowCount:
+		d.append(3) # down
+	return d
 
 graph = []
 for line in file1:
@@ -68,5 +81,5 @@ for line in file1:
 	graph.append(row)
 
 beams = []
-beams.append(Beam(row=0,col=0,direction='r'))
+beams.append(Beam(row=0,col=0,direction=1))
 graph[0][0].beamed[1] = True
