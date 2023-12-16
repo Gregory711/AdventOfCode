@@ -54,6 +54,11 @@ class Cell(BaseModel):
 	value: str
 	beamed: List[bool] = [False, False, False, False] #left,right,up,down
 
+class Beam(BaseModel):
+	row: int
+	col: int
+	direction: str
+
 graph = []
 for line in file1:
 	line = line.rstrip()
@@ -61,4 +66,7 @@ for line in file1:
 	for val in line:
 		row.append(Cell(value=val))
 	graph.append(row)
-#print(graph)
+
+beams = []
+beams.append(Beam(row=0,col=0,direction='r'))
+graph[0][0].beamed[1] = True
