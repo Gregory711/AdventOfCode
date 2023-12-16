@@ -45,10 +45,17 @@ print sum!
 import sys
 from pydantic import BaseModel, ValidationError, validate_call
 from typing import List
+from enum import IntEnum
 
 name = sys.argv[1]
 
 file1 = open(name, 'r')
+
+class Direction(IntEnum):
+	LEFT = 0
+	RIGHT = 1
+	UP = 2
+	DOWN = 3
 
 class Cell(BaseModel):
 	value: str
@@ -57,19 +64,19 @@ class Cell(BaseModel):
 class Beam(BaseModel):
 	row: int
 	col: int
-	direction: int
+	direction: Direction
 
 @validate_call
 def getNewDirections(b: Beam, rowCount: int, colCount: int):
 	d = []
 	if b.col > 0:
-		d.append(0) # left
+		d.append(Direction.LEFT)
 	if b.col < colCount:
-		d.append(1) # right
+		d.append(Direction.RIGHT)
 	if b.row > 0:
-		d.append(2) # up
+		d.append(Direciton.UP)
 	if b.row < rowCount:
-		d.append(3) # down
+		d.append(Direction.DOWN)
 	return d
 
 graph = []
@@ -81,5 +88,5 @@ for line in file1:
 	graph.append(row)
 
 beams = []
-beams.append(Beam(row=0,col=0,direction=1))
-graph[0][0].beamed[1] = True
+beams.append(Beam(row=0,col=0,direction=Direction.RIGHT))
+graph[0][0].beamed[Direction.RIGHT] = True
