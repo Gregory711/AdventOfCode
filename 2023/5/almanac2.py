@@ -156,4 +156,5 @@ for i in range(len(mapRanges)):
 minLoc = seedRanges[0].start
 for seedRange in seedRanges:
 	minLoc = min(minLoc, seedRange.start)
+print(seedRanges)
 print(str(minLoc))
