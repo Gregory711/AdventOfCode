@@ -10,8 +10,13 @@ Example:
  Any number that isn't in any of the maps is mapped to itself
 
 Problem is to map all seed numbers from the initial ranges all the way to location numbers and then print the smallest of those.
+
+Algorithm:
+Read in seeds as Range obj
+Read in mappings as lists of Range objs
 '''
 from pydantic import BaseModel, ValidationError, validate_call
+import sys
 
 class Range(BaseModel):
 	start: int # inclusive
@@ -49,3 +54,31 @@ def intersect(a: Range, b: Range):
 def mapToDest(inputRange: Range, mapRange: Range):
 	diff = mapRange.start - inputRange.start
 	return Range(start=inputRange.start+diff, end=inputRange.end+diff)
+
+if len(sys.argv) > 1:
+	name = sys.argv[1]
+else:
+	name = 'test.txt'
+
+file1 = open(name, 'r')
+
+seedRanges = []
+
+for line in file1:
+	line = line.rstrip()
+	if len(seedRanges) == 0:
+		start = line.index(' ') + 1
+		rangeStart = None
+		while start < len(line):
+			try:
+				end = line.index(' ', start)
+			except ValueError:
+				end = len(line)
+			temp = int(line[start:end])
+			if rangeStart == None:
+				rangeStart = temp
+			else:
+				seedRanges.append(Range(start=rangeStart, end=rangeStart+temp-1))
+				rangeStart = None
+			start = end + 1
+print(seedRanges)
