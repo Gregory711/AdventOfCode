@@ -183,12 +183,25 @@ def getEnergized(beams: List[Beam]):
 	return sum
 
 maxSum = 0
-beams = []
-beams.append(Beam(row=0,col=0,direction=Direction.RIGHT))
-for row in [0, len(graph)-1]:
-	for col in [0, len(graph[r])-1:
+for row in range(len(graph)):
+	for col in range(len(graph[row])):
+		# If in center of graph skip
+		if row > 0 and col > 0 and row < (len(graph) - 1) and col < (len(graph[row]) - 1):
+			continue
 		# If on leftmost column
+		if col == 0:
+			beams = [Beam(row=row, col=col, direction=Direction.RIGHT)]
+			maxSum = max(maxSum, getEnergized(beams))
 		# If on rightmost column
+		if col == (len(graph[row]) - 1):
+			beams = [Beam(row=row, col=col, direction=Direction.LEFT)]
+			maxSum = max(maxSum, getEnergized(beams))
 		# If on topmost row
+		if row == 0:
+			beams = [Beam(row=row, col=col, direction=Direction.DOWN)]
+			maxSum = max(maxSum, getEnergized(beams))
 		# If on bottommost row
-print(getEnergized(beams))
+		if row == (len(graph) - 1):
+			beams = [Beam(row=row, col=col, direction=Direction.UP)]
+			maxSum = max(maxSum, getEnergized(beams))
+print(maxSum)
