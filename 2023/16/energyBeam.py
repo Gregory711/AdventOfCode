@@ -150,7 +150,7 @@ while len(beams) > 0:
 	newBeams = []
 	for beam in beams:
 		directions = getNewDirections(beam.direction, graph[beam.row][beam.col].value)
-		print('getNewDirections(' + str(beam.direction) + ', graph[' + str(beam.row) + '][' + str(beam.col) + '].value) =' + str(directions))
+		#print('getNewDirections(' + str(beam.direction) + ', graph[' + str(beam.row) + '][' + str(beam.col) + '].value) =' + str(directions))
 		for direction in directions:
 			if not graph[beam.row][beam.col].beamed[direction]:
 				graph[beam.row][beam.col].beamed[direction] = True
@@ -170,5 +170,5 @@ for row in range(len(graph)):
 			r += '1'
 		else:
 			r += '0'
-	print(r)
+	#print(r)
 print(sum)
