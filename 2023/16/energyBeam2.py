@@ -143,32 +143,36 @@ for line in file1:
 		row.append(Cell(value=val))
 	graph.append(row)
 
+# Returns number of energized tiles using provided starting beams
+@validate_call
+def getEnergized(beams: List[Beam]):
+	while len(beams) > 0:
+		newBeams = []
+		for beam in beams:
+			directions = getNewDirections(beam.direction, graph[beam.row][beam.col].value)
+			#print('getNewDirections(' + str(beam.direction) + ', graph[' + str(beam.row) + '][' + str(beam.col) + '].value) =' + str(directions))
+			for direction in directions:
+				if not graph[beam.row][beam.col].beamed[direction]:
+					graph[beam.row][beam.col].beamed[direction] = True
+					newRow = getNewRow(beam.row, direction)
+					newCol = getNewCol(beam.col, direction)
+					if inBounds(newRow, newCol, graph):
+						newBeams.append(Beam(row=newRow, col=newCol, direction=direction))
+		beams = newBeams
+
+	sum = 0
+	for row in range(len(graph)):
+		r = ''
+		for col in range(len(graph[row])):
+			beamed = graph[row][col].beamed
+			if beamed[0] or beamed[1] or beamed[2] or beamed[3]:
+				sum += 1
+				r += '1'
+			else:
+				r += '0'
+		#print(r)
+	return sum
+
 beams = []
 beams.append(Beam(row=0,col=0,direction=Direction.RIGHT))
-
-while len(beams) > 0:
-	newBeams = []
-	for beam in beams:
-		directions = getNewDirections(beam.direction, graph[beam.row][beam.col].value)
-		#print('getNewDirections(' + str(beam.direction) + ', graph[' + str(beam.row) + '][' + str(beam.col) + '].value) =' + str(directions))
-		for direction in directions:
-			if not graph[beam.row][beam.col].beamed[direction]:
-				graph[beam.row][beam.col].beamed[direction] = True
-				newRow = getNewRow(beam.row, direction)
-				newCol = getNewCol(beam.col, direction)
-				if inBounds(newRow, newCol, graph):
-					newBeams.append(Beam(row=newRow, col=newCol, direction=direction))
-	beams = newBeams
-
-sum = 0
-for row in range(len(graph)):
-	r = ''
-	for col in range(len(graph[row])):
-		beamed = graph[row][col].beamed
-		if beamed[0] or beamed[1] or beamed[2] or beamed[3]:
-			sum += 1
-			r += '1'
-		else:
-			r += '0'
-	#print(r)
-print(sum)
+print(getEnergized(beams))
