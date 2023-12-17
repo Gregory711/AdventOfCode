@@ -130,11 +130,12 @@ for i in range(len(mapRanges)):
 		k = 0
 		added = 0
 		while k < (len(seedRanges) - added):
-			if intersecting(seedRanges[k], mapRanges[i][j]):
+			rangeDiff = mapRanges[i][j].end - mapRanges[i][j].start
+			srcStart = srcStarts[i][j]
+			srcRange = Range(start=srcStart, end=srcStart+rangeDiff)
+			if intersecting(seedRanges[k], srcRange):
 				#print("seedRanges[k]: " + str(seedRanges[k]))
-				rangeDiff = mapRanges[i][j].end - mapRanges[i][j].start
-				srcStart = srcStarts[i][j]
-				newRange = intersect(seedRanges[k], Range(start=srcStart, end=srcStart+rangeDiff))
+				newRange = intersect(seedRanges[k], srcRange)
 				#print("new range: " + str(newRange))
 				if seedRanges[k].start < newRange.start:
 					seedRanges.append(belowMap(seedRanges[k], newRange))
