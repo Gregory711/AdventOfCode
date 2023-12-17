@@ -119,7 +119,7 @@ for line in file1:
 			srcStarts.append([])
 		mapRanges[-1].append(Range(start=destStart, end=destStart+rangeLen-1))
 		srcStarts[-1].append(srcStart)
-#print(seedRanges)
+print(seedRanges)
 #print(mapRanges)
 #print(srcStarts)
 
@@ -139,8 +139,9 @@ for i in range(len(mapRanges)):
 				k -= 1
 			k += 1
 	seedRanges.extend(newSeedRanges)
+	print(seedRanges)
 
-minLoc = 0
+minLoc = seedRanges[0].start
 for seedRange in seedRanges:
 	minLoc = min(minLoc, seedRange.start)
 print(str(minLoc))
