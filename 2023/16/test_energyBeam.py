@@ -13,3 +13,9 @@ def test_getNewDirections():
 	# Split left and right
 	directions = EB.getNewDirections(EB.Direction.DOWN, '-')
 	assert directions == [EB.Direction.LEFT, EB.Direction.RIGHT]
+	# Split /
+	directions = EB.getNewDirections(EB.Direction.RIGHT, '/')
+	assert directions == [EB.Direction.UP]
+	# Split \
+	directions = EB.getNewDirections(EB.Direction.RIGHT, '\\')
+	assert directions == [EB.Direction.DOWN]

@@ -85,6 +85,24 @@ def getNewDirections(beamDirection: Direction, value: str):
 			directions.append(beamDirection)
 		else:
 			directions.extend([Direction.LEFT, Direction.RIGHT])
+	elif value == '/':
+		if beamDirection == Direction.RIGHT:
+			directions.append(Direction.UP)
+		elif beamDirection == Direction.UP:
+			directions.append(Direction.RIGHT)
+		elif beamDirection == Direction.DOWN:
+			directions.append(Direction.LEFT)
+		else:
+			directions.append(Direction.DOWN)
+	else:
+		if beamDirection == Direction.RIGHT:
+			directions.append(Direction.DOWN)
+		elif beamDirection == Direction.UP:
+			directions.append(Direction.LEFT)
+		elif beamDirection == Direction.DOWN:
+			directions.append(Direction.RIGHT)
+		else:
+			directions.append(Direction.UP)
 	return directions
 
 graph = []
