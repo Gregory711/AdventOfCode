@@ -146,3 +146,16 @@ for line in file1:
 beams = []
 beams.append(Beam(row=0,col=0,direction=Direction.RIGHT))
 graph[0][0].beamed[Direction.RIGHT] = True
+
+while len(beams) > 0:
+	newBeams = []
+	for beam in beams:
+		directions = getNewDirections(beam.direction, graph[beam.row][beam.col].value)
+		for direction in directions:
+			if not graph[beam.row][beam.col].beamed[direction]:
+				graph[beam.row][beam.col].beamed[direction] = True
+				newRow = getNewRow(beam.row, direction)
+				newCol = getNewCol(beam.col, direction)
+				if inBounds(newRow, newCol, graph):
+					newBeams.append(Beam(newRow, newCol, direction))
+	beams = newBeams
