@@ -143,6 +143,14 @@ for line in file1:
 		row.append(Cell(value=val))
 	graph.append(row)
 
+# Does cleanup i.e. resets all beamed value to False
+@validate_call
+def cleanup():
+	for r in range(len(graph)):
+		for c in range(len(graph[r])):
+			b = graph[r][c].beamed
+			b[0] = b[1] = b[2] = b[3] = False
+
 # Returns number of energized tiles using provided starting beams
 @validate_call
 def getEnergized(beams: List[Beam]):
@@ -171,8 +179,16 @@ def getEnergized(beams: List[Beam]):
 			else:
 				r += '0'
 		#print(r)
+	cleanup()
 	return sum
 
+maxSum = 0
 beams = []
 beams.append(Beam(row=0,col=0,direction=Direction.RIGHT))
+for row in [0, len(graph)-1]:
+	for col in [0, len(graph[r])-1:
+		# If on leftmost column
+		# If on rightmost column
+		# If on topmost row
+		# If on bottommost row
 print(getEnergized(beams))
