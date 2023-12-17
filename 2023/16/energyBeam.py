@@ -82,9 +82,9 @@ def inBounds(row: int, col: int, graph: List[List[Cell]]):
 # Returns new row after applying given direction (ignoring where it is going including if it will hit wall)
 @validate_call
 def getNewRow(row: int, beamDirection: Direction):
-	if beamDirection == Direction.LEFT:
+	if beamDirection == Direction.UP:
 		return row - 1
-	elif beamDirection == Direction.RIGHT:
+	elif beamDirection == Direction.DOWN:
 		return row + 1
 	else:
 		return row
@@ -92,9 +92,9 @@ def getNewRow(row: int, beamDirection: Direction):
 # Returns new col after applying given direction (ignoring where it is going including if it will hit wall)
 @validate_call
 def getNewCol(col: int, beamDirection: Direction):
-	if beamDirection == Direction.UP:
+	if beamDirection == Direction.LEFT:
 		return col - 1
-	elif beamDirection == Direction.DOWN:
+	elif beamDirection == Direction.RIGHT:
 		return col + 1
 	else:
 		return col
@@ -150,7 +150,7 @@ while len(beams) > 0:
 	newBeams = []
 	for beam in beams:
 		directions = getNewDirections(beam.direction, graph[beam.row][beam.col].value)
-		print('getNewDirections returned: ' + str(directions))
+		print('getNewDirections(' + str(beam.direction) + ', graph[' + str(beam.row) + '][' + str(beam.col) + '].value) =' + str(directions))
 		for direction in directions:
 			if not graph[beam.row][beam.col].beamed[direction]:
 				graph[beam.row][beam.col].beamed[direction] = True
