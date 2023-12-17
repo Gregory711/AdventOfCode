@@ -122,3 +122,25 @@ for line in file1:
 #print(seedRanges)
 #print(mapRanges)
 #print(srcStarts)
+
+for i in range(len(mapRanges)):
+	newSeedRanges = []
+	for j in range(len(mapRanges[i])):
+		k = 0
+		while k < len(seedRanges):
+			if intersecting(seedRanges[k], mapRanges[i][j]):
+				newRange = intersect(seedRanges[k], mapRanges[i][j])
+				if seedRanges[k].start < newRange.start:
+					seedRanges.append(belowMap(seedRanges[k], newRange))
+				if seedRanges[k].end > newRange.end:
+					seedRanges.append(aboveMap(seedRanges[k], newRange))
+				newSeedRanges.append(mapToDest(newRange, mapRanges[i][j], srcStarts[i][j]))
+				del seedRanges[k]
+				k -= 1
+			k += 1
+	seedRanges.extend(newSeedRanges)
+
+minLoc = 0
+for seedRange in seedRanges:
+	minLoc = min(minLoc, seedRange.start)
+print(str(minLoc))
