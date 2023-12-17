@@ -119,7 +119,8 @@ for line in file1:
 			srcStarts.append([])
 		mapRanges[-1].append(Range(start=destStart, end=destStart+rangeLen-1))
 		srcStarts[-1].append(srcStart)
-#print(seedRanges)
+print(seedRanges)
+print(" ")
 #print(mapRanges)
 #print(srcStarts)
 
