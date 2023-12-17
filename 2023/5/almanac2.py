@@ -11,3 +11,8 @@ Example:
 
 Problem is to map all seed numbers from the initial ranges all the way to location numbers and then print the smallest of those.
 '''
+from pydantic import BaseModel
+
+class Range(BaseModel):
+	start: int # inclusive
+	end: int # inclusive
