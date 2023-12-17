@@ -119,7 +119,7 @@ for line in file1:
 			srcStarts.append([])
 		mapRanges[-1].append(Range(start=destStart, end=destStart+rangeLen-1))
 		srcStarts[-1].append(srcStart)
-print(seedRanges)
+#print(seedRanges)
 #print(mapRanges)
 #print(srcStarts)
 
@@ -127,19 +127,31 @@ for i in range(len(mapRanges)):
 	newSeedRanges = []
 	for j in range(len(mapRanges[i])):
 		k = 0
-		while k < len(seedRanges):
+		added = 0
+		while k < (len(seedRanges) - added):
 			if intersecting(seedRanges[k], mapRanges[i][j]):
-				newRange = intersect(seedRanges[k], mapRanges[i][j])
+				#print("seedRanges[k]: " + str(seedRanges[k]))
+				rangeDiff = mapRanges[i][j].end - mapRanges[i][j].start
+				srcStart = srcStarts[i][j]
+				newRange = intersect(seedRanges[k], Range(start=srcStart, end=srcStart+rangeDiff))
+				#print("new range: " + str(newRange))
 				if seedRanges[k].start < newRange.start:
 					seedRanges.append(belowMap(seedRanges[k], newRange))
+					#print("below range: " + str(seedRanges[-1]))
+					added += 1
 				if seedRanges[k].end > newRange.end:
 					seedRanges.append(aboveMap(seedRanges[k], newRange))
+					#print("above range: " + str(seedRanges[-1]))
+					added += 1
+				#print("mapRanges[i][j]: " + str(mapRanges[i][j]))
+				#print("srcStarts[i][j]: " + str(srcStarts[i][j]))
 				newSeedRanges.append(mapToDest(newRange, mapRanges[i][j], srcStarts[i][j]))
+				#print("mapped range: " + str(newSeedRanges[-1]))
 				del seedRanges[k]
 				k -= 1
 			k += 1
 	seedRanges.extend(newSeedRanges)
-	print(seedRanges)
+	#print(seedRanges)
 
 minLoc = seedRanges[0].start
 for seedRange in seedRanges:
