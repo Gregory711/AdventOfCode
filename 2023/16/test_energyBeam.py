@@ -10,3 +10,6 @@ def test_getNewDirections():
 	# Split up and down
 	directions = EB.getNewDirections(EB.Direction.RIGHT, '|')
 	assert directions == [EB.Direction.UP, EB.Direction.DOWN]
+	# Split left and right
+	directions = EB.getNewDirections(EB.Direction.DOWN, '-')
+	assert directions == [EB.Direction.LEFT, EB.Direction.RIGHT]
