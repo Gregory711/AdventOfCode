@@ -11,8 +11,18 @@ Example:
 
 Problem is to map all seed numbers from the initial ranges all the way to location numbers and then print the smallest of those.
 '''
-from pydantic import BaseModel
+from pydantic import BaseModel, ValidationError, validate_call
 
 class Range(BaseModel):
 	start: int # inclusive
 	end: int # inclusive
+
+# Returns True if the Range objs have any overlap, False otherwise
+@validate_call
+def intersecting(a: Range, b: Range):
+	if a.end > b.end and a.start <= b.end:
+		return True
+	elif b.end >= a.end and b.start <= a.end:
+		return True
+	else:
+		return False
