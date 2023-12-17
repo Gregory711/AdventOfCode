@@ -20,3 +20,8 @@ def test_belowMap():
 def test_aboveMap():
 	assert AL.aboveMap(b, a) == AL.Range(start=3, end=3)
 	assert AL.aboveMap(c, a) == AL.Range(start=3, end=4)
+
+def test_intersect():
+	assert AL.intersect(a, b) == AL.Range(start=2, end=2)
+	assert AL.intersect(a, d) == AL.Range(start=1, end=2)
+	assert AL.intersect(a, e) == AL.Range(start=1, end=1)

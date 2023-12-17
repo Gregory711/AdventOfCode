@@ -38,3 +38,8 @@ def belowMap(inputRange: Range, mapRange: Range):
 @validate_call
 def aboveMap(inputRange: Range, mapRange: Range):
 	return Range(start=max(inputRange.start, mapRange.end+1), end=inputRange.end)
+
+# Returns Range containing the intersection of the Range objs, assumes there is some amount of overlap
+@validate_call
+def intersect(a: Range, b: Range):
+	return Range(start=max(a.start, b.start), end=min(a.end, b.end))
