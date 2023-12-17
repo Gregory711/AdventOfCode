@@ -13,7 +13,23 @@ Problem is to map all seed numbers from the initial ranges all the way to locati
 
 Algorithm:
 Read in seeds as Range obj
-Read in mappings as lists of Range objs
+Read in mappings as lists of Range objs and lists of source starts
+For each map group:
+	Create a newSeedRanges to hold the new seed ranges after mapping
+	for each map in group (using enumerate to get index so can find corresponding srcStarts):
+		for each seedRange in seedRanges (use while loop with index cause adjusting length of list):
+			if intersecting with map:
+				if some below map:
+					append belowMap
+				if some above map:
+					append aboveMap
+				calculate adjusted intersect range using mapToDest
+				add adjusted intersect to newSeedRanges
+		`		remove range from seedRanges
+				adjust index
+	extend seedRanges with newSeedRanges
+iterate over seedRanges to find lowest start
+print lowest start!
 '''
 from pydantic import BaseModel, ValidationError, validate_call
 import sys
