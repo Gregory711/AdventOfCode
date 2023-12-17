@@ -19,3 +19,11 @@ def test_getNewDirections():
 	# Split \
 	directions = EB.getNewDirections(EB.Direction.RIGHT, '\\')
 	assert directions == [EB.Direction.DOWN]
+
+def test_getNewRow():
+	assert EB.getNewRow(0, EB.Direction.RIGHT) == 1
+	assert EB.getNewRow(0, EB.Direction.UP) == 0
+
+def test_getNewCol():
+	assert EB.getNewCol(0, EB.Direction.RIGHT) == 0
+	assert EB.getNewCol(0, EB.Direction.UP) == -1

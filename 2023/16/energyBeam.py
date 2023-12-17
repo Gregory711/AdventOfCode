@@ -69,6 +69,26 @@ class Beam(BaseModel):
 	col: int
 	direction: Direction
 
+# Returns new row after applying given direction (ignoring where it is going including if it will hit wall)
+@validate_call
+def getNewRow(row: int, beamDirection: Direction):
+	if beamDirection == Direction.LEFT:
+		return row - 1
+	elif beamDirection == Direction.RIGHT:
+		return row + 1
+	else:
+		return row
+
+# Returns new col after applying given direction (ignoring where it is going including if it will hit wall)
+@validate_call
+def getNewCol(col: int, beamDirection: Direction):
+	if beamDirection == Direction.UP:
+		return col - 1
+	elif beamDirection == Direction.DOWN:
+		return col + 1
+	else:
+		return col
+
 # Returns list containing Directions based on beams direction and the value it is hitting (ignoring where it is going including if it will hit wall)
 @validate_call
 def getNewDirections(beamDirection: Direction, value: str):
