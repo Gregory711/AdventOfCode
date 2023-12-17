@@ -26,3 +26,9 @@ def intersecting(a: Range, b: Range):
 		return True
 	else:
 		return False
+
+# Returns Range consisting of the part of the input range that is 'below' the map range (excluding intersection)
+# Assumes that at least part of input range is below map range (below = smaller int)
+@validate_call
+def belowMap(inputRange: Range, mapRange: Range):
+	return Range(start=inputRange.start, end=min(inputRange.end, mapRange.start-1))
