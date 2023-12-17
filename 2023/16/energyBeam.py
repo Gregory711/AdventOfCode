@@ -159,3 +159,16 @@ while len(beams) > 0:
 				if inBounds(newRow, newCol, graph):
 					newBeams.append(Beam(newRow, newCol, direction))
 	beams = newBeams
+
+sum = 0
+for row in range(len(graph)):
+	r = ''
+	for col in range(len(graph[row])):
+		beamed = graph[row][col].beamed
+		if beamed[0] or beamed[1] or beamed[2] or beamed[3]:
+			sum += 1
+			r += '1'
+		else:
+			r += '0'
+	print(r)
+print(sum)
