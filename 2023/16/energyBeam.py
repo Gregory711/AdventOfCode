@@ -47,7 +47,10 @@ from pydantic import BaseModel, ValidationError, validate_call
 from typing import List
 from enum import IntEnum
 
-name = sys.argv[1]
+if len(sys.argv) > 1:
+	name = sys.argv[1]
+else:
+	name = 'test.txt'
 
 file1 = open(name, 'r')
 
