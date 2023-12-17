@@ -5,6 +5,8 @@ b = AL.Range(start=2, end=3)
 c = AL.Range(start=3, end=4)
 d = AL.Range(start=1, end=3)
 e = AL.Range(start=1, end=1)
+seeds = AL.Range(start=50, end=51)
+soilMap = AL.Range(start=98, end=99)
 
 def test_intersecting():
 	assert AL.intersecting(a, b) == True
@@ -25,3 +27,6 @@ def test_intersect():
 	assert AL.intersect(a, b) == AL.Range(start=2, end=2)
 	assert AL.intersect(a, d) == AL.Range(start=1, end=2)
 	assert AL.intersect(a, e) == AL.Range(start=1, end=1)
+
+def test_mapToDest():
+	assert AL.mapToDest(seeds, soilMap) == soilMap

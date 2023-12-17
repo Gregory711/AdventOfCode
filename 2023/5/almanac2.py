@@ -43,3 +43,9 @@ def aboveMap(inputRange: Range, mapRange: Range):
 @validate_call
 def intersect(a: Range, b: Range):
 	return Range(start=max(a.start, b.start), end=min(a.end, b.end))
+
+# Returns Range created by mapping the input Range using the map Range, assumes the entire range can be mapped
+@validate_call
+def mapToDest(inputRange: Range, mapRange: Range):
+	diff = mapRange.start - inputRange.start
+	return Range(start=inputRange.start+diff, end=inputRange.end+diff)
