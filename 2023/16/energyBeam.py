@@ -69,6 +69,16 @@ class Beam(BaseModel):
 	col: int
 	direction: Direction
 
+# Returns True if coordinates are in bounds, False otherwise
+@validate_call
+def inBounds(row: int, col: int, graph: List[List[Cell]]):
+	if row < 0 or col < 0:
+		return False
+	elif row >= len(graph) or col >= len(graph[0]):
+		return False
+	else:
+		return True
+
 # Returns new row after applying given direction (ignoring where it is going including if it will hit wall)
 @validate_call
 def getNewRow(row: int, beamDirection: Direction):

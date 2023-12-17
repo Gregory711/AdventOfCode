@@ -27,3 +27,12 @@ def test_getNewRow():
 def test_getNewCol():
 	assert EB.getNewCol(0, EB.Direction.RIGHT) == 0
 	assert EB.getNewCol(0, EB.Direction.UP) == -1
+
+def test_inBounds():
+	graph = []
+	graph.append([EB.Cell(value='.')])
+	assert EB.inBounds(0, 0, graph) == True
+	assert EB.inBounds(0, 1, graph) == False
+	assert EB.inBounds(1, 0, graph) == False
+	assert EB.inBounds(-1, 0, graph) == False
+	assert EB.inBounds(0, -1, graph) == False
