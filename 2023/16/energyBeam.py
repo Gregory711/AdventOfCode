@@ -75,8 +75,11 @@ def getNewDirections(beamDirection: Direction, value: str):
 	directions = []
 	if value == '.':
 		directions.append(beamDirection)
-	elif value == '|' and (beamDirection == Direction.UP or beamDirection == Direction.DOWN):
-		directions.append(beamDirection)
+	elif value == '|':
+		if (beamDirection == Direction.UP or beamDirection == Direction.DOWN):
+			directions.append(beamDirection)
+		else:
+			directions.extend([Direction.UP, Direction.DOWN])
 	elif value == '-' and (beamDirection == Direction.LEFT or beamDirection == Direction.RIGHT):
 		directions.append(beamDirection)
 	return directions
