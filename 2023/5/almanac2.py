@@ -63,6 +63,9 @@ else:
 file1 = open(name, 'r')
 
 seedRanges = []
+mapRanges = []
+srcStarts = []
+inMap = False
 
 for line in file1:
 	line = line.rstrip()
@@ -81,4 +84,25 @@ for line in file1:
 				seedRanges.append(Range(start=rangeStart, end=rangeStart+temp-1))
 				rangeStart = None
 			start = end + 1
-print(seedRanges)
+	elif len(line) == 0:
+		inMap = False
+	elif line[0].isdigit():
+		# Read in destStart, srcStart, and rangeLen
+		end = line.index(' ')
+		destStart = int(line[0:end])
+		start = end + 1
+		end = line.index(' ', start)
+		srcStart = int(line[start:end])
+		start = end + 1
+		end = len(line)
+		rangeLen = int(line[start:end])
+
+		if not inMap:
+			inMap = True
+			mapRanges.append([])
+			srcStarts.append([])
+		mapRanges[-1].append(Range(start=destStart, end=destStart+rangeLen-1))
+		srcStarts[-1].append(srcStart)
+#print(seedRanges)
+#print(mapRanges)
+#print(srcStarts)
