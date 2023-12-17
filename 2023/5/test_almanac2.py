@@ -29,4 +29,4 @@ def test_intersect():
 	assert AL.intersect(a, e) == AL.Range(start=1, end=1)
 
 def test_mapToDest():
-	assert AL.mapToDest(seeds, soilMap) == soilMap
+	assert AL.mapToDest(seeds, soilMap, 50) == soilMap

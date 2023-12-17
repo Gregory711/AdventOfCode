@@ -67,8 +67,8 @@ def intersect(a: Range, b: Range):
 
 # Returns Range created by mapping the input Range using the map Range, assumes the entire range can be mapped
 @validate_call
-def mapToDest(inputRange: Range, mapRange: Range):
-	diff = mapRange.start - inputRange.start
+def mapToDest(inputRange: Range, mapRange: Range, srcStart: int):
+	diff = mapRange.start - srcStart
 	return Range(start=inputRange.start+diff, end=inputRange.end+diff)
 
 if len(sys.argv) > 1:
