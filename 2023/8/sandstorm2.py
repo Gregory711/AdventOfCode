@@ -1,3 +1,14 @@
+'''
+Algorithm:
+Read in directions into dictionary mapping origins to left and right destinations keeping track of all staring (A) positions
+For each starting position:
+	while not found:
+		increment step count
+		update current location to direction
+		if new current locations ends with Z update found
+	append step count to stepCounts
+Print least common multiple of stepCounts
+'''
 import sys
 
 name = sys.argv[1]
@@ -32,6 +43,7 @@ for line in file1:
 #print(hauntedMap)
 #print(locs)
 
+'''
 found = False
 steps = 0
 
@@ -49,3 +61,4 @@ while not found:
 		if found:	
 			break
 print(steps)
+'''
