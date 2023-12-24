@@ -43,6 +43,27 @@ for line in file1:
 #print(hauntedMap)
 #print(locs)
 
+stepCounts = []
+for loc in locs:
+	#print("Start location of: " + loc)
+	found = False
+	steps = 0
+	here = loc
+	while not found:
+		direction = directions[steps % len(directions)]
+		steps += 1
+		if direction == 'L':
+			here = hauntedMap[here][0]
+			#print("Going left to " + here)
+		else:
+			here = hauntedMap[here][1]
+			#print("Going right to " + here)
+		if here[-1] == 'Z':
+			found = True
+			#print("Found end")
+	stepCounts.append(steps)
+print(stepCounts)
+
 '''
 found = False
 steps = 0
