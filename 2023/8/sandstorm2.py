@@ -10,6 +10,7 @@ For each starting position:
 Print least common multiple of stepCounts
 '''
 import sys
+from math import lcm
 
 name = sys.argv[1]
 
@@ -62,24 +63,4 @@ for loc in locs:
 			found = True
 			#print("Found end")
 	stepCounts.append(steps)
-print(stepCounts)
-
-'''
-found = False
-steps = 0
-
-while not found:
-	for step in directions:
-		steps += 1
-		found = True
-		for i in range(len(locs)):
-			if step == 'L':
-				locs[i] = hauntedMap[locs[i]][0]
-			else:
-				locs[i] = hauntedMap[locs[i]][1]
-			if locs[i][-1] != 'Z':
-				found = False
-		if found:	
-			break
-print(steps)
-'''
+print(lcm(*stepCounts))
