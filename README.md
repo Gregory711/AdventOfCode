@@ -7,7 +7,7 @@ Part one has a topical label based on the story e.g. oasis.py and part two is oa
 Provided test data in test.txt and actual data in input.txt
 Can run problems like following: python oasis.py input.txt
 Can run pytest in folders with test files (.py that start with test), in those folders test.txt is used if no name is provided
-Currently 1-10 inclusive are finished with exception of part two for days 8 and 10.
+Currently 1-10 inclusive are finished with exception of part two for day 10.
 
 Environment Setup Instructions (note: python is an alias for python3):
 cd 2023
