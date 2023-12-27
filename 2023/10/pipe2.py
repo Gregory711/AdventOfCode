@@ -195,14 +195,6 @@ if inBounds(graph, row, col+1):
 markedGraph = copy.deepcopy(graph) # stores graph but with pipes replaced with * and inside nodes with @
 for node in pathNodes:
 	markedGraph[node[0]][node[1]] = '*'
-# Calculate the top and bottom of the loop so it can be ignored when considering which points are inside the polygon
-loopTop = len(markedGraph)
-loopBottom = 0
-for row in range(len(markedGraph)):
-	for col in range(len(markedGraph[row])):
-		if markedGraph[row][col] == '*':
-			loopTop = min(loopTop, row)
-			loopBottom = max(loopBottom, row)
 inside = []
 for row in range(len(markedGraph)):
 	count = 0
@@ -210,7 +202,7 @@ for row in range(len(markedGraph)):
 	r = []
 	for col in range(len(markedGraph[row])):
 		r.append(False)
-		if markedGraph[row][col] == '*' and row != loopTop and row != loopBottom:
+		if markedGraph[row][col] == '*':
 			if not intersecting:
 				intersecting = True
 				count += 1
