@@ -5,11 +5,8 @@ Find S
 Depth first search account for the pipe directions to get the path (add to list)
 For each row in graph:
 	Go left to right maintaining state whether 'in' loop or not, add tiles that are in loop to a list
-Use ray casting algorithm to identify each node that is 'inside' the loop (not accounting for squeezing out)
-Iterate over every cell and for each that is inside the loop check if it is next to a loop node and if so:
-	Check if the animal can squeeze through the neighboring loop nodes and if so:
-		Use the flood fill algorithm to mark this cell and all connecting ones that are inside the loop as outside it
-Print the number of cells that are still classified as inside the loop
+Use ray casting algorithm to identify each node that is 'inside' the loop
+Print the number of cells that are inside the loop
 '''
 
 import sys
@@ -203,7 +200,17 @@ for row in range(len(markedGraph)):
 	for col in range(len(markedGraph[row])):
 		r.append(False)
 		# Ideally should replace S with actual pipe but for now guessing what it is
-		# |, J, and L are the only ones that go north!
+		# |, J, and L are the only ones connect north!
+		# This works cause consider the following:
+		# F------7
+		# |      |
+		# L--7^^^|
+		#    L---J
+		# Need to take into account the land highlighted with ^
+		# Must either use the one going north (L) or the one going south (7) to know that land exists
+		# In other words it is easy to realize that you don't count very top and very bottom edges and to count the ones where you enter |
+		# The edges in between where it changes elevation part way through is the hard part, but since they change elevation and must connect
+		# to the top and bottom edges there is a north and southbound pipe for each so just account for all north OR southbound connections
 		c = graph[row][col]
 		if markedGraph[row][col] == '*' and (c == '|' or c == 'J' or c == 'L' or c == 'S'):
 			count += 1
