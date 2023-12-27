@@ -192,6 +192,7 @@ if inBounds(graph, row, col+1):
 
 # ray casting algorithm to identify cells inside the loop
 # ray casting algorithm works by iterating left to right keeping track of whether or not nodes are in the shape by counting number of edges occurred (even = out)
+# Assumes that ray is slightly above points so top edges (F and 7) don't count but bottom (L and J) do (- is ignored)
 markedGraph = copy.deepcopy(graph) # stores graph but with pipes replaced with * and inside nodes with @
 for node in pathNodes:
 	markedGraph[node[0]][node[1]] = '*'
@@ -202,6 +203,7 @@ for row in range(len(markedGraph)):
 	r = []
 	for col in range(len(markedGraph[row])):
 		r.append(False)
+		# Ideally should replace S with actual pipe but for now pretending it is - or F or 7
 		if markedGraph[row][col] == '*' and graph[row][col] != '-' and graph[row][col] != 'F' and graph[row][col] != 'S' and graph[row][col] != '7':
 			if not intersecting:
 				intersecting = True
