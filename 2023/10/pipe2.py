@@ -203,17 +203,20 @@ for row in range(len(markedGraph)):
 	for col in range(len(markedGraph[row])):
 		r.append(False)
 		# Ideally should replace S with actual pipe but for now pretending it is - or F or 7
-		if markedGraph[row][col] == '*' and graph[row][col] != '-' and graph[row][col] != 'F' and graph[row][col] != 'S' and graph[row][col] != '7':
+		c = graph[row][col]
+		if markedGraph[row][col] == '*' and (c == '|' or c == 'J' or c == 'L'):
 			count += 1
 		elif markedGraph[row][col] != '*' and (count % 2) == 1:
 			r[-1] = True
 			markedGraph[row][col] = '@'
 	inside.append(r)
 
+insideCount = 0
 for row in range(len(inside)):
 	for col in range(len(inside[row])):
 		if inside[row][col]:
 			print(str(row) + ', ' + str(col) + ' is inside!')
+			insideCount += 1
 
 print("Original graph:")
 for line in graph:
@@ -221,3 +224,4 @@ for line in graph:
 print("Graph with loop cells replaced with * and cells inside loop replaced with @:")
 for line in markedGraph:
 	print(''.join(line))
+print(insideCount)
