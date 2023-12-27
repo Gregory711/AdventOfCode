@@ -199,7 +199,6 @@ for node in pathNodes:
 inside = []
 for row in range(len(markedGraph)):
 	count = 0
-	intersecting = False
 	r = []
 	for col in range(len(markedGraph[row])):
 		r.append(False)
