@@ -218,6 +218,11 @@ for row in range(len(markedGraph)):
 			intersecting = False
 	inside.append(r)
 
+for row in range(len(inside)):
+	for col in range(len(inside[row])):
+		if inside[row][col]:
+			print(str(row) + ', ' + str(col) + ' is inside!')
+
 print("Original graph:")
 for line in graph:
 	print(''.join(line))
