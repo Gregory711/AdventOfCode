@@ -204,7 +204,7 @@ for row in range(len(markedGraph)):
 		r.append(False)
 		# Ideally should replace S with actual pipe but for now pretending it is - or F or 7
 		c = graph[row][col]
-		if markedGraph[row][col] == '*' and (c == '|' or c == 'J' or c == 'L'):
+		if markedGraph[row][col] == '*' and (c == '|' or c == 'J' or c == 'L' or c == 'S'):
 			count += 1
 		elif markedGraph[row][col] != '*' and (count % 2) == 1:
 			r[-1] = True
