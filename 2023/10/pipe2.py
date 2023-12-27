@@ -172,7 +172,7 @@ if inBounds(graph, row, col-1):
 	tempPath, tempNodes = getLongestPath(graph, toVisit)
 	if tempPath > path:
 		path = tempPath
-		pathNodes = tempNode
+		pathNodes = tempNodes
 #print("finished left")
 pathLens = {}
 seen = set()
