@@ -14,6 +14,7 @@ Print the number of cells that are still classified as inside the loop
 
 import sys
 import math
+import copy
 
 name = sys.argv[1]
 
@@ -188,15 +189,33 @@ if inBounds(graph, row, col+1):
 
 # pathNodes now contains coordinate tuples for every node in the loop
 # will now fill in tiles with coordinate tuple for every node encircled by the loop (but some may squeeze out)
-tiles = []
+
+# ray casting algorithm to identify cells inside the loop
+# ray casting algorithm works by iterating left to right keeping track of whether or not nodes are in the shape by counting number of edges occurred (even = out)
+markedGraph = copy.deepcopy(graph) # stores graph but with pipes replaced with * and inside nodes with @
+for node in pathNodes:
+	markedGraph[node[0]][node[1]] = '*'
+print("The following code is faulty because it is considering the points after the top and bottom of polygon as inside since only one intersection")
+inside = []
+for row in range(len(markedGraph)):
+	count = 0
+	intersecting = False
+	r = []
+	for col in range(len(markedGraph[row])):
+		r.append(False)
+		if markedGraph[row][col] == '*':
+			if not intersecting:
+				intersecting = True
+				count += 1
+		elif (count % 2) == 1:
+			r[-1] = True
+			markedGraph[row][col] = '@'
+			intersecting = False
+	inside.append(r)
 
 print("Original graph:")
 for line in graph:
 	print(''.join(line))
 print("Graph with loop cells replaced with * and cells inside loop replaced with @:")
-for node in pathNodes:
-	graph[node[0]][node[1]] = '*'
-for node in tiles:
-	graph[node[0]][node[1]] = '@'
-for line in graph:
+for line in markedGraph:
 	print(''.join(line))
