@@ -205,17 +205,10 @@ for row in range(len(markedGraph)):
 		r.append(False)
 		# Ideally should replace S with actual pipe but for now pretending it is - or F or 7
 		if markedGraph[row][col] == '*' and graph[row][col] != '-' and graph[row][col] != 'F' and graph[row][col] != 'S' and graph[row][col] != '7':
-			if not intersecting:
-				intersecting = True
-				count += 1
-			else:
-				intersecting = False
-				count += 1
+			count += 1
 		elif markedGraph[row][col] != '*' and (count % 2) == 1:
-			if (count % 2) == 1:
-				r[-1] = True
-				markedGraph[row][col] = '@'
-			intersecting = False
+			r[-1] = True
+			markedGraph[row][col] = '@'
 	inside.append(r)
 
 for row in range(len(inside)):
