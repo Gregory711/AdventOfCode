@@ -202,13 +202,17 @@ for row in range(len(markedGraph)):
 	r = []
 	for col in range(len(markedGraph[row])):
 		r.append(False)
-		if markedGraph[row][col] == '*':
+		if markedGraph[row][col] == '*' and graph[row][col] != '-' and graph[row][col] != 'F' and graph[row][col] != 'S' and graph[row][col] != '7':
 			if not intersecting:
 				intersecting = True
 				count += 1
-		elif (count % 2) == 1:
-			r[-1] = True
-			markedGraph[row][col] = '@'
+			else:
+				intersecting = False
+				count += 1
+		elif markedGraph[row][col] != '*' and (count % 2) == 1:
+			if (count % 2) == 1:
+				r[-1] = True
+				markedGraph[row][col] = '@'
 			intersecting = False
 	inside.append(r)
 
