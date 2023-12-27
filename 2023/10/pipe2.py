@@ -202,7 +202,8 @@ for row in range(len(markedGraph)):
 	r = []
 	for col in range(len(markedGraph[row])):
 		r.append(False)
-		# Ideally should replace S with actual pipe but for now pretending it is - or F or 7
+		# Ideally should replace S with actual pipe but for now guessing what it is
+		# |, J, and L are the only ones that go north!
 		c = graph[row][col]
 		if markedGraph[row][col] == '*' and (c == '|' or c == 'J' or c == 'L' or c == 'S'):
 			count += 1
