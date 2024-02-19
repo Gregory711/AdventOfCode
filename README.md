@@ -24,3 +24,17 @@ source advent/bin/activate
 pip install pydantic
 pip install pytest
 ```
+
+# 2024
+
+## Training
+
+### 2022
+
+Going to start training for 2024 by doing 2022 problems.
+
+This time I will be using a different approach, instead of Python I'll be using it as a way to learn Java 17 and Spring Boot.
+
+Additionally, I'll be solving all the problems in a single project.
+
+Finally, instead of running the problems from the command line I'll be using Swagger UI to run the problems via API endpoints.
