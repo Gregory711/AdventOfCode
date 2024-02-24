@@ -47,3 +47,10 @@ mvn archetype:generate -DgroupId=com.advent.app -DartifactId=advent-2022 -Darche
 ### Environment Requirements
 - Java 17
 - Maven 3.8.4
+
+### Running the Project
+```bash
+cd 2024/Training/advent-2022
+mvn clean install
+mvn spring-boot:run
+```
