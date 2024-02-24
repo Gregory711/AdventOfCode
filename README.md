@@ -38,3 +38,7 @@ This time I will be using a different approach, instead of Python I'll be using 
 Additionally, I'll be solving all the problems in a single project.
 
 Finally, instead of running the problems from the command line I'll be using Swagger UI to run the problems via API endpoints.
+
+### Environment Requirements
+- Java 17
+- Maven 3.8.4
