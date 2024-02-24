@@ -29,7 +29,7 @@ pip install pytest
 
 ## Training
 
-### 2022
+### advent-2022
 
 Going to start training for 2024 by doing 2022 problems.
 
@@ -38,6 +38,11 @@ This time I will be using a different approach, instead of Python I'll be using 
 Additionally, I'll be solving all the problems in a single project.
 
 Finally, instead of running the problems from the command line I'll be using Swagger UI to run the problems via API endpoints.
+
+Project is maven based and was created using the following command:
+```bash
+mvn archetype:generate -DgroupId=com.advent.app -DartifactId=advent-2022 -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false
+```
 
 ### Environment Requirements
 - Java 17
