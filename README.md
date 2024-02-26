@@ -54,3 +54,9 @@ cd 2024/Training/advent-2022
 mvn clean install
 mvn spring-boot:run
 ```
+
+### Running the Problems
+
+Go to http://localhost:8080/swagger-ui/index.html and use the endpoints to run the problems
+
+Can find the OpenAPI descriptions at http://localhost:8080/v3/api-docs
