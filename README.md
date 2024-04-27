@@ -68,3 +68,8 @@ Can find the OpenAPI descriptions at http://localhost:8080/v3/api-docs
 Create files in `src/main/resources` with the following format:
 - `${day}test${numb}.txt` for the input data e.g. `1test1.txt`
 - Add a newline to the beginning of the file containing the answer
+
+#### Adding the Problem Input
+
+Create a new file in `src/main/resources` with the following format:
+- `${day}input.txt` e.g. `1input.txt`
