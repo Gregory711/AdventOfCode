@@ -60,6 +60,18 @@ public class DayController {
         report.put("tests", testResults);
         report.put("tests passed", testsPassed + "/" + testFiles.size());
 
+        ClassPathResource resource = new ClassPathResource(day + "input.txt");
+        InputStream inputFile;
+        try {
+            inputFile = resource.getInputStream();
+            ArrayList<String> inputData = getInputData(inputFile);
+            Problem problem = new Problem(day, inputData, null);
+            Map<String, String> inputResult = problem.getResults();
+            report.put("input", inputResult);
+        } catch (IOException e) {
+            report.put("error", "No input file found");
+        }
+
         return report;
     }
 
