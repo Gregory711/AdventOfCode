@@ -40,6 +40,7 @@ public class DayController {
 
         ArrayList<InputStream> testFiles = getTestFiles(day);
         ArrayList<Map<String, String>> testResults = new ArrayList<>();
+        int testsPassed = 0;
 
         for (InputStream testFile : testFiles) {
 
@@ -65,6 +66,7 @@ public class DayController {
             testResult.put("actual", output);
             if (answer.equals(output)) {
                 testResult.put("result", "PASS");
+                testsPassed++;
             } else {
                 testResult.put("result", "FAIL");
             }
@@ -73,6 +75,7 @@ public class DayController {
         }
 
         report.put("tests", testResults);
+        report.put("tests passed", testsPassed + "/" + testFiles.size());
 
         return report;
     }
