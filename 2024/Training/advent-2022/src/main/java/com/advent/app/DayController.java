@@ -19,22 +19,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class DayController {
     
     @GetMapping("/day")
-    public ResponseEntity<Map<String, Object>> day(@RequestParam int day) {
+    public ResponseEntity<Map<String, Object>> day(@RequestParam String day) {
         return ResponseEntity.status(HttpStatus.OK).body(generateReport(day));
     }
 
     /*
-     * Generates a report for the given day of the month containing:
+     * Generates a report for the given day (where day has b added if part 2) of the month containing:
      * For each ${day}test${numb}.txt file in the resources folder:
      *   - The calculated answer and if it matches the expected answer
      *   - The time taken to calculate the answer
      * For the ${day}input.txt file in the resources folder:
      *   - The calculated answer
      *   - The time taken to calculate the answer
-     * @param day The day of the month to generate a report for
+     * @param day The day of the month to generate a report for with b added if part 2
      * @return The report for the given day
      */
-    private Map<String, Object> generateReport(final int day) {
+    private Map<String, Object> generateReport(final String day) {
 
         Map<String, Object> report = new HashMap<>();
 
@@ -80,7 +80,7 @@ public class DayController {
      * @param day The day of the month to get test files for
      * @return The ordered ArrayList of all test files for the given day
      */
-    private ArrayList<InputStream> getTestFiles(final int day) {
+    private ArrayList<InputStream> getTestFiles(final String day) {
         ArrayList<InputStream> testFiles = new ArrayList<>();
         int i = 1;
         while (true) {

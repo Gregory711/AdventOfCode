@@ -6,12 +6,12 @@ import java.util.Map;
 
 public class Problem {
 
-    private final int day;
+    private final String day;
     private ArrayList<String> input;
     // null if not a test
     private final String expectedAnswer;
 
-    public Problem(int day, ArrayList<String> input, String expectedAnswer) {
+    public Problem(String day, ArrayList<String> input, String expectedAnswer) {
         this.day = day;
         this.input = input;
         this.expectedAnswer = expectedAnswer;
@@ -21,7 +21,7 @@ public class Problem {
         long startTime = System.nanoTime();
         String output;
         switch(day) {
-            case 1:
+            case "1":
                 output = Integer.toString(new CalorieCounter(input).getMostCalories());
                 break;
             default:

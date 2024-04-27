@@ -81,3 +81,7 @@ Create a new class in `src/main/java/com/advent/app` with the following format:
 - A method that returns the answer
 
 Then add a new case to the day switch in Problem.java that sets output to the result of the solution method (as a string).
+
+#### Adding Part 2
+
+Just add the character b (lowercase) to the end of the day number e.g. `1b` for day 1 part 2. This applies to the test and input files as well as the Problem switch. The solution can just be another method in the same class.
