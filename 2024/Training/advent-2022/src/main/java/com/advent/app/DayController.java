@@ -1,6 +1,9 @@
 package com.advent.app;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class DayController {
     
     @GetMapping("/day")
-    public ResponseEntity<Map<String, Object>> day(@RequestParam final int day) {
+    public ResponseEntity<Map<String, Object>> day(@RequestParam int day) {
         Map<String, Object> data = new HashMap<>();
         data.put("answer", generateReport(day));
         return ResponseEntity.status(HttpStatus.OK).body(data);
@@ -53,5 +56,22 @@ public class DayController {
             testFiles.add(testFile);
             i++;
         }
+    }
+
+    /*
+     * Returns ordered ArrayList of all input data line by line
+     * @param file The file to get input data from
+     * @return The ordered ArrayList of all input data line by line
+     */
+    private ArrayList<String> getInputData(final InputStream file) {
+        ArrayList<String> inputData = new ArrayList<>();
+        try (InputStreamReader isr = new InputStreamReader(file);
+                BufferedReader br = new BufferedReader(isr);) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                inputData.add(line);
+            }
+        } catch (IOException e) {}
+        return inputData;
     }
 }
