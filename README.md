@@ -73,3 +73,11 @@ Create files in `src/main/resources` with the following format:
 
 Create a new file in `src/main/resources` with the following format:
 - `${day}input.txt` e.g. `1input.txt`
+
+#### Adding the Problem Solution
+
+Create a new class in `src/main/java/com/advent/app` with the following format:
+- A constructor that takes in ArrayList<String> as the input
+- A method that returns the answer
+
+Then add a new case to the day switch in Problem.java that sets output to the result of the solution method (as a string).
