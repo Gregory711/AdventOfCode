@@ -1,5 +1,7 @@
 package com.advent.app;
 
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,5 +34,15 @@ public class DayController {
      */
     private String generateReport(int day) {
         return "ToDo: Implement me!";
+    }
+
+    /*
+     * Returns ordered ArrayList of all test files for the given day
+     * @param day The day of the month to get test files for
+     * @return The ordered ArrayList of all test files for the given day
+     */
+    private ArrayList<InputStream> getTestFiles(int day) {
+        // TODO: Implement me!
+        return null;
     }
 }
