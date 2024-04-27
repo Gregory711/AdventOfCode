@@ -60,3 +60,11 @@ mvn spring-boot:run
 Go to http://localhost:8080/swagger-ui/index.html and use the endpoints to run the problems
 
 Can find the OpenAPI descriptions at http://localhost:8080/v3/api-docs
+
+### Adding a New Problem
+
+#### Adding Test Data
+
+Create files in `src/main/resources` with the following format:
+- `${day}test${numb}.txt` for the input data e.g. `1test1.txt`
+- Add a newline to the beginning of the file containing the answer
