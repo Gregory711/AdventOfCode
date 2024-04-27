@@ -1,3 +1,4 @@
 2023/advent
 .DS_STORE
 target/
+*.input.txt
