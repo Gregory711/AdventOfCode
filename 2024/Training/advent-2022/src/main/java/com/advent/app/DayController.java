@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +20,7 @@ public class DayController {
     
     @GetMapping("/day")
     public ResponseEntity<Map<String, Object>> day(@RequestParam int day) {
-        Map<String, Object> data = new HashMap<>();
-        data.put("answer", generateReport(day));
-        return ResponseEntity.status(HttpStatus.OK).body(data);
+        return ResponseEntity.status(HttpStatus.OK).body(generateReport(day));
     }
 
     /*
@@ -35,8 +34,47 @@ public class DayController {
      * @param day The day of the month to generate a report for
      * @return The report for the given day
      */
-    private String generateReport(final int day) {
-        return "ToDo: Implement me!";
+    private Map<String, Object> generateReport(final int day) {
+
+        Map<String, Object> report = new HashMap<>();
+
+        ArrayList<InputStream> testFiles = getTestFiles(day);
+        ArrayList<Map<String, String>> testResults = new ArrayList<>();
+
+        for (InputStream testFile : testFiles) {
+
+            ArrayList<String> inputData = getInputData(testFile);
+            String answer = inputData.get(0);
+            inputData.remove(0);
+
+            long startTime = System.nanoTime();
+            String output;
+            switch(day) {
+                case 1:
+                    output = Integer.toString(new CalorieCounter(inputData).getMostCalories());
+                    break;
+                default:
+                    output = "ToDo: Implement me!";
+            }
+            long endTime = System.nanoTime();
+            long timeTaken = endTime - startTime;
+            double timeTakenSeconds = (double) timeTaken / 1_000_000_000;
+            
+            Map<String, String> testResult = new HashMap<>();
+            testResult.put("expected", answer);
+            testResult.put("actual", output);
+            if (answer.equals(output)) {
+                testResult.put("result", "PASS");
+            } else {
+                testResult.put("result", "FAIL");
+            }
+            testResult.put("time (seconds)", Double.toString(timeTakenSeconds));
+            testResults.add(testResult);
+        }
+
+        report.put("tests", testResults);
+
+        return report;
     }
 
     /*
@@ -48,9 +86,11 @@ public class DayController {
         ArrayList<InputStream> testFiles = new ArrayList<>();
         int i = 1;
         while (true) {
-            InputStream testFile = this.getClass()
-                .getResourceAsStream(day + "test" + i + ".txt");
-            if (testFile == null) {
+            ClassPathResource resource = new ClassPathResource(day + "test" + i + ".txt");
+            InputStream testFile;
+            try {
+                testFile = resource.getInputStream();
+            } catch (IOException e) {
                 return testFiles;
             }
             testFiles.add(testFile);
