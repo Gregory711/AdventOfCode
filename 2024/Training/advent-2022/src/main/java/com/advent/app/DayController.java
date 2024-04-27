@@ -42,7 +42,16 @@ public class DayController {
      * @return The ordered ArrayList of all test files for the given day
      */
     private ArrayList<InputStream> getTestFiles(final int day) {
-        // TODO: Implement me!
-        return null;
+        ArrayList<InputStream> testFiles = new ArrayList<>();
+        int i = 1;
+        while (true) {
+            InputStream testFile = this.getClass()
+                .getResourceAsStream(day + "test" + i + ".txt");
+            if (testFile == null) {
+                return testFiles;
+            }
+            testFiles.add(testFile);
+            i++;
+        }
     }
 }
