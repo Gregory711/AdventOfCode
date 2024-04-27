@@ -48,29 +48,12 @@ public class DayController {
             String answer = inputData.get(0);
             inputData.remove(0);
 
-            long startTime = System.nanoTime();
-            String output;
-            switch(day) {
-                case 1:
-                    output = Integer.toString(new CalorieCounter(inputData).getMostCalories());
-                    break;
-                default:
-                    output = "ToDo: Implement me!";
-            }
-            long endTime = System.nanoTime();
-            long timeTaken = endTime - startTime;
-            double timeTakenSeconds = (double) timeTaken / 1_000_000_000;
-            
-            Map<String, String> testResult = new HashMap<>();
-            testResult.put("expected", answer);
-            testResult.put("actual", output);
-            if (answer.equals(output)) {
-                testResult.put("result", "PASS");
+            Problem problem = new Problem(day, inputData, answer);
+            Map<String, String> testResult = problem.getResults();
+            if (testResult.get("result").equals("PASS")) {
                 testsPassed++;
-            } else {
-                testResult.put("result", "FAIL");
             }
-            testResult.put("time (seconds)", Double.toString(timeTakenSeconds));
+            
             testResults.add(testResult);
         }
 
