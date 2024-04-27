@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class DayController {
     
     @GetMapping("/day")
-    public ResponseEntity<Map<String, Object>> day(@RequestParam int day) {
+    public ResponseEntity<Map<String, Object>> day(@RequestParam final int day) {
         Map<String, Object> data = new HashMap<>();
         data.put("answer", generateReport(day));
         return ResponseEntity.status(HttpStatus.OK).body(data);
@@ -32,7 +32,7 @@ public class DayController {
      * @param day The day of the month to generate a report for
      * @return The report for the given day
      */
-    private String generateReport(int day) {
+    private String generateReport(final int day) {
         return "ToDo: Implement me!";
     }
 
@@ -41,7 +41,7 @@ public class DayController {
      * @param day The day of the month to get test files for
      * @return The ordered ArrayList of all test files for the given day
      */
-    private ArrayList<InputStream> getTestFiles(int day) {
+    private ArrayList<InputStream> getTestFiles(final int day) {
         // TODO: Implement me!
         return null;
     }
