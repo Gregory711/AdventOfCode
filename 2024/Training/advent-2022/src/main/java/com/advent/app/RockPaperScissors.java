@@ -39,4 +39,12 @@ public class RockPaperScissors {
             rounds.add(r);
         }
     }
+
+    public int getTotalScore() {
+        int totalScore = 0;
+        for (int i = 0; i < rounds.size(); i++) {
+            //
+        }
+        return totalScore;
+    }
 }
