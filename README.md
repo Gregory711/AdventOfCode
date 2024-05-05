@@ -44,6 +44,10 @@ Project is maven based and was created using the following command:
 mvn archetype:generate -DgroupId=com.advent.app -DartifactId=advent-2022 -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false
 ```
 
+### Progress
+
+So far 1-2 inclusive are finished for a total of 4 stars.
+
 ### Environment Requirements
 - Java 17
 - Maven 3.8.4
