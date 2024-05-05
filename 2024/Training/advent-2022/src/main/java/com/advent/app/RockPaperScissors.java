@@ -10,6 +10,19 @@ public class RockPaperScissors {
         SCISSORS
     }
 
+    private Hand getHand(char hand) {
+        switch(hand) {
+            case 'A':
+            case 'X':
+                return Hand.ROCK;
+            case 'B':
+            case 'Y':
+                return Hand.PAPER;
+            default:
+                return Hand.SCISSORS;
+        }
+    }
+
     private class Round {
         public Hand opponentHand, myHand;
     }
@@ -19,7 +32,11 @@ public class RockPaperScissors {
     public RockPaperScissors(ArrayList<String> input) {
         rounds = new ArrayList<>();
         for (int i = 0; i < input.size(); i++) {
-            //
+            Round r = new Round();
+            String h = input.get(i);
+            r.opponentHand = getHand(h.charAt(0));
+            r.myHand = getHand(h.charAt(2));
+            rounds.add(r);
         }
     }
 }
