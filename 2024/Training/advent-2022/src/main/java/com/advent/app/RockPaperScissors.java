@@ -34,6 +34,17 @@ public class RockPaperScissors {
         }
     }
 
+    private boolean myHandWins(Hand opponent, Hand mine) {
+        switch(opponent) {
+            case ROCK:
+                return mine == Hand.PAPER;
+            case PAPER:
+                return mine == Hand.SCISSORS;
+            default:
+                return mine == Hand.ROCK;
+        }
+    }
+
     private class Round {
         public Hand opponentHand, myHand;
     }
