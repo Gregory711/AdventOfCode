@@ -23,6 +23,33 @@ public class RockPaperScissors {
         }
     }
 
+    private Hand getHandPart2(Hand opponentHand, char outcome) {
+        if (outcome == 'X') {
+            // Lose
+            switch (opponentHand) {
+                case ROCK:
+                    return Hand.SCISSORS;
+                case PAPER:
+                    return Hand.ROCK;
+                default:
+                    return Hand.PAPER;
+            }
+        } else if (outcome == 'Y') {
+            // Draw
+            return opponentHand;
+        } else {
+            // Win
+            switch (opponentHand) {
+                case ROCK:
+                    return Hand.PAPER;
+                case PAPER:
+                    return Hand.SCISSORS;
+                default:
+                    return Hand.ROCK;
+            }
+        }
+    }
+
     private int getHandValue(Hand hand) {
         switch(hand) {
             case ROCK:
@@ -51,13 +78,17 @@ public class RockPaperScissors {
 
     private ArrayList<Round> rounds;
 
-    public RockPaperScissors(ArrayList<String> input) {
+    public RockPaperScissors(ArrayList<String> input, boolean part2) {
         rounds = new ArrayList<>();
         for (int i = 0; i < input.size(); i++) {
             Round r = new Round();
             String h = input.get(i);
             r.opponentHand = getHand(h.charAt(0));
-            r.myHand = getHand(h.charAt(2));
+            if (!part2) {
+                r.myHand = getHand(h.charAt(2));
+            } else {
+                r.myHand = getHandPart2(r.opponentHand, h.charAt(2));
+            }
             rounds.add(r);
         }
     }

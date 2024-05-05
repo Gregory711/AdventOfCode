@@ -28,7 +28,10 @@ public class Problem {
                 output = Integer.toString(new CalorieCounter(input).getTopThreesCalories());
                 break;
             case "2":
-                output = Integer.toString(new RockPaperScissors(input).getTotalScore());
+                output = Integer.toString(new RockPaperScissors(input, false).getTotalScore());
+                break;
+            case "2b":
+                output = Integer.toString(new RockPaperScissors(input, true).getTotalScore());
                 break;
             default:
                 output = "ToDo: Implement me!";
