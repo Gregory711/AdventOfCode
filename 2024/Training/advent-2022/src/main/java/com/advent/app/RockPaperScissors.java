@@ -23,6 +23,17 @@ public class RockPaperScissors {
         }
     }
 
+    private int getHandValue(Hand hand) {
+        switch(hand) {
+            case ROCK:
+                return 1;
+            case PAPER:
+                return 2;
+            default:
+                return 3;
+        }
+    }
+
     private class Round {
         public Hand opponentHand, myHand;
     }
