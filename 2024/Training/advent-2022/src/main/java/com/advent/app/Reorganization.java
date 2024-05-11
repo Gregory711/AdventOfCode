@@ -29,6 +29,14 @@ public class Reorganization {
         }
     }
 
+    private static int getPriority(char item) {
+        if (Character.isLowerCase(item)) {
+            return item - 'a' + 1;
+        } else {
+            return item - 'A' + 1;
+        }
+    }
+
     public Reorganization(ArrayList<String> input) {
 
     }
