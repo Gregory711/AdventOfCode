@@ -39,6 +39,9 @@ public class Problem {
             case "3b":
                 output = Integer.toString(new Reorganization(input, true).getPrioritySum());
                 break;
+            case "4":
+                output = Integer.toString(new Cleanup(input).getContained());
+                break;
             default:
                 output = "ToDo: Implement me!";
         }
