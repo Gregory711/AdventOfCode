@@ -14,6 +14,19 @@ public class Reorganization {
             this.compartments[0] = compartments.substring(0, midpoint);
             this.compartments[1] = compartments.substring(midpoint, compartments.length());
         }
+
+        public char getErrorItem() {
+            HashSet<Character> items = new HashSet<Character>();
+            for (int i = 0; i < compartments[0].length(); i++) {
+                items.add(compartments[0].charAt(i));
+            }
+            for (int i = 0; i < compartments[1].length(); i++) {
+                if (items.contains(compartments[1].charAt(i))) {
+                    return compartments[1].charAt(i);
+                }
+            }
+            return ' ';
+        }
     }
 
     public Reorganization(ArrayList<String> input) {
