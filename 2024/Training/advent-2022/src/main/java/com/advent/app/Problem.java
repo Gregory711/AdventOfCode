@@ -42,6 +42,9 @@ public class Problem {
             case "4":
                 output = Integer.toString(new Cleanup(input).getContained());
                 break;
+            case "4b":
+                output = Integer.toString(new Cleanup(input).getOverlapped());
+                break;
             default:
                 output = "ToDo: Implement me!";
         }
