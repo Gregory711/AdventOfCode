@@ -37,7 +37,24 @@ public class Reorganization {
         }
     }
 
-    public Reorganization(ArrayList<String> input) {
+    int prioritySum;
 
+    public Reorganization(ArrayList<String> input) {
+        ArrayList<Rucksack> rucksacks = new ArrayList<Rucksack>();
+        for (int i = 0; i < input.size(); i++) {
+            rucksacks.add(new Rucksack(input.get(i)));
+        }
+        ArrayList<Character> errors = new ArrayList<Character>();
+        for (int i = 0; i < rucksacks.size(); i++) {
+            errors.add(rucksacks.get(i).getErrorItem());
+        }
+        prioritySum = 0;
+        for (int i = 0; i < errors.size(); i++) {
+            prioritySum += getPriority(errors.get(i));
+        }
+    }
+
+    public int getPrioritySum() {
+        return prioritySum;
     }
 }
