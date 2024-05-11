@@ -6,10 +6,10 @@ import org.apache.commons.lang3.Range;
 
 public class Cleanup {
 
-    int contained;
+    int contained, overlapped;
 
     public Cleanup(ArrayList<String> input) {
-        contained = 0;
+        contained = overlapped = 0;
         Range<Integer> a, b;
         String tmp;
         int start, end, dash, comma;
@@ -27,14 +27,22 @@ public class Cleanup {
             end = Integer.parseInt(tmp.substring(dash+1));
             b = Range.between(start, end);
 
-            // Incremented if eitehr range completely contains the other
+            // Increments if either range completely contains the other
             if (a.containsRange(b) || b.containsRange(a)) {
                 contained++;
+            }
+            // Increments if the ranges overlap at all i.e. contain any of the same values
+            if (a.isOverlappedBy(b)) {
+                overlapped++;
             }
         }
     }
 
     public int getContained() {
         return contained;
+    }
+
+    public int getOverlapped() {
+        return overlapped;
     }
 }
