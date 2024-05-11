@@ -39,18 +39,32 @@ public class Reorganization {
 
     int prioritySum;
 
-    public Reorganization(ArrayList<String> input) {
-        ArrayList<Rucksack> rucksacks = new ArrayList<Rucksack>();
-        for (int i = 0; i < input.size(); i++) {
-            rucksacks.add(new Rucksack(input.get(i)));
-        }
-        ArrayList<Character> errors = new ArrayList<Character>();
-        for (int i = 0; i < rucksacks.size(); i++) {
-            errors.add(rucksacks.get(i).getErrorItem());
-        }
+    public Reorganization(ArrayList<String> input, boolean part2) {
         prioritySum = 0;
-        for (int i = 0; i < errors.size(); i++) {
-            prioritySum += getPriority(errors.get(i));
+        if (!part2) {
+            ArrayList<Rucksack> rucksacks = new ArrayList<Rucksack>();
+            for (int i = 0; i < input.size(); i++) {
+                rucksacks.add(new Rucksack(input.get(i)));
+            }
+            ArrayList<Character> errors = new ArrayList<Character>();
+            for (int i = 0; i < rucksacks.size(); i++) {
+                errors.add(rucksacks.get(i).getErrorItem());
+            }
+            for (int i = 0; i < errors.size(); i++) {
+                prioritySum += getPriority(errors.get(i));
+            }
+        } else {
+            char tmp;
+            for (int i = 0; i < input.size(); i += 3) {
+                for (int j = 0; j < input.get(i).length(); j++) {
+                    tmp = input.get(i).charAt(j);
+                    if (input.get(i+1).indexOf(tmp) != -1 &&
+                        input.get(i+2).indexOf(tmp) != -1) {
+                        prioritySum += getPriority(tmp);
+                        break;
+                    }
+                }
+            }
         }
     }
 

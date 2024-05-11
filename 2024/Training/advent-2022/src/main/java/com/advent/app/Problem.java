@@ -34,7 +34,10 @@ public class Problem {
                 output = Integer.toString(new RockPaperScissors(input, true).getTotalScore());
                 break;
             case "3":
-                output = Integer.toString(new Reorganization(input).getPrioritySum());
+                output = Integer.toString(new Reorganization(input, false).getPrioritySum());
+                break;
+            case "3b":
+                output = Integer.toString(new Reorganization(input, true).getPrioritySum());
                 break;
             default:
                 output = "ToDo: Implement me!";

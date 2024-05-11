@@ -46,7 +46,7 @@ mvn archetype:generate -DgroupId=com.advent.app -DartifactId=advent-2022 -Darche
 
 ### Progress
 
-So far 1-2 inclusive are finished for a total of 4 stars.
+So far 1-3 inclusive are finished for a total of 6 stars.
 
 ### Environment Requirements
 - Java 17
