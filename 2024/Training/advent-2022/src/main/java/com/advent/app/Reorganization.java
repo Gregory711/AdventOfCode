@@ -31,9 +31,9 @@ public class Reorganization {
 
     private static int getPriority(char item) {
         if (Character.isLowerCase(item)) {
-            return item - 'a' + 1;
+            return item - 'a' + 1; // 1 to 26 inclusive
         } else {
-            return item - 'A' + 1;
+            return item - 'A' + 1 + ('z' - 'a' + 1); // 27 to 52 inclusive
         }
     }
 
