@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class Crane {
+
+    ArrayList<Stack<Character>> stacks;
     
     public Crane(ArrayList<String> input) {
         // Find the empty line in between the stacks and the rearrangement procedure
@@ -14,11 +16,21 @@ public class Crane {
         
         // Create the stacks
         String base = input.get(emptyLine - 1);
-        ArrayList<Stack<Character>> stacks = new ArrayList<Stack<Character>>();
+        stacks = new ArrayList<Stack<Character>>();
         for (int i = 0; i < base.length(); i++) {
             if (base.charAt(i) != ' ') {
                 stacks.add(new Stack<Character>());
             }
         }
+
+        // TODO: Execute the rearrangements
+    }
+
+    public String getTopCrates() {
+        String tops = "";
+        for (int i = 0; i < stacks.size(); i++) {
+            tops += stacks.get(i).peek();
+        }
+        return tops;
     }
 }
