@@ -23,6 +23,19 @@ public class Crane {
             }
         }
 
+        // Read in initial crate stacks
+        int layerIndex = emptyLine - 2;
+        while (layerIndex >= 0) {
+            String layer = input.get(layerIndex);
+            // For each layer if there is a crate there in the stack add it
+            for (int i = 1; i < layer.length(); i += 4) {
+                if (layer.charAt(i) != ' ') {
+                    stacks.get(i / 4).add(layer.charAt(i));
+                }
+            }
+            layerIndex--;
+        }
+
         // TODO: Execute the rearrangements
     }
 
