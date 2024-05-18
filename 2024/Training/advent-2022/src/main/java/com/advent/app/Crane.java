@@ -50,7 +50,13 @@ public class Crane {
                     stacks.get(move[2] - 1).add(stacks.get(move[1] - 1).pop());
                 }
             } else {
-                // TODO: Implement
+                Stack<Character> tmpStack = new Stack<Character>();
+                for (int j = 0; j < move[0]; j++) {
+                    tmpStack.add(stacks.get(move[1] - 1).pop());
+                }
+                for (int j = 0; j < move[0]; j++) {
+                    stacks.get(move[2] - 1).add(tmpStack.pop());
+                }
             }
         }
     }
