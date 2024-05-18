@@ -45,6 +45,9 @@ public class Problem {
             case "4b":
                 output = Integer.toString(new Cleanup(input).getOverlapped());
                 break;
+            case "5":
+                output = new Crane(input).getTopCrates();
+                break;
             default:
                 output = "ToDo: Implement me!";
         }
