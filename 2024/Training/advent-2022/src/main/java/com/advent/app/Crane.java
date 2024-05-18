@@ -7,7 +7,7 @@ public class Crane {
 
     ArrayList<Stack<Character>> stacks;
     
-    public Crane(ArrayList<String> input) {
+    public Crane(ArrayList<String> input, boolean part2) {
         // Find the empty line in between the stacks and the rearrangement procedure
         int emptyLine = 0;
         while (input.get(emptyLine).length() != 0) {
@@ -44,9 +44,13 @@ public class Crane {
                 move[j / 2] = Integer.parseInt(tmp[j]);
             }
             // execute the move
-            for (int j = 0; j < move[0]; j++) {
-                // minus 1 cause 1 indexing of stacks
-                stacks.get(move[2] - 1).add(stacks.get(move[1] - 1).pop());
+            if (!part2) {
+                for (int j = 0; j < move[0]; j++) {
+                    // minus 1 cause 1 indexing of stacks
+                    stacks.get(move[2] - 1).add(stacks.get(move[1] - 1).pop());
+                }
+            } else {
+                // TODO: Implement
             }
         }
     }
