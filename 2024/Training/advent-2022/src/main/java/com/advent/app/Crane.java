@@ -27,7 +27,6 @@ public class Crane {
         int layerIndex = emptyLine - 2;
         while (layerIndex >= 0) {
             String layer = input.get(layerIndex);
-            // For each layer if there is a crate there in the stack add it
             for (int i = 1; i < layer.length(); i += 4) {
                 if (layer.charAt(i) != ' ') {
                     stacks.get(i / 4).add(layer.charAt(i));
@@ -36,7 +35,20 @@ public class Crane {
             layerIndex--;
         }
 
-        // TODO: Execute the rearrangements
+        // Execute the rearrangements
+        for (int i = emptyLine + 1; i < input.size(); i++) {
+            // "move 1 from 2 to 3" becomes [move, 1, from, 2, to, 3] then [1, 2, 3]
+            String[] tmp = input.get(i).split(" ");
+            int[] move = new int[3];
+            for (int j = 1; j < tmp.length; j += 2) {
+                move[j / 2] = Integer.parseInt(tmp[j]);
+            }
+            // execute the move
+            for (int j = 0; j < move[0]; j++) {
+                // minus 1 cause 1 indexing of stacks
+                stacks.get(move[2] - 1).add(stacks.get(move[1] - 1).pop());
+            }
+        }
     }
 
     public String getTopCrates() {
