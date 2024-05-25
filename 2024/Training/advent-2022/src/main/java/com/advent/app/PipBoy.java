@@ -24,6 +24,10 @@ public class PipBoy {
         for (int i = 3; i < buffer.length(); i++) {
             // If this is the end of the first marker then set the
             // corresponding index and break out of the loop
+            if (allUnique(buffer.substring(i - 3, i + 1))) {
+                indexEndOfFirstMarker = i;
+                break;
+            }
         }
     }
 
