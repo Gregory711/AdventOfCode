@@ -1,10 +1,22 @@
 package com.advent.app;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class PipBoy {
 
     int indexEndOfFirstMarker;
+
+    private static boolean allUnique(String str) {
+        HashSet<Character> chars = new HashSet<Character>();
+        for (Character c : str.toCharArray()) {
+            if (chars.contains(c)) {
+                return false;
+            }
+            chars.add(c);
+        }
+        return true;
+    }
     
     public PipBoy(ArrayList<String> input) {
         String buffer = input.get(0);
