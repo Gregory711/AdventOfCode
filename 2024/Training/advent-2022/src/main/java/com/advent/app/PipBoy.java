@@ -5,7 +5,7 @@ import java.util.HashSet;
 
 public class PipBoy {
 
-    int indexEndOfFirstMarker;
+    private int indexEndOfFirstMarker;
 
     private static boolean allUnique(String str) {
         HashSet<Character> chars = new HashSet<Character>();
