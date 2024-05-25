@@ -6,6 +6,7 @@ import java.util.HashSet;
 public class PipBoy {
 
     private int indexEndOfFirstMarker;
+    private int indexEndOfFirstMessage;
 
     private static boolean allUnique(String str) {
         HashSet<Character> chars = new HashSet<Character>();
@@ -29,10 +30,23 @@ public class PipBoy {
                 break;
             }
         }
+
+        for (int i = 13; i < buffer.length(); i++) {
+            // If this is the end of the first message then set the
+            // corresponding index and break out of the loop
+            if (allUnique(buffer.substring(i - 13, i + 1))) {
+                indexEndOfFirstMessage = i + 1; // +1 for 0 indexing
+                break;
+            }
+        }
     }
 
     public int getIndexEndOfFirstMarker() {
         return indexEndOfFirstMarker;
+    }
+
+    public int getIndexEndOfFirstMessage() {
+        return indexEndOfFirstMessage;
     }
 
 }
