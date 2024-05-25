@@ -25,7 +25,7 @@ public class PipBoy {
             // If this is the end of the first marker then set the
             // corresponding index and break out of the loop
             if (allUnique(buffer.substring(i - 3, i + 1))) {
-                indexEndOfFirstMarker = i;
+                indexEndOfFirstMarker = i + 1; // +1 for 0 indexing
                 break;
             }
         }
