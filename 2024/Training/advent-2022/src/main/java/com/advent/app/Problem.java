@@ -54,6 +54,9 @@ public class Problem {
             case "6":
                 output = Integer.toString(new PipBoy(input).getIndexEndOfFirstMarker());
                 break;
+            case "6b":
+                output = Integer.toString(new PipBoy(input).getIndexEndOfFirstMessage());
+                break;
             default:
                 output = "ToDo: Implement me!";
         }
