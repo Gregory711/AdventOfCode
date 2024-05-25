@@ -51,6 +51,9 @@ public class Problem {
             case "5b":
                 output = new Crane(input, true).getTopCrates();
                 break;
+            case "6":
+                output = Integer.toString(new PipBoy(input).getIndexEndOfFirstMarker());
+                break;
             default:
                 output = "ToDo: Implement me!";
         }
