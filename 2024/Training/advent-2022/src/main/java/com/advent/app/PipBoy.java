@@ -31,4 +31,8 @@ public class PipBoy {
         }
     }
 
+    public int getIndexEndOfFirstMarker() {
+        return indexEndOfFirstMarker;
+    }
+
 }
