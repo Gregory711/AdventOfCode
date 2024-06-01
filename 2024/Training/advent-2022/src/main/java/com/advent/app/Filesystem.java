@@ -16,6 +16,10 @@ public class Filesystem {
         boolean inOutput = false;
 
         for (int i = 0; i < input.size(); i++) {
+            // If line begins with $ then it is a command and no longer ls output
+            if (input.get(i).charAt(0) == '$') {
+                inOutput = false;
+            }
             // If not still listing output from ls cmd then intrepret the current cmd
             if (!inOutput) {
                 cmd = input.get(i);
@@ -30,7 +34,11 @@ public class Filesystem {
                     } else {
                         currDir.add(getCDDirectory(cmd));
                     }
+                } else {
+                    inOutput = true; // ls
                 }
+            } else {
+                // Add ls output to current directory
             }
         }
     }
