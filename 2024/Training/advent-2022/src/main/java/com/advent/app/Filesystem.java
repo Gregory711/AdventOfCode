@@ -18,6 +18,7 @@ public class Filesystem {
         public Directory(String name) {
             this.name = name;
             this.dirs = new ArrayList<Directory>();
+            this.files = new HashSet<String>();
             this.fileSizeSum = 0;
         }
 
