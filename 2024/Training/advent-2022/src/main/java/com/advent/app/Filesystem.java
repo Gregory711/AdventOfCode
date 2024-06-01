@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class Filesystem {
+
+    private static String getCDDirectory(String cdCMD) {
+        return cdCMD.substring("$ cd ".length());
+    }
     
     public Filesystem(ArrayList<String> input) {
 
@@ -19,11 +23,12 @@ public class Filesystem {
                 if (cmd.contains("cd")) {
                     // Parse if cmd is switching to root /, backing out .. or moving in
                     if (cmd.contains("/")) {
-                        //
+                        currDir.clear();
+                        currDir.add("/");
                     } else if (cmd.contains("..")) {
-                        //
+                        currDir.pop();
                     } else {
-                        //
+                        currDir.add(getCDDirectory(cmd));
                     }
                 }
             }
