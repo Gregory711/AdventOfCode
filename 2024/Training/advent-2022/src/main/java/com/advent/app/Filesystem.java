@@ -97,6 +97,14 @@ public class Filesystem {
                 }
             } else {
                 // Add ls output to current directory
+                // \s is regex pattern for whitespae (space/tab/newline/etc)
+                // + is regex for one or more
+                // \ needs escape char which is why there are two
+                // so \\s+ is one or more whitespace
+                String[] splitOutput = (input.get(i)).split("\\s+");
+                int fileSize = Integer.parseInt(splitOutput[0]);
+                String fileName = splitOutput[1];
+                //
             }
         }
     }
