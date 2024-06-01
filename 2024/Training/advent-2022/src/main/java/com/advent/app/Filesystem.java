@@ -1,9 +1,12 @@
 package com.advent.app;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Stack;
 
 public class Filesystem {
+
+    private HashSet<Directory> directories;
 
     private class Directory {
 
@@ -49,6 +52,7 @@ public class Filesystem {
     
     public Filesystem(ArrayList<String> input) {
 
+        directories = new HashSet<Directory>();
         Stack<String> currDir = new Stack<String>();
         String cmd;
         boolean inOutput = false;
