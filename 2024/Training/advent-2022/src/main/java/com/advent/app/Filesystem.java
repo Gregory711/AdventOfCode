@@ -5,6 +5,19 @@ import java.util.Stack;
 
 public class Filesystem {
 
+    private class Directory {
+
+        private String name;
+        private ArrayList<Directory> dirs; // contained directories
+        private int fileSizeSum; // sum of contained files excluding directories
+
+        public Directory(String name) {
+            this.name = name;
+            this.dirs = new ArrayList<Directory>();
+            this.fileSizeSum = 0;
+        }
+    }
+
     private static String getCDDirectory(String cdCMD) {
         return cdCMD.substring("$ cd ".length());
     }
