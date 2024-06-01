@@ -102,9 +102,18 @@ public class Filesystem {
                 // \ needs escape char which is why there are two
                 // so \\s+ is one or more whitespace
                 String[] splitOutput = (input.get(i)).split("\\s+");
-                int fileSize = Integer.parseInt(splitOutput[0]);
-                String fileName = splitOutput[1];
-                //
+                if (splitOutput[0].equals("dir")) {
+                    Directory temp = new Directory(splitOutput[1]);
+                    if (!currDir.peek().containsDirectory(temp)) {
+                        currDir.peek().addDirectory(temp);
+                    }
+                } else {
+                    int fileSize = Integer.parseInt(splitOutput[0]);
+                    String fileName = splitOutput[1];
+                    if (!currDir.peek().containsFile(fileName)) {
+                        currDir.peek().addFile(fileName, fileSize);
+                    }
+                }
             }
         }
     }
