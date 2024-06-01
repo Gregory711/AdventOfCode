@@ -8,7 +8,7 @@ public class Filesystem {
 
     private HashSet<Directory> directories;
 
-    private class Directory {
+    public class Directory {
 
         private String name;
         private ArrayList<Directory> dirs; // contained directories
@@ -33,6 +33,10 @@ public class Filesystem {
             dirs.add(d);
         }
 
+        public ArrayList<Directory> getDirectories() {
+            return dirs;
+        }
+
         public boolean containsFile(String name) {
             return files.contains(name);
         }
@@ -40,6 +44,10 @@ public class Filesystem {
         public void addFile(String name, int size) {
             files.add(name);
             fileSizeSum += size;
+        }
+
+        public HashSet<String> getFiles() {
+            return files;
         }
 
         // Override equals and hashcode so can put in HashSet
@@ -116,5 +124,9 @@ public class Filesystem {
                 }
             }
         }
+    }
+
+    public HashSet<Directory> getDirectories() {
+        return directories;
     }
 }
