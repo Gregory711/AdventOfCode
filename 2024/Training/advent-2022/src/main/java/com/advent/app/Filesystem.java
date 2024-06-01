@@ -63,8 +63,9 @@ public class Filesystem {
     public Filesystem(ArrayList<String> input) {
 
         directories = new HashSet<Directory>();
+        directories.add(new Directory("/")); // add root dir
         Stack<String> currDir = new Stack<String>();
-        String cmd;
+        String cmd, dir;
         boolean inOutput = false;
 
         for (int i = 0; i < input.size(); i++) {
@@ -84,7 +85,12 @@ public class Filesystem {
                     } else if (cmd.contains("..")) {
                         currDir.pop();
                     } else {
-                        currDir.add(getCDDirectory(cmd));
+                        dir = getCDDirectory(cmd);
+                        currDir.add(dir);
+                        Directory temp = new Directory(dir);
+                        if (!directories.contains(temp)) {
+                            directories.add(temp);
+                        }
                     }
                 } else {
                     inOutput = true; // ls
