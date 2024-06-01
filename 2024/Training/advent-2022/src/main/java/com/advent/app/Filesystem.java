@@ -64,7 +64,7 @@ public class Filesystem {
 
         directories = new HashSet<Directory>();
         directories.add(new Directory("/")); // add root dir
-        Stack<String> currDir = new Stack<String>();
+        Stack<Directory> currDir = new Stack<Directory>();
         String cmd, dir;
         boolean inOutput = false;
 
@@ -81,13 +81,13 @@ public class Filesystem {
                     // Parse if cmd is switching to root /, backing out .. or moving in
                     if (cmd.contains("/")) {
                         currDir.clear();
-                        currDir.add("/");
+                        currDir.add(new Directory("/"));
                     } else if (cmd.contains("..")) {
                         currDir.pop();
                     } else {
                         dir = getCDDirectory(cmd);
-                        currDir.add(dir);
                         Directory temp = new Directory(dir);
+                        currDir.add(temp);
                         if (!directories.contains(temp)) {
                             directories.add(temp);
                         }
