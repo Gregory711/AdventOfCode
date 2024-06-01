@@ -12,6 +12,7 @@ public class Filesystem {
 
         private String name;
         private ArrayList<Directory> dirs; // contained directories
+        private HashSet<String> files; // files directly contained
         private int fileSizeSum; // sum of contained files excluding directories
 
         public Directory(String name) {
@@ -21,15 +22,24 @@ public class Filesystem {
         }
 
         public String getName() {
-            return this.name;
+            return name;
+        }
+
+        public boolean containsDirectory(Directory d) {
+            return dirs.contains(d);
         }
 
         public void addDirectory(Directory d) {
-            this.dirs.add(d);
+            dirs.add(d);
         }
 
-        public void addFile(int size) {
-            this.fileSizeSum += size;
+        public boolean containsFile(String name) {
+            return files.contains(name);
+        }
+
+        public void addFile(String name, int size) {
+            files.add(name);
+            fileSizeSum += size;
         }
 
         // Override equals and hashcode so can put in HashSet
@@ -42,7 +52,7 @@ public class Filesystem {
         }
 
         public int hashCode() {
-            return this.getName().hashCode();
+            return getName().hashCode();
         }
     }
 
