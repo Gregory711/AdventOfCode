@@ -16,6 +16,18 @@ public class Filesystem {
             this.dirs = new ArrayList<Directory>();
             this.fileSizeSum = 0;
         }
+
+        public String getName() {
+            return this.name;
+        }
+
+        public void addDirectory(Directory d) {
+            this.dirs.add(d);
+        }
+
+        public void addFile(int size) {
+            this.fileSizeSum += size;
+        }
     }
 
     private static String getCDDirectory(String cdCMD) {
