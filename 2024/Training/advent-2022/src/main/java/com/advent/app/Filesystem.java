@@ -28,6 +28,19 @@ public class Filesystem {
         public void addFile(int size) {
             this.fileSizeSum += size;
         }
+
+        // Override equals and hashcode so can put in HashSet
+
+        public boolean equals(Object obj) {
+            if (!(obj instanceof Directory)) {
+                return false;
+            }
+            return this.getName() == ((Directory) obj).getName();
+        }
+
+        public int hashCode() {
+            return this.getName().hashCode();
+        }
     }
 
     private static String getCDDirectory(String cdCMD) {
