@@ -56,6 +56,14 @@ public class Filesystem {
             this.directorySizeSum += size;
         }
 
+        public int getFileSum() {
+            return this.fileSizeSum;
+        }
+
+        public int getDirectorySum() {
+            return this.directorySizeSum;
+        }
+
         // Override equals and hashcode so can put in HashSet
 
         @Override
@@ -75,11 +83,28 @@ public class Filesystem {
     private static String getCDDirectory(String cdCMD) {
         return cdCMD.substring("$ cd ".length());
     }
+
+    private int getSubdirectorySum(String dir) {
+        // Calculate the total size of all of the subdirectories in dir
+        int sum = 0;
+        Directory d = new Directory(dir);
+        ArrayList<Directory> subs = d.getDirectories();
+        for (int i = 0; i < subs.size(); i++) {
+            Directory sub = subs.get(i);
+            if (sub.getDirectorySum() == 0) {
+                sub.addToDirectorySum(getSubdirectorySum(sub.getName()));
+            }
+            sum += sub.getDirectorySum();
+            sum += sub.getFileSum();
+        }
+        return sum;
+    }
     
     public Filesystem(ArrayList<String> input) {
 
         directories = new HashSet<Directory>();
-        directories.add(new Directory("/")); // add root dir
+        Directory root = new Directory("/");
+        directories.add(root); // add root dir
         Stack<Directory> currDir = new Stack<Directory>();
         String cmd, dir;
         boolean inOutput = false;
@@ -132,6 +157,9 @@ public class Filesystem {
                 }
             }
         }
+
+        // Recursively calculate size of subdirectories
+        root.addToDirectorySum(getSubdirectorySum("/"));
     }
 
     public HashSet<Directory> getDirectories() {
@@ -140,5 +168,10 @@ public class Filesystem {
 
     public boolean fsContainsDirectory(String d) {
         return directories.contains(new Directory(d));
+    }
+
+    public int getDirectorySize(String d) {
+        Directory dir = new Directory(d);
+        return dir.getFileSum() + dir.getDirectorySum();
     }
 }
