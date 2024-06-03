@@ -36,6 +36,18 @@ public class FilesystemTests {
         input.add("dir d");
 
         fs = new Filesystem(input);
+        /**
+         * /
+         *   a
+         *     b
+         *       c.txt size 678
+         *     c
+         *       d
+         *     b.txt size 345
+         *   a.txt size 123
+         * 
+         * So / has size 123+345+678=1146, a=678+345=1023, b=678, c=d=0
+         */
     }
 
     /**
