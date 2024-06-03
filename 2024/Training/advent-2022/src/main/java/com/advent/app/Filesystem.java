@@ -86,7 +86,7 @@ public class Filesystem {
         directories = new HashMap<String, Directory>();
         Directory root = new Directory();
         directories.put("/", root); // add root dir
-        Stack<Directory> currDir = new Stack<Directory>();
+        Stack<String> currDir = new Stack<String>();
         String cmd, dir;
         boolean inOutput = false;
 
@@ -103,7 +103,7 @@ public class Filesystem {
                     // Parse if cmd is switching to root /, backing out .. or moving in
                     if (cmd.contains("/")) {
                         currDir.clear();
-                        currDir.add(root);
+                        currDir.add("/");
                     } else if (cmd.contains("..")) {
                         currDir.pop();
                     } else {
@@ -111,7 +111,7 @@ public class Filesystem {
                         if (!directories.containsKey(cmd)) {
                             directories.put(cmd, new Directory());
                         }
-                        currDir.add(directories.get(cmd));
+                        currDir.add(dir);
                     }
                 } else {
                     inOutput = true; // ls
@@ -123,6 +123,7 @@ public class Filesystem {
                 // \ needs escape char which is why there are two
                 // so \\s+ is one or more whitespace
                 String[] splitOutput = (input.get(i)).split("\\s+");
+                Directory curr = directories.get(currDir.peek());
                 if (splitOutput[0].equals("dir")) {
                     // Create directory if it doesn't exist
                     if (!directories.containsKey(splitOutput[1])) {
@@ -131,14 +132,14 @@ public class Filesystem {
                     Directory temp = directories.get(splitOutput[1]);
 
                     // Add directory as subdirectory to current directory if not already
-                    if (!currDir.peek().containsDirectory(temp)) {
-                        currDir.peek().addDirectory(splitOutput[1]);
+                    if (!curr.containsDirectory(temp)) {
+                        curr.addDirectory(splitOutput[1]);
                     }
                 } else {
                     int fileSize = Integer.parseInt(splitOutput[0]);
                     String fileName = splitOutput[1];
-                    if (!currDir.peek().containsFile(fileName)) {
-                        currDir.peek().addFile(fileName, fileSize);
+                    if (!curr.containsFile(fileName)) {
+                        curr.addFile(fileName, fileSize);
                     }
                 }
             }
@@ -154,8 +155,6 @@ public class Filesystem {
 
     public int getDirectorySize(String d) {
         Directory dir = directories.get(d);
-        System.out.println(d + " has file sum: " + dir.getFileSum() + " and directory sum " + dir.getDirectorySum());
-        System.out.println("--------------------------------");
         return dir.getFileSum() + dir.getDirectorySum();
     }
 }
