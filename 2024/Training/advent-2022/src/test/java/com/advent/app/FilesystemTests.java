@@ -1,15 +1,22 @@
 package com.advent.app;
 
-import java.util.ArrayList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.advent.app.Filesystem.Directory;
+
 public class FilesystemTests {
-    /**
-     * Verifies basic filesystem functionality
-     */
-    @Test
-    public void shouldFunction() {
+
+    private static Filesystem fs;
+
+    @BeforeClass
+    public static void init() {
         ArrayList<String> input = new ArrayList<String>();
         input.add("$ cd /");
         input.add("$ ls");
@@ -28,6 +35,20 @@ public class FilesystemTests {
         input.add("$ ls");
         input.add("dir d");
 
-        Filesystem fs = new Filesystem(input);
+        fs = new Filesystem(input);
+    }
+
+    /**
+     * Verifies fs has the visited directories and only them
+     */
+    @Test
+    public void hasCorrectDirectories() {
+        HashSet<Directory> dirs = fs.getDirectories();
+
+        assertEquals(dirs.size(), 4);
+        assertTrue(fs.fsContainsDirectory("/"));
+        assertTrue(fs.fsContainsDirectory("a"));
+        assertTrue(fs.fsContainsDirectory("b"));
+        assertTrue(fs.fsContainsDirectory("c"));
     }
 }
