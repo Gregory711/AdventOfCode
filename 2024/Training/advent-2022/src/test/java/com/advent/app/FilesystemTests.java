@@ -57,10 +57,22 @@ public class FilesystemTests {
     public void hasCorrectDirectories() {
         HashSet<Directory> dirs = fs.getDirectories();
 
-        assertEquals(dirs.size(), 4);
+        assertEquals(4, dirs.size());
         assertTrue(fs.fsContainsDirectory("/"));
         assertTrue(fs.fsContainsDirectory("a"));
         assertTrue(fs.fsContainsDirectory("b"));
         assertTrue(fs.fsContainsDirectory("c"));
+    }
+
+    /**
+     * Verifies fs has correct directory sizes
+     */
+    @Test
+    public void hasCorrectDirectorySizes() {
+        assertEquals(1146, fs.getDirectorySize("/"));
+        assertEquals(1023, fs.getDirectorySize("a"));
+        assertEquals(678, fs.getDirectorySize("b"));
+        assertEquals(0, fs.getDirectorySize("c"));
+        assertEquals(0, fs.getDirectorySize("d"));
     }
 }
