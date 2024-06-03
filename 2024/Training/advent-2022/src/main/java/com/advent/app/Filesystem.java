@@ -86,6 +86,11 @@ public class Filesystem {
         directories = new HashMap<String, Directory>();
         Directory root = new Directory();
         directories.put("/", root); // add root dir
+        // Overlooked edge case of same directory name being reused with different parent
+        // directory e.g. pizza folder as subfolder in breakfast, lunch, and dinner folders
+        // TODO: Make test case that covers this edge case
+        // TODO: Fix this edge case, prob by replacing stack with custom stack object that
+        // keeps track of entire path and use that as directory name instead of just innermost
         Stack<String> currDir = new Stack<String>();
         String cmd, dir;
         boolean inOutput = false;
