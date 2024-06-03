@@ -57,6 +57,9 @@ public class Problem {
             case "6b":
                 output = Integer.toString(new PipBoy(input).getIndexEndOfFirstMessage());
                 break;
+            case "7":
+                output = Long.toString(new Filesystem(input).getSumOfSmallDirectories());
+                break;
             default:
                 output = "ToDo: Implement me!";
         }

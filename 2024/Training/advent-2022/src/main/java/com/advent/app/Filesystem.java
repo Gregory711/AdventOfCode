@@ -157,4 +157,17 @@ public class Filesystem {
         Directory dir = directories.get(d);
         return dir.getFileSum() + dir.getDirectorySum();
     }
+
+    public long getSumOfSmallDirectories() {
+        // Returns sum of directories with size <= 100,000 (double counts subs)
+        long sum = 0;
+        int size;
+        for (String dirName : directories.keySet()) {
+            size = getDirectorySize(dirName);
+            if (size <= 100000) {
+                sum += size;
+            }
+        }
+        return sum;
+    }
 }
