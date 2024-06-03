@@ -14,12 +14,13 @@ public class Filesystem {
         private ArrayList<Directory> dirs; // contained directories
         private HashSet<String> files; // files directly contained
         private int fileSizeSum; // sum of contained files excluding directories
+        private int directorySizeSum; // sum of contained directories and their contained files
 
         public Directory(String name) {
             this.name = name;
             this.dirs = new ArrayList<Directory>();
             this.files = new HashSet<String>();
-            this.fileSizeSum = 0;
+            this.fileSizeSum = this.directorySizeSum = 0;
         }
 
         public String getName() {
@@ -49,6 +50,10 @@ public class Filesystem {
 
         public HashSet<String> getFiles() {
             return files;
+        }
+
+        public void addToDirectorySum(int size) {
+            this.directorySizeSum += size;
         }
 
         // Override equals and hashcode so can put in HashSet
