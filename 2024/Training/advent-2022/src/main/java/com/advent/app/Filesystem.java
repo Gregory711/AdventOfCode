@@ -53,13 +53,15 @@ public class Filesystem {
 
         // Override equals and hashcode so can put in HashSet
 
+        @Override
         public boolean equals(Object obj) {
             if (!(obj instanceof Directory)) {
                 return false;
             }
-            return this.getName() == ((Directory) obj).getName();
+            return this.getName().equals(((Directory) obj).getName());
         }
 
+        @Override
         public int hashCode() {
             return getName().hashCode();
         }
@@ -129,5 +131,9 @@ public class Filesystem {
 
     public HashSet<Directory> getDirectories() {
         return directories;
+    }
+
+    public boolean fsContainsDirectory(String d) {
+        return directories.contains(new Directory(d));
     }
 }
