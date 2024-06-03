@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -55,13 +55,13 @@ public class FilesystemTests {
      */
     @Test
     public void hasCorrectDirectories() {
-        HashSet<Directory> dirs = fs.getDirectories();
+        HashMap<String, Directory> dirs = fs.getDirectories();
 
-        assertEquals(4, dirs.size());
-        assertTrue(fs.fsContainsDirectory("/"));
-        assertTrue(fs.fsContainsDirectory("a"));
-        assertTrue(fs.fsContainsDirectory("b"));
-        assertTrue(fs.fsContainsDirectory("c"));
+        assertEquals(4*2, dirs.size());
+        assertTrue(dirs.containsKey("/"));
+        assertTrue(dirs.containsKey("a"));
+        assertTrue(dirs.containsKey("b"));
+        assertTrue(dirs.containsKey("c"));
     }
 
     /**

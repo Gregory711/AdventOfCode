@@ -1,41 +1,36 @@
 package com.advent.app;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Stack;
 
 public class Filesystem {
 
-    private HashSet<Directory> directories;
+    private HashMap<String, Directory> directories; // names to directories
 
     public class Directory {
 
-        private String name;
-        private ArrayList<Directory> dirs; // contained directories
+        private ArrayList<String> dirs; // contained directories (names)
         private HashSet<String> files; // files directly contained
         private int fileSizeSum; // sum of contained files excluding directories
         private int directorySizeSum; // sum of contained directories and their contained files
 
-        public Directory(String name) {
-            this.name = name;
-            this.dirs = new ArrayList<Directory>();
+        public Directory() {
+            this.dirs = new ArrayList<String>();
             this.files = new HashSet<String>();
             this.fileSizeSum = this.directorySizeSum = 0;
-        }
-
-        public String getName() {
-            return name;
         }
 
         public boolean containsDirectory(Directory d) {
             return dirs.contains(d);
         }
 
-        public void addDirectory(Directory d) {
+        public void addDirectory(String d) {
             dirs.add(d);
         }
 
-        public ArrayList<Directory> getDirectories() {
+        public ArrayList<String> getDirectories() {
             return dirs;
         }
 
@@ -63,21 +58,6 @@ public class Filesystem {
         public int getDirectorySum() {
             return this.directorySizeSum;
         }
-
-        // Override equals and hashcode so can put in HashSet
-
-        @Override
-        public boolean equals(Object obj) {
-            if (!(obj instanceof Directory)) {
-                return false;
-            }
-            return this.getName().equals(((Directory) obj).getName());
-        }
-
-        @Override
-        public int hashCode() {
-            return getName().hashCode();
-        }
     }
 
     private static String getCDDirectory(String cdCMD) {
@@ -87,24 +67,25 @@ public class Filesystem {
     private int getSubdirectorySum(String dir) {
         // Calculate the total size of all of the subdirectories in dir
         int sum = 0;
-        Directory d = new Directory(dir);
-        ArrayList<Directory> subs = d.getDirectories();
+        Directory d = directories.get(dir);
+        ArrayList<String> subs = d.getDirectories();
         for (int i = 0; i < subs.size(); i++) {
-            Directory sub = subs.get(i);
-            if (sub.getDirectorySum() == 0) {
-                sub.addToDirectorySum(getSubdirectorySum(sub.getName()));
+            String sub = subs.get(i);
+            Directory subdir = directories.get(sub);
+            if (subdir.getDirectorySum() == 0) {
+                subdir.addToDirectorySum(getSubdirectorySum(sub));
             }
-            sum += sub.getDirectorySum();
-            sum += sub.getFileSum();
+            sum += subdir.getDirectorySum();
+            sum += subdir.getFileSum();
         }
         return sum;
     }
     
     public Filesystem(ArrayList<String> input) {
 
-        directories = new HashSet<Directory>();
-        Directory root = new Directory("/");
-        directories.add(root); // add root dir
+        directories = new HashMap<String, Directory>();
+        Directory root = new Directory();
+        directories.put("/", root); // add root dir
         Stack<Directory> currDir = new Stack<Directory>();
         String cmd, dir;
         boolean inOutput = false;
@@ -122,16 +103,15 @@ public class Filesystem {
                     // Parse if cmd is switching to root /, backing out .. or moving in
                     if (cmd.contains("/")) {
                         currDir.clear();
-                        currDir.add(new Directory("/"));
+                        currDir.add(root);
                     } else if (cmd.contains("..")) {
                         currDir.pop();
                     } else {
                         dir = getCDDirectory(cmd);
-                        Directory temp = new Directory(dir);
-                        currDir.add(temp);
-                        if (!directories.contains(temp)) {
-                            directories.add(temp);
+                        if (!directories.containsKey(cmd)) {
+                            directories.put(cmd, new Directory());
                         }
+                        currDir.add(directories.get(cmd));
                     }
                 } else {
                     inOutput = true; // ls
@@ -144,9 +124,15 @@ public class Filesystem {
                 // so \\s+ is one or more whitespace
                 String[] splitOutput = (input.get(i)).split("\\s+");
                 if (splitOutput[0].equals("dir")) {
-                    Directory temp = new Directory(splitOutput[1]);
+                    // Create directory if it doesn't exist
+                    if (!directories.containsKey(splitOutput[1])) {
+                        directories.put(splitOutput[1], new Directory());
+                    }
+                    Directory temp = directories.get(splitOutput[1]);
+
+                    // Add directory as subdirectory to current directory if not already
                     if (!currDir.peek().containsDirectory(temp)) {
-                        currDir.peek().addDirectory(temp);
+                        currDir.peek().addDirectory(splitOutput[1]);
                     }
                 } else {
                     int fileSize = Integer.parseInt(splitOutput[0]);
@@ -162,16 +148,14 @@ public class Filesystem {
         root.addToDirectorySum(getSubdirectorySum("/"));
     }
 
-    public HashSet<Directory> getDirectories() {
+    public HashMap<String, Directory> getDirectories() {
         return directories;
     }
 
-    public boolean fsContainsDirectory(String d) {
-        return directories.contains(new Directory(d));
-    }
-
     public int getDirectorySize(String d) {
-        Directory dir = new Directory(d);
+        Directory dir = directories.get(d);
+        System.out.println(d + " has file sum: " + dir.getFileSum() + " and directory sum " + dir.getDirectorySum());
+        System.out.println("--------------------------------");
         return dir.getFileSum() + dir.getDirectorySum();
     }
 }
