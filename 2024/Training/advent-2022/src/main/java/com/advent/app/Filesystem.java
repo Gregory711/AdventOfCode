@@ -184,4 +184,18 @@ public class Filesystem {
         }
         return sum;
     }
+
+    public int getSizeOfDirectoryToDelete() {
+        // returns the size of the smallest directory that leaves <= 40000000 filled in
+        // on the 70000000 sized fs to get unused space of >= 30000000
+        int minSize = 70000000, dirSize;
+        int needToRemove = getDirectorySize("/") - 40000000;
+        for (String dirName : directories.keySet()) {
+            dirSize = getDirectorySize(dirName);
+            if (dirSize >= needToRemove && dirSize < minSize) {
+                minSize = dirSize;
+            }
+        }
+        return minSize;
+    }
 }
