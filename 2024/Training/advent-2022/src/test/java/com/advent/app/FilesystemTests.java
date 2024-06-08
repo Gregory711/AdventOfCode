@@ -48,7 +48,7 @@ public class FilesystemTests {
          *   a.txt size 123
          * 
          * So / has size 123+345+678=1146, a=678+345=1023, b=678, c=d=0
-         * and five directories: /, a, b, c, d
+         * and five directories: /, /a, /ab, /ac, /acd
          */
 
          ArrayList<String> input2 = new ArrayList<String>();
@@ -68,7 +68,7 @@ public class FilesystemTests {
                 b
               b
 
-          So five directories: /, /a, /a/a, /a/b/, /b
+          So five directories: /, /a, /aa, /ab, /b
           */
     }
 
@@ -106,7 +106,11 @@ public class FilesystemTests {
     public void hasCorrectDirectories2() {
         HashMap<String, Directory> dirs = fs2.getDirectories();
 
-        assertEquals(5*2, dirs.size());
-        // TODO: assert individual directories included
+        assertEquals(5, dirs.size());
+        assertTrue(dirs.containsKey("/"));
+        assertTrue(dirs.containsKey("/a"));
+        assertTrue(dirs.containsKey("/aa"));
+        assertTrue(dirs.containsKey("/ab"));
+        assertTrue(dirs.containsKey("/b"));
     }
 }
