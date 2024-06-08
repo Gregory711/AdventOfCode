@@ -144,7 +144,6 @@ public class Filesystem {
                     if (!directories.containsKey(dir)) {
                         directories.put(dir, new Directory());
                     }
-                    Directory temp = directories.get(dir);
 
                     // Add directory as subdirectory to current directory if not already
                     if (!curr.containsDirectory(dir)) {
