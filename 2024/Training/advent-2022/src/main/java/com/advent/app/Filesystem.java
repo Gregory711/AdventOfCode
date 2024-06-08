@@ -92,6 +92,7 @@ public class Filesystem {
         // TODO: Fix this edge case, prob by replacing stack with custom stack object that
         // keeps track of entire path and use that as directory name instead of just innermost
         Stack<String> currDir = new Stack<String>();
+        String currPath = "";
         String cmd, dir;
         boolean inOutput = false;
 
@@ -109,14 +110,17 @@ public class Filesystem {
                     if (cmd.contains("/")) {
                         currDir.clear();
                         currDir.add("/");
+                        currPath += "/";
                     } else if (cmd.contains("..")) {
-                        currDir.pop();
+                        int removed = currDir.pop().length();
+                        currPath = currPath.substring(0, currPath.length() - removed);
                     } else {
                         dir = getCDDirectory(cmd);
                         if (!directories.containsKey(cmd)) {
                             directories.put(cmd, new Directory());
                         }
                         currDir.add(dir);
+                        currPath += dir;
                     }
                 } else {
                     inOutput = true; // ls
