@@ -22,7 +22,7 @@ public class Filesystem {
             this.fileSizeSum = this.directorySizeSum = 0;
         }
 
-        public boolean containsDirectory(Directory d) {
+        public boolean containsDirectory(String d) {
             return dirs.contains(d);
         }
 
@@ -88,9 +88,6 @@ public class Filesystem {
         directories.put("/", root); // add root dir
         // Overlooked edge case of same directory name being reused with different parent
         // directory e.g. pizza folder as subfolder in breakfast, lunch, and dinner folders
-        // TODO: Make test case that covers this edge case
-        // TODO: Fix this edge case, prob by replacing stack with custom stack object that
-        // keeps track of entire path and use that as directory name instead of just innermost
         Stack<String> currDir = new Stack<String>();
         String currPath = "";
         Stack<Integer> currDirLengths = new Stack<Integer>(); // lengths of individual directory strs
@@ -150,7 +147,7 @@ public class Filesystem {
                     Directory temp = directories.get(dir);
 
                     // Add directory as subdirectory to current directory if not already
-                    if (!curr.containsDirectory(temp)) {
+                    if (!curr.containsDirectory(dir)) {
                         curr.addDirectory(dir);
                     }
                 } else {
