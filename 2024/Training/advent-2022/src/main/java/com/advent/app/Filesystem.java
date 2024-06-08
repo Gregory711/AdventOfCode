@@ -116,8 +116,8 @@ public class Filesystem {
                         currPath = currPath.substring(0, currPath.length() - removed);
                     } else {
                         dir = getCDDirectory(cmd);
-                        if (!directories.containsKey(cmd)) {
-                            directories.put(cmd, new Directory());
+                        if (!directories.containsKey(dir)) {
+                            directories.put(dir, new Directory());
                         }
                         currDir.add(dir);
                         currPath += dir;
