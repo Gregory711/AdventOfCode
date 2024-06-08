@@ -93,6 +93,7 @@ public class Filesystem {
         // keeps track of entire path and use that as directory name instead of just innermost
         Stack<String> currDir = new Stack<String>();
         String currPath = "";
+        Stack<Integer> currDirLengths = new Stack<Integer>(); // lengths of individual directory strs
         String cmd, dir;
         boolean inOutput = false;
 
@@ -109,18 +110,24 @@ public class Filesystem {
                     // Parse if cmd is switching to root /, backing out .. or moving in
                     if (cmd.contains("/")) {
                         currDir.clear();
+                        currDirLengths.clear();
                         currDir.add("/");
                         currPath += "/";
+                        currDirLengths.add(1);
                     } else if (cmd.contains("..")) {
-                        int removed = currDir.pop().length();
+                        int removed = currDirLengths.pop();
+                        //System.out.println("cd .. at " + currPath);
                         currPath = currPath.substring(0, currPath.length() - removed);
+                        //System.out.println("moved to " + currPath);
                     } else {
                         dir = getCDDirectory(cmd);
+                        currDirLengths.add(dir.length());
+                        currPath += dir;
+                        dir = currPath;
                         if (!directories.containsKey(dir)) {
                             directories.put(dir, new Directory());
                         }
                         currDir.add(dir);
-                        currPath += dir;
                     }
                 } else {
                     inOutput = true; // ls
@@ -134,15 +141,17 @@ public class Filesystem {
                 String[] splitOutput = (input.get(i)).split("\\s+");
                 Directory curr = directories.get(currDir.peek());
                 if (splitOutput[0].equals("dir")) {
+                    dir = currPath + splitOutput[1];
+                    //System.out.println("ls revealed directory: " + dir);
                     // Create directory if it doesn't exist
-                    if (!directories.containsKey(splitOutput[1])) {
-                        directories.put(splitOutput[1], new Directory());
+                    if (!directories.containsKey(dir)) {
+                        directories.put(dir, new Directory());
                     }
-                    Directory temp = directories.get(splitOutput[1]);
+                    Directory temp = directories.get(dir);
 
                     // Add directory as subdirectory to current directory if not already
                     if (!curr.containsDirectory(temp)) {
-                        curr.addDirectory(splitOutput[1]);
+                        curr.addDirectory(dir);
                     }
                 } else {
                     int fileSize = Integer.parseInt(splitOutput[0]);

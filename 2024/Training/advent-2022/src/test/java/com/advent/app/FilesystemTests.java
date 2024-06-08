@@ -78,11 +78,13 @@ public class FilesystemTests {
     @Test
     public void hasCorrectDirectories() {
         HashMap<String, Directory> dirs = fs.getDirectories();
+        //System.out.println(dirs);
         assertEquals(5, dirs.size());
         assertTrue(dirs.containsKey("/"));
-        assertTrue(dirs.containsKey("a"));
-        assertTrue(dirs.containsKey("b"));
-        assertTrue(dirs.containsKey("c"));
+        assertTrue(dirs.containsKey("/a"));
+        assertTrue(dirs.containsKey("/ab"));
+        assertTrue(dirs.containsKey("/ac"));
+        assertTrue(dirs.containsKey("/acd"));
     }
 
     /**
@@ -91,10 +93,10 @@ public class FilesystemTests {
     @Test
     public void hasCorrectDirectorySizes() {
         assertEquals(1146, fs.getDirectorySize("/"));
-        assertEquals(1023, fs.getDirectorySize("a"));
-        assertEquals(678, fs.getDirectorySize("b"));
-        assertEquals(0, fs.getDirectorySize("c"));
-        assertEquals(0, fs.getDirectorySize("d"));
+        assertEquals(1023, fs.getDirectorySize("/a"));
+        assertEquals(678, fs.getDirectorySize("/ab"));
+        assertEquals(0, fs.getDirectorySize("/ac"));
+        assertEquals(0, fs.getDirectorySize("/acd"));
     }
 
     /*
