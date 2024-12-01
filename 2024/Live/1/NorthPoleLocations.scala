@@ -18,9 +18,13 @@ object Main {
     )
     val listASorted = listA.sorted
     val listBSorted = listB.sorted
+    var distance: Int = 0
     for
         i <- 0 to listASorted.size - 1
     do
-        println(listASorted(i) + ", " + listBSorted(i))
+        //println(listASorted(i) + ", " + listBSorted(i))
+        distance += (listASorted(i).toInt - listBSorted(i).toInt).abs
+        //println("Distance: " + distance)
+    println("The total distance is " + distance)
   }
 }
