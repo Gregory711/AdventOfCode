@@ -13,7 +13,7 @@ object Main {
         // Split breaks String into String Array
         // " +" is regex for one or more of what came before it which in this case is a space
         // So splits line into an array of strings broken up by spaces
-        val ids = line.split(" +");
+        val ids = line.split(" +")
         listA.append(ids(0).toInt)
         listB.append(ids(1).toInt)
         // If id already in hashmap increment it otherwise insert it with value 1
