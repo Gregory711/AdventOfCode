@@ -1,5 +1,6 @@
 import scala.io.Source
 import scala.collection.mutable.ArrayBuffer
+import scala.collection.mutable.HashMap
 
 object Main {
   def main(args: Array[String]): Unit = {
@@ -7,6 +8,7 @@ object Main {
     val lines = Source.fromFile(filename).getLines().toList
     val listA = ArrayBuffer[String]()
     val listB = ArrayBuffer[String]()
+    val occurrences = HashMap[Int, Int]()
     lines.foreach(line =>
         // Split breaks String into String Array
         // " +" is regex for one or more of what came before it which in this case is a space
