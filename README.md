@@ -102,6 +102,10 @@ This year going to use Advent of Code as a way of improving my Scala skills!
 
 Problems are in folders named by the day starting with 0 which contains template CookieCutter.scala I'll add to with code I intend to reuse across days along with notes and example.
 
+### Progress
+
+So far 1-1 inclusive are finished for a total of 2 stars.
+
 ### Environment Requirements
 - Java 17
 - Scala 3.6
@@ -111,6 +115,9 @@ Problems are in folders named by the day starting with 0 which contains template
 cd 2024/Live/0
 scala CookieCutter.scala
 ```
+
+### Part 1 vs 2
+This year I'm trying to just use the same file and have it print both answers. For day 1 it was easy to do side by side. Further down the line I'll likely have to move much of the logic into functions to keep things organized.
 
 </details>
 
