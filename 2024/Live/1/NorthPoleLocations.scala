@@ -16,5 +16,11 @@ object Main {
         listB.append(ids(1))
         //println(ids(0) + ", " + ids(1));
     )
+    val listASorted = listA.sorted
+    val listBSorted = listB.sorted
+    for
+        i <- 0 to listASorted.size - 1
+    do
+        println(listASorted(i) + ", " + listBSorted(i))
   }
 }
