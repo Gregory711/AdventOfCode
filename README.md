@@ -1,4 +1,5 @@
-# 2023
+<details>
+<summary>2023</summary>
 
 First time participating, using it as a way to improve my Python skills.
 
@@ -24,10 +25,13 @@ source advent/bin/activate
 pip install pydantic
 pip install pytest
 ```
+</details>
 
-# 2024
+<details>
+<summary>2024</summary>
 
-## Training
+<details>
+<summary>Training</summary>
 
 ### advent-2022
 
@@ -89,3 +93,5 @@ Then add a new case to the day switch in Problem.java that sets output to the re
 #### Adding Part 2
 
 Just add the character b (lowercase) to the end of the day number e.g. `1b` for day 1 part 2. This applies to the test and input files as well as the Problem switch. The solution can just be another method in the same class.
+</details>
+</details>
