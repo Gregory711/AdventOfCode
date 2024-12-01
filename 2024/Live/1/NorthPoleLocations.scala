@@ -16,6 +16,11 @@ object Main {
         val ids = line.split(" +");
         listA.append(ids(0).toInt)
         listB.append(ids(1).toInt)
+        // If id already in hashmap increment it otherwise insert it with value 1
+        occurrences.updateWith(ids(1).toInt) {
+            case Some(id) => Some(id + 1)
+            case None => Some(1)
+        }
         //println(ids(0) + ", " + ids(1));
     )
     val listASorted = listA.sorted
