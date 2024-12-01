@@ -100,7 +100,17 @@ Just add the character b (lowercase) to the end of the day number e.g. `1b` for 
 
 This year going to use Advent of Code as a way of improving my Scala skills!
 
-Problems are in folders named by the day starting with 0 which contains template I'll add to with code I intend to reuse across days along with notes and example.
+Problems are in folders named by the day starting with 0 which contains template CookieCutter.scala I'll add to with code I intend to reuse across days along with notes and example.
+
+### Environment Requirements
+- Java 17
+- Scala 3.6
+
+### Running the Problem
+```bash
+cd 2024/Live/0
+scala CookieCutter.scala
+```
 
 </details>
 
