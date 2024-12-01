@@ -22,16 +22,21 @@ object Main {
             case None => Some(1)
         }
         //println(ids(0) + ", " + ids(1));
+        //println(occurrences)
     )
     val listASorted = listA.sorted
     val listBSorted = listB.sorted
     var distance: Int = 0
+    var similarity: Int = 0
     for
         i <- 0 to listASorted.size - 1
     do
         //println(listASorted(i) + ", " + listBSorted(i))
         distance += (listASorted(i) - listBSorted(i)).abs
         //println("Distance: " + distance)
+        similarity += listASorted(i) * occurrences.getOrElse(listASorted(i), 0)
+        //println("Similarity: " + similarity)
     println("The total distance is " + distance)
+    println("The total similarity score is " + similarity)
   }
 }
