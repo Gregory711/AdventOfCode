@@ -94,4 +94,14 @@ Then add a new case to the day switch in Problem.java that sets output to the re
 
 Just add the character b (lowercase) to the end of the day number e.g. `1b` for day 1 part 2. This applies to the test and input files as well as the Problem switch. The solution can just be another method in the same class.
 </details>
+
+<details>
+<summary>Live</summary>
+
+This year going to use Advent of Code as a way of improving my Scala skills!
+
+Problems are in folders named by the day starting with 0 which contains template I'll add to with code I intend to reuse across days along with notes and example.
+
+</details>
+
 </details>
