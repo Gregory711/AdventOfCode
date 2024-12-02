@@ -7,22 +7,23 @@ object Main {
         var decreasing: Boolean = false
         var gradual: Boolean = true
         var last: Int = -1
-        levels.foreach(level =>
+        for (i <- 0 to levels.size - 1 if i != dampen) {
+            val level: Int = levels(i).toInt
             //println("Processing level: " + level)
             if (!first) {
-                if (level.toInt > last) {
+                if (level > last) {
                     increasing = true
-                } else if (level.toInt < last) {
+                } else if (level < last) {
                     decreasing = true
                 }
-                val diff: Int = (level.toInt - last).abs
+                val diff: Int = (level - last).abs
                 if (diff < 1 || diff > 3) {
                     gradual = false
                 }
             }
-            last = level.toInt
+            last = level
             first = false
-        )
+        }
         if (gradual && (increasing != decreasing)) {
             return true
         }
