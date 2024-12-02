@@ -4,6 +4,7 @@ object Main {
     def main(args: Array[String]): Unit = {
         val filename = "reports.txt"
         val lines = Source.fromFile(filename).getLines().toList
+        var safeReportCount: Int = 0
 
         lines.foreach(line =>
             val levels = line.split(" +")
@@ -26,7 +27,12 @@ object Main {
                     }
                 }
                 last = level.toInt
+                first = false
             )
+            if (gradual && (increasing != decreasing)) {
+                safeReportCount = safeReportCount + 1
+            }
         )
+        println("There are a total of " + safeReportCount + " safe reports.")
     }
 }
