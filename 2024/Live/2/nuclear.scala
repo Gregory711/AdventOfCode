@@ -10,9 +10,22 @@ object Main {
             var first: Boolean = true
             var increasing: Boolean = false
             var decreasing: Boolean = false
+            var gradual: Boolean = true
             var last: Int = -1
             levels.foreach(level =>
-                println("Processing level: " + level)
+                //println("Processing level: " + level)
+                if (!first) {
+                    if (level.toInt > last) {
+                        increasing = true
+                    } else if (level.toInt < last) {
+                        decreasing = true
+                    }
+                    val diff: Int = (level.toInt - last).abs
+                    if (diff < 1 || diff > 3) {
+                        gradual = false
+                    }
+                }
+                last = level.toInt
             )
         )
     }
