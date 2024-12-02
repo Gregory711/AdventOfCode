@@ -34,13 +34,22 @@ object Main {
         val filename = "reports.txt"
         val lines = Source.fromFile(filename).getLines().toList
         var safeReportCount: Int = 0
+        var safeReportCountWithDampening: Int = 0
 
         lines.foreach(line =>
             val levels = line.split(" +")
+            var safe: Boolean = false
+            for (i <- -1 to levels.size - 1 if !safe) {
+                safe = reportIsSafe(levels, i)
+            }
             if (reportIsSafe(levels, -1)) {
                 safeReportCount = safeReportCount + 1
             }
+            if (safe) {
+                safeReportCountWithDampening = safeReportCountWithDampening + 1
+            }
         )
-        println("There are a total of " + safeReportCount + " safe reports.")
+        println("There are a total of " + safeReportCount + " safe reports without dampening.")
+        println("There are a total of " + safeReportCountWithDampening + " safe reports with dampening.")
     }
 }
