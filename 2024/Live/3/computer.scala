@@ -42,18 +42,24 @@ object Main {
         return (argA * argB, closeIndex + 1)
     }
 
+    def getMulTotal(instructions: String): Int = {
+        var mulTotal = 0
+        var startIndex = 0
+        while (startIndex < instructions.size) {
+            val (mul, index) = getMulValue(instructions, startIndex)
+            mulTotal = mulTotal + mul
+            startIndex = index
+        }
+        return mulTotal
+    }
+
     def main(args: Array[String]): Unit = {
         val filename = "instructions.txt"
         val lines = Source.fromFile(filename).getLines().toList
 
         var mulTotal = 0
         lines.foreach(line =>
-            var startIndex = 0
-            while (startIndex < line.size) {
-                val (mul, index) = getMulValue(line, startIndex)
-                mulTotal = mulTotal + mul
-                startIndex = index
-            }
+            mulTotal = mulTotal + getMulTotal(line)
         )
         println("The total value of mul instructions is " + mulTotal)
     }
