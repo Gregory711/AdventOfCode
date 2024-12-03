@@ -57,10 +57,12 @@ object Main {
         val filename = "instructions.txt"
         val lines = Source.fromFile(filename).getLines().toList
 
-        var mulTotal = 0
+        var mulTotalPart1 = 0
+        var mulTotalPart2 = 0
         lines.foreach(line =>
-            mulTotal = mulTotal + getMulTotal(line)
+            mulTotalPart1 = mulTotalPart1 + getMulTotal(line)
         )
-        println("The total value of mul instructions is " + mulTotal)
+        println("The total value of mul instructions for part 1 is " + mulTotalPart1)
+        println("The total value of mul instructions for part 2 is " + mulTotalPart2)
     }
 }
