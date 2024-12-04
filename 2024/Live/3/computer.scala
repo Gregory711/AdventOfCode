@@ -39,6 +39,7 @@ object Main {
         }
         //println("  Arg B is " + argB)
         // Return result of calculating mul instruction!
+        //println("Added " + argA + " * " + argB + " = " + argA * argB)
         return (argA * argB, closeIndex + 1)
     }
 
@@ -54,13 +55,39 @@ object Main {
     }
 
     def main(args: Array[String]): Unit = {
-        val filename = "instructions.txt"
+        val filename = "instructions2.txt"
         val lines = Source.fromFile(filename).getLines().toList
 
         var mulTotalPart1 = 0
         var mulTotalPart2 = 0
+        var enabled = true
         lines.foreach(line =>
+            // Part 1
             mulTotalPart1 = mulTotalPart1 + getMulTotal(line)
+            // Part 2
+            var startIndex: Int = 0
+            var endIndex: Int = -1
+            while (startIndex < line.size && endIndex < line.size) {
+                if (enabled) {
+                    endIndex = line.indexOf("don't()", (endIndex).max(startIndex) + 1)
+                    //println("endIndex is " + endIndex)
+                    if (endIndex == -1) {
+                        endIndex = line.size
+                    } else {
+                        enabled = false
+                    }
+                    mulTotalPart2 = mulTotalPart2 + getMulTotal(line.slice(startIndex, endIndex))
+                    //println("Adding " + startIndex + "-" + endIndex + " bringing total to " + mulTotalPart2)
+                }
+                if (!enabled) {
+                    startIndex = line.indexOf("do()", endIndex + 1)
+                    if (startIndex == -1) {
+                        startIndex = line.size
+                    } else {
+                        enabled = true
+                    }
+                }
+            }
         )
         println("The total value of mul instructions for part 1 is " + mulTotalPart1)
         println("The total value of mul instructions for part 2 is " + mulTotalPart2)
