@@ -18,7 +18,8 @@ object Main {
                 if (!before.contains(b)) {
                     before(b) = List.empty[Int]
                 }
-                before(b).prepended(a)
+                before(b) = before(b).prepended(a)
+                //println("Added rule that before " + b + " must be " + a + " if " + a + " is included")
             } else if (comma != -1) {
                 val pages = line.split(",+")
                 var addMiddle: Boolean = true
@@ -28,8 +29,10 @@ object Main {
                     if (rulesBarred.contains(page.toInt)) {
                         addMiddle = false
                     } else if (addMiddle) {
+                        //println("Checking if there are rules on what must come before " + page)
                         if (before.contains(page.toInt)) {
                             before(page.toInt).foreach(rule =>
+                                //println(page.toInt + " is barring " + rule)
                                 rulesBarred.add(rule)
                             )
                         }
