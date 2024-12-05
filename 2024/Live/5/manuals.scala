@@ -8,6 +8,7 @@ object Main {
         val lines = Source.fromFile(filename).getLines().toList
 
         var before = new HashMap[Int, List[Int]]()
+        var middleSum: Int = 0
         lines.foreach(line =>
             val pipe: Int = line.indexOf('|')
             val comma: Int = line.indexOf(',')
@@ -39,9 +40,15 @@ object Main {
                     }
                 )
                 if (addMiddle) {
-                    println("Should add middle number for this report: " + line)
+                    //println("Should add middle number for this report: " + line)
+                    if ((pages.size % 2) == 0) {
+                        println("ERROR: CANNOT FIGURE OUT MIDDLE NUMBER FOR EVEN LENGTH LIST!")
+                    } else {
+                        middleSum = middleSum + pages(pages.length / 2).toInt
+                    }
                 }
             }
         )
+        println("The sum of the middles is " + middleSum)
     }
 }
