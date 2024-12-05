@@ -3,9 +3,9 @@ Stats:
   - Live: 24 Stars
 - 2024:
   - Training: 14 Stars
-  - Live: 2 Stars
+  - Live: 8 Stars
 
-Total: 40 Stars
+Total: 46 Stars
 
 <details>
 <summary>2023</summary>
@@ -113,7 +113,7 @@ Problems are in folders named by the day starting with 0 which contains template
 
 ### Progress
 
-So far 1-1 inclusive are finished for a total of 2 stars.
+So far 1-4 inclusive are finished for a total of 8 stars.
 
 ### Environment Requirements
 - Java 17
