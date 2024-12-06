@@ -15,12 +15,12 @@ object Main {
         }
     }
 
-    def getNextDirection(guard: Char): Coordinate = {
-        guard match {
-            case '>' => Coordinate(0, 1)
-            case 'v' => Coordinate(-1, 0)
-            case '<' => Coordinate(0, -1)
-            case '^' => Coordinate(1, 0)
+    def getNextDirection(guardDirection: Coordinate): Coordinate = {
+        guardDirection match {
+            case Coordinate(1, 0) => Coordinate(0, 1)
+            case Coordinate(0, 1) => Coordinate(-1, 0)
+            case Coordinate(-1, 0) => Coordinate(0, -1)
+            case Coordinate(0, -1) => Coordinate(1, 0)
         }
     }
 
@@ -55,6 +55,26 @@ object Main {
         }
         //println("Guard is initially at " + guard.x + ", " + guard.y)
 
-        //
+        var visited: Int = 0
+        var outOfBounds: Boolean = false
+        var guardDirection: Coordinate = getDirection(lab(guard.y)(guard.x)).get
+        while (!outOfBounds) {
+            // If on a new tile then mark it visited and increment visited
+            if (lab(guard.y)(guard.x) != 'X') {
+                lab(guard.y)(guard.x) = 'X'
+                visited = visited + 1
+            }
+            val ahead = Coordinate(guard.x + guardDirection.x, guard.y + guardDirection.y)
+            val newDirection = getDirection(lab(ahead.y)(ahead.x))
+            if (!inBounds(ahead, lab)) {
+                outOfBounds = true
+            } else if (newDirection == None) {
+                // Ahead is obstacle so need to change direction
+                guardDirection = getNextDirection(guardDirection)
+            } else {
+                guard = ahead
+            }
+        }
+        println("The guard visited " + visited + " locations")
     }
 }
