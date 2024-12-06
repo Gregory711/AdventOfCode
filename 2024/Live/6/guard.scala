@@ -10,9 +10,28 @@ object Main {
             case '>' => Some(Coordinate(1, 0))
             case 'v' => Some(Coordinate(0, 1))
             case '<' => Some(Coordinate(-1, 0))
-            case '^' => Some(Coordinate(-1, 0))
+            case '^' => Some(Coordinate(0, -1))
             case _ => None
         }
+    }
+
+    def getNextDirection(guard: Char): Coordinate = {
+        guard match {
+            case '>' => Coordinate(0, 1)
+            case 'v' => Coordinate(-1, 0)
+            case '<' => Coordinate(0, -1)
+            case '^' => Coordinate(1, 0)
+        }
+    }
+
+    def inBounds(coords: Coordinate, lab: ArrayBuffer[Array[Char]]): Boolean = {
+        if (
+            coords.y < 0 || coords.x < 0 ||
+            coords.y >= lab.size || coords.x >= lab(coords.y).size
+        ) {
+            return false
+        }
+        return true
     }
 
     def main(args: Array[String]): Unit = {
@@ -20,9 +39,9 @@ object Main {
         val lines = Source.fromFile(filename).getLines().toList
 
         // Read in input
-        var lab = ArrayBuffer[String]()
+        var lab = ArrayBuffer[Array[Char]]()
         lines.foreach(line =>
-            lab.append(line)
+            lab.append(line.toCharArray)
         )
 
         // Get initial location of guard
@@ -34,6 +53,8 @@ object Main {
                 guard = Coordinate(0, guard.y + 1)
             }
         }
-        println("Guard is initially at " + guard.x + ", " + guard.y)
+        //println("Guard is initially at " + guard.x + ", " + guard.y)
+
+        //
     }
 }
