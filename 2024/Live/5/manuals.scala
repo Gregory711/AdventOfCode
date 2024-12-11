@@ -9,6 +9,7 @@ object Main {
 
         var before = new HashMap[Int, List[Int]]()
         var middleSum: Int = 0
+        var sortedSum: Int = 0
         lines.foreach(line =>
             val pipe: Int = line.indexOf('|')
             val comma: Int = line.indexOf(',')
@@ -46,9 +47,22 @@ object Main {
                     } else {
                         middleSum = middleSum + pages(pages.length / 2).toInt
                     }
+                } else {
+                    // If pages are in the wrong order need to sort them and sum middle number of sorted list
+                    // Uses custom comparator that returns true if a should come before b
+                    // Or rather, will return true if there is no rule saying b must come before a
+                    val sortedPages = pages.sortWith((a, b) => {
+                        !before.contains(a.toInt) || !before(a.toInt).contains(b.toInt)
+                    })
+                    if ((sortedPages.size % 2) == 0) {
+                        println("ERROR: CANNOT FIGURE OUT MIDDLE NUMBER FOR EVEN LENGTH LIST!")
+                    } else {
+                        sortedSum = sortedSum + sortedPages(sortedPages.length / 2).toInt
+                    }
                 }
             }
         )
         println("The sum of the middles is " + middleSum)
+        println("The sum of the sorted middles is " + sortedSum)
     }
 }
