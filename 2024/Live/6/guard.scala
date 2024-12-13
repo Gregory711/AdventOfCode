@@ -73,16 +73,25 @@ object Main {
                 lab(guard.y)(guard.x) = 'X'
                 visited = visited + 1
             }
+
             val ahead = Coordinate(guard.x + guardDirection.x, guard.y + guardDirection.y)
             val newDirection = getDirection(lab(ahead.y)(ahead.x))
+
+            println("Dead ahead of guard is (" + ahead.x + ", " + ahead.y + ")")
+            println("New direction if turning is (" + newDirection.get.x + ", " + newDirection.get.y + ")")
+
             if (!inBounds(ahead, lab)) {
                 outOfBounds = true
+                println("Out of bounds, see ya!")
             } else if (newDirection == None) {
                 // Ahead is obstacle so need to change direction
                 guardDirection = getNextDirection(guardDirection)
+                println("Ruh roh, the path is blocked!")
             } else {
                 guard = ahead
+                println("Onwards!")
             }
+            println()
         }
         println("The guard visited " + visited + " locations")
     }
