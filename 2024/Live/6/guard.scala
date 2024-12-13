@@ -42,27 +42,8 @@ object Main {
         println("Guard is at (" + guardCoords.x + ", " + guardCoords.y + ") and has visited " + visited + " locations so far!\n")
     }
 
-    def main(args: Array[String]): Unit = {
-        val filename = "lab.txt"
-        val lines = Source.fromFile(filename).getLines().toList
-
-        // Read in input
-        var lab = ArrayBuffer[Array[Char]]()
-        lines.foreach(line =>
-            lab.append(line.toCharArray)
-        )
-
-        // Get initial location of guard
-        var guard = Coordinate(0, 0)
-        while (getDirection(lab(guard.y)(guard.x)) == None) {
-            if (guard.x < lab(guard.y).size - 1) {
-                guard = Coordinate(guard.x + 1, guard.y)
-            } else {
-                guard = Coordinate(0, guard.y + 1)
-            }
-        }
-        //println("Guard is initially at " + guard.x + ", " + guard.y)
-
+    def getVisitCount(lab: ArrayBuffer[Array[Char]], guardStart: Coordinate): Int = {
+        var guard: Coordinate = guardStart
         var visited: Int = 0
         var outOfBounds: Boolean = false
         var guardDirection: Coordinate = getDirection(lab(guard.y)(guard.x)).get
@@ -96,6 +77,32 @@ object Main {
             }
             //println()
         }
+        return visited
+    }
+
+    def main(args: Array[String]): Unit = {
+        val filename = "lab.txt"
+        val lines = Source.fromFile(filename).getLines().toList
+
+        // Read in input
+        var lab = ArrayBuffer[Array[Char]]()
+        lines.foreach(line =>
+            lab.append(line.toCharArray)
+        )
+
+        // Get initial location of guard
+        var guard = Coordinate(0, 0)
+        while (getDirection(lab(guard.y)(guard.x)) == None) {
+            if (guard.x < lab(guard.y).size - 1) {
+                guard = Coordinate(guard.x + 1, guard.y)
+            } else {
+                guard = Coordinate(0, guard.y + 1)
+            }
+        }
+        //println("Guard is initially at " + guard.x + ", " + guard.y)
+
+        val visited: Int = getVisitCount(lab, guard)
+
         println("The guard visited " + visited + " locations")
     }
 }
