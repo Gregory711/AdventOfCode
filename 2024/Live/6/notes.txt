@@ -1,0 +1,8 @@
+Part 2:
+First things first see if it is practical to do brute force of trying obstacle at every point in the path taken in part 1.
+Multiplying the size of the input puzzle against the amount of time part 1 took results in less than 20 minutes and
+that is major overestimate for the following reasons:
+1. I'm including compile time which likely takes a large chunk of the small fraction of a second runtime
+2. A quick run through of the example given shows that most added obstacles would lead to going out of bounds very quickly
+For those reasons I will not only do brute force I will un premature optimize it by just trying every point in the lab for
+simplicity (that also is only a linear slowing of the algorithm so shouldn't matter much anyways).
