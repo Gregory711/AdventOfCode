@@ -47,6 +47,7 @@ object Main {
         var visited: Int = 0
         var outOfBounds: Boolean = false
         var guardDirection: Coordinate = getDirection(lab(guard.y)(guard.x)).get
+        val guardStartDirection: Coordinate = guardDirection
         while (!outOfBounds) {
             //printLab(lab, guard, visited)
             // If on a new tile then mark it visited and increment visited
@@ -74,6 +75,10 @@ object Main {
             } else {
                 guard = ahead
                 //println("Onwards!")
+                if (guard == guardStart && guardDirection == guardStartDirection) {
+                    // In a loop!
+                    return -1
+                }
             }
             //println()
         }
