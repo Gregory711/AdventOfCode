@@ -1,0 +1,990 @@
+Current state of lab:
+....#.....
+.........#
+..........
+..#.......
+.......#..
+..........
+.#..^.....
+........#.
+#.........
+......#...
+Guard is at (4, 6) and has visited 0 locations so far!
+
+Dead ahead of guard is (4, 5)
+Which is .
+New direction if turning is (1, 0)
+Onwards!
+
+Current state of lab:
+....#.....
+.........#
+..........
+..#.......
+.......#..
+..........
+.#..X.....
+........#.
+#.........
+......#...
+Guard is at (4, 5) and has visited 1 locations so far!
+
+Dead ahead of guard is (4, 4)
+Which is .
+New direction if turning is (1, 0)
+Onwards!
+
+Current state of lab:
+....#.....
+.........#
+..........
+..#.......
+.......#..
+....X.....
+.#..X.....
+........#.
+#.........
+......#...
+Guard is at (4, 4) and has visited 2 locations so far!
+
+Dead ahead of guard is (4, 3)
+Which is .
+New direction if turning is (1, 0)
+Onwards!
+
+Current state of lab:
+....#.....
+.........#
+..........
+..#.......
+....X..#..
+....X.....
+.#..X.....
+........#.
+#.........
+......#...
+Guard is at (4, 3) and has visited 3 locations so far!
+
+Dead ahead of guard is (4, 2)
+Which is .
+New direction if turning is (1, 0)
+Onwards!
+
+Current state of lab:
+....#.....
+.........#
+..........
+..#.X.....
+....X..#..
+....X.....
+.#..X.....
+........#.
+#.........
+......#...
+Guard is at (4, 2) and has visited 4 locations so far!
+
+Dead ahead of guard is (4, 1)
+Which is .
+New direction if turning is (1, 0)
+Onwards!
+
+Current state of lab:
+....#.....
+.........#
+....X.....
+..#.X.....
+....X..#..
+....X.....
+.#..X.....
+........#.
+#.........
+......#...
+Guard is at (4, 1) and has visited 5 locations so far!
+
+Dead ahead of guard is (4, 0)
+Which is #
+New direction if turning is (1, 0)
+Ruh roh, the path is blocked!
+
+Current state of lab:
+....#.....
+....X....#
+....X.....
+..#.X.....
+....X..#..
+....X.....
+.#..X.....
+........#.
+#.........
+......#...
+Guard is at (4, 1) and has visited 6 locations so far!
+
+Dead ahead of guard is (5, 1)
+Which is .
+New direction if turning is (0, 1)
+Onwards!
+
+Current state of lab:
+....#.....
+....X....#
+....X.....
+..#.X.....
+....X..#..
+....X.....
+.#..X.....
+........#.
+#.........
+......#...
+Guard is at (5, 1) and has visited 6 locations so far!
+
+Dead ahead of guard is (6, 1)
+Which is .
+New direction if turning is (0, 1)
+Onwards!
+
+Current state of lab:
+....#.....
+....XX...#
+....X.....
+..#.X.....
+....X..#..
+....X.....
+.#..X.....
+........#.
+#.........
+......#...
+Guard is at (6, 1) and has visited 7 locations so far!
+
+Dead ahead of guard is (7, 1)
+Which is .
+New direction if turning is (0, 1)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXX..#
+....X.....
+..#.X.....
+....X..#..
+....X.....
+.#..X.....
+........#.
+#.........
+......#...
+Guard is at (7, 1) and has visited 8 locations so far!
+
+Dead ahead of guard is (8, 1)
+Which is .
+New direction if turning is (0, 1)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXX.#
+....X.....
+..#.X.....
+....X..#..
+....X.....
+.#..X.....
+........#.
+#.........
+......#...
+Guard is at (8, 1) and has visited 9 locations so far!
+
+Dead ahead of guard is (9, 1)
+Which is #
+New direction if turning is (0, 1)
+Ruh roh, the path is blocked!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X.....
+..#.X.....
+....X..#..
+....X.....
+.#..X.....
+........#.
+#.........
+......#...
+Guard is at (8, 1) and has visited 10 locations so far!
+
+Dead ahead of guard is (8, 2)
+Which is .
+New direction if turning is (-1, 0)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X.....
+..#.X.....
+....X..#..
+....X.....
+.#..X.....
+........#.
+#.........
+......#...
+Guard is at (8, 2) and has visited 10 locations so far!
+
+Dead ahead of guard is (8, 3)
+Which is .
+New direction if turning is (-1, 0)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X.....
+....X..#..
+....X.....
+.#..X.....
+........#.
+#.........
+......#...
+Guard is at (8, 3) and has visited 11 locations so far!
+
+Dead ahead of guard is (8, 4)
+Which is .
+New direction if turning is (-1, 0)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+....X..#..
+....X.....
+.#..X.....
+........#.
+#.........
+......#...
+Guard is at (8, 4) and has visited 12 locations so far!
+
+Dead ahead of guard is (8, 5)
+Which is .
+New direction if turning is (-1, 0)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+....X..#X.
+....X.....
+.#..X.....
+........#.
+#.........
+......#...
+Guard is at (8, 5) and has visited 13 locations so far!
+
+Dead ahead of guard is (8, 6)
+Which is .
+New direction if turning is (-1, 0)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+....X..#X.
+....X...X.
+.#..X.....
+........#.
+#.........
+......#...
+Guard is at (8, 6) and has visited 14 locations so far!
+
+Dead ahead of guard is (8, 7)
+Which is #
+New direction if turning is (-1, 0)
+Ruh roh, the path is blocked!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+....X..#X.
+....X...X.
+.#..X...X.
+........#.
+#.........
+......#...
+Guard is at (8, 6) and has visited 15 locations so far!
+
+Dead ahead of guard is (7, 6)
+Which is .
+New direction if turning is (0, -1)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+....X..#X.
+....X...X.
+.#..X...X.
+........#.
+#.........
+......#...
+Guard is at (7, 6) and has visited 15 locations so far!
+
+Dead ahead of guard is (6, 6)
+Which is .
+New direction if turning is (0, -1)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+....X..#X.
+....X...X.
+.#..X..XX.
+........#.
+#.........
+......#...
+Guard is at (6, 6) and has visited 16 locations so far!
+
+Dead ahead of guard is (5, 6)
+Which is .
+New direction if turning is (0, -1)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+....X..#X.
+....X...X.
+.#..X.XXX.
+........#.
+#.........
+......#...
+Guard is at (5, 6) and has visited 17 locations so far!
+
+Dead ahead of guard is (4, 6)
+Which is X
+New direction if turning is (0, -1)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+....X..#X.
+....X...X.
+.#..XXXXX.
+........#.
+#.........
+......#...
+Guard is at (4, 6) and has visited 18 locations so far!
+
+Dead ahead of guard is (3, 6)
+Which is .
+New direction if turning is (0, -1)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+....X..#X.
+....X...X.
+.#..XXXXX.
+........#.
+#.........
+......#...
+Guard is at (3, 6) and has visited 18 locations so far!
+
+Dead ahead of guard is (2, 6)
+Which is .
+New direction if turning is (0, -1)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+....X..#X.
+....X...X.
+.#.XXXXXX.
+........#.
+#.........
+......#...
+Guard is at (2, 6) and has visited 19 locations so far!
+
+Dead ahead of guard is (1, 6)
+Which is #
+New direction if turning is (0, -1)
+Ruh roh, the path is blocked!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+....X..#X.
+....X...X.
+.#XXXXXXX.
+........#.
+#.........
+......#...
+Guard is at (2, 6) and has visited 20 locations so far!
+
+Dead ahead of guard is (2, 5)
+Which is .
+New direction if turning is (1, 0)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+....X..#X.
+....X...X.
+.#XXXXXXX.
+........#.
+#.........
+......#...
+Guard is at (2, 5) and has visited 20 locations so far!
+
+Dead ahead of guard is (2, 4)
+Which is .
+New direction if turning is (1, 0)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+....X..#X.
+..X.X...X.
+.#XXXXXXX.
+........#.
+#.........
+......#...
+Guard is at (2, 4) and has visited 21 locations so far!
+
+Dead ahead of guard is (2, 3)
+Which is #
+New direction if turning is (1, 0)
+Ruh roh, the path is blocked!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+..X.X..#X.
+..X.X...X.
+.#XXXXXXX.
+........#.
+#.........
+......#...
+Guard is at (2, 4) and has visited 22 locations so far!
+
+Dead ahead of guard is (3, 4)
+Which is .
+New direction if turning is (0, 1)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+..X.X..#X.
+..X.X...X.
+.#XXXXXXX.
+........#.
+#.........
+......#...
+Guard is at (3, 4) and has visited 22 locations so far!
+
+Dead ahead of guard is (4, 4)
+Which is X
+New direction if turning is (0, 1)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+..XXX..#X.
+..X.X...X.
+.#XXXXXXX.
+........#.
+#.........
+......#...
+Guard is at (4, 4) and has visited 23 locations so far!
+
+Dead ahead of guard is (5, 4)
+Which is .
+New direction if turning is (0, 1)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+..XXX..#X.
+..X.X...X.
+.#XXXXXXX.
+........#.
+#.........
+......#...
+Guard is at (5, 4) and has visited 23 locations so far!
+
+Dead ahead of guard is (6, 4)
+Which is .
+New direction if turning is (0, 1)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+..XXXX.#X.
+..X.X...X.
+.#XXXXXXX.
+........#.
+#.........
+......#...
+Guard is at (6, 4) and has visited 24 locations so far!
+
+Dead ahead of guard is (7, 4)
+Which is #
+New direction if turning is (0, 1)
+Ruh roh, the path is blocked!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+..XXXXX#X.
+..X.X...X.
+.#XXXXXXX.
+........#.
+#.........
+......#...
+Guard is at (6, 4) and has visited 25 locations so far!
+
+Dead ahead of guard is (6, 5)
+Which is .
+New direction if turning is (-1, 0)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+..XXXXX#X.
+..X.X...X.
+.#XXXXXXX.
+........#.
+#.........
+......#...
+Guard is at (6, 5) and has visited 25 locations so far!
+
+Dead ahead of guard is (6, 6)
+Which is X
+New direction if turning is (-1, 0)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+..XXXXX#X.
+..X.X.X.X.
+.#XXXXXXX.
+........#.
+#.........
+......#...
+Guard is at (6, 6) and has visited 26 locations so far!
+
+Dead ahead of guard is (6, 7)
+Which is .
+New direction if turning is (-1, 0)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+..XXXXX#X.
+..X.X.X.X.
+.#XXXXXXX.
+........#.
+#.........
+......#...
+Guard is at (6, 7) and has visited 26 locations so far!
+
+Dead ahead of guard is (6, 8)
+Which is .
+New direction if turning is (-1, 0)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+..XXXXX#X.
+..X.X.X.X.
+.#XXXXXXX.
+......X.#.
+#.........
+......#...
+Guard is at (6, 8) and has visited 27 locations so far!
+
+Dead ahead of guard is (6, 9)
+Which is #
+New direction if turning is (-1, 0)
+Ruh roh, the path is blocked!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+..XXXXX#X.
+..X.X.X.X.
+.#XXXXXXX.
+......X.#.
+#.....X...
+......#...
+Guard is at (6, 8) and has visited 28 locations so far!
+
+Dead ahead of guard is (5, 8)
+Which is .
+New direction if turning is (0, -1)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+..XXXXX#X.
+..X.X.X.X.
+.#XXXXXXX.
+......X.#.
+#.....X...
+......#...
+Guard is at (5, 8) and has visited 28 locations so far!
+
+Dead ahead of guard is (4, 8)
+Which is .
+New direction if turning is (0, -1)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+..XXXXX#X.
+..X.X.X.X.
+.#XXXXXXX.
+......X.#.
+#....XX...
+......#...
+Guard is at (4, 8) and has visited 29 locations so far!
+
+Dead ahead of guard is (3, 8)
+Which is .
+New direction if turning is (0, -1)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+..XXXXX#X.
+..X.X.X.X.
+.#XXXXXXX.
+......X.#.
+#...XXX...
+......#...
+Guard is at (3, 8) and has visited 30 locations so far!
+
+Dead ahead of guard is (2, 8)
+Which is .
+New direction if turning is (0, -1)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+..XXXXX#X.
+..X.X.X.X.
+.#XXXXXXX.
+......X.#.
+#..XXXX...
+......#...
+Guard is at (2, 8) and has visited 31 locations so far!
+
+Dead ahead of guard is (1, 8)
+Which is .
+New direction if turning is (0, -1)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+..XXXXX#X.
+..X.X.X.X.
+.#XXXXXXX.
+......X.#.
+#.XXXXX...
+......#...
+Guard is at (1, 8) and has visited 32 locations so far!
+
+Dead ahead of guard is (0, 8)
+Which is #
+New direction if turning is (0, -1)
+Ruh roh, the path is blocked!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+..XXXXX#X.
+..X.X.X.X.
+.#XXXXXXX.
+......X.#.
+#XXXXXX...
+......#...
+Guard is at (1, 8) and has visited 33 locations so far!
+
+Dead ahead of guard is (1, 7)
+Which is .
+New direction if turning is (1, 0)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+..XXXXX#X.
+..X.X.X.X.
+.#XXXXXXX.
+......X.#.
+#XXXXXX...
+......#...
+Guard is at (1, 7) and has visited 33 locations so far!
+
+Dead ahead of guard is (1, 6)
+Which is #
+New direction if turning is (1, 0)
+Ruh roh, the path is blocked!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+..XXXXX#X.
+..X.X.X.X.
+.#XXXXXXX.
+.X....X.#.
+#XXXXXX...
+......#...
+Guard is at (1, 7) and has visited 34 locations so far!
+
+Dead ahead of guard is (2, 7)
+Which is .
+New direction if turning is (0, 1)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+..XXXXX#X.
+..X.X.X.X.
+.#XXXXXXX.
+.X....X.#.
+#XXXXXX...
+......#...
+Guard is at (2, 7) and has visited 34 locations so far!
+
+Dead ahead of guard is (3, 7)
+Which is .
+New direction if turning is (0, 1)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+..XXXXX#X.
+..X.X.X.X.
+.#XXXXXXX.
+.XX...X.#.
+#XXXXXX...
+......#...
+Guard is at (3, 7) and has visited 35 locations so far!
+
+Dead ahead of guard is (4, 7)
+Which is .
+New direction if turning is (0, 1)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+..XXXXX#X.
+..X.X.X.X.
+.#XXXXXXX.
+.XXX..X.#.
+#XXXXXX...
+......#...
+Guard is at (4, 7) and has visited 36 locations so far!
+
+Dead ahead of guard is (5, 7)
+Which is .
+New direction if turning is (0, 1)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+..XXXXX#X.
+..X.X.X.X.
+.#XXXXXXX.
+.XXXX.X.#.
+#XXXXXX...
+......#...
+Guard is at (5, 7) and has visited 37 locations so far!
+
+Dead ahead of guard is (6, 7)
+Which is X
+New direction if turning is (0, 1)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+..XXXXX#X.
+..X.X.X.X.
+.#XXXXXXX.
+.XXXXXX.#.
+#XXXXXX...
+......#...
+Guard is at (6, 7) and has visited 38 locations so far!
+
+Dead ahead of guard is (7, 7)
+Which is .
+New direction if turning is (0, 1)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+..XXXXX#X.
+..X.X.X.X.
+.#XXXXXXX.
+.XXXXXX.#.
+#XXXXXX...
+......#...
+Guard is at (7, 7) and has visited 38 locations so far!
+
+Dead ahead of guard is (8, 7)
+Which is #
+New direction if turning is (0, 1)
+Ruh roh, the path is blocked!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+..XXXXX#X.
+..X.X.X.X.
+.#XXXXXXX.
+.XXXXXXX#.
+#XXXXXX...
+......#...
+Guard is at (7, 7) and has visited 39 locations so far!
+
+Dead ahead of guard is (7, 8)
+Which is .
+New direction if turning is (-1, 0)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+..XXXXX#X.
+..X.X.X.X.
+.#XXXXXXX.
+.XXXXXXX#.
+#XXXXXX...
+......#...
+Guard is at (7, 8) and has visited 39 locations so far!
+
+Dead ahead of guard is (7, 9)
+Which is .
+New direction if turning is (-1, 0)
+Onwards!
+
+Current state of lab:
+....#.....
+....XXXXX#
+....X...X.
+..#.X...X.
+..XXXXX#X.
+..X.X.X.X.
+.#XXXXXXX.
+.XXXXXXX#.
+#XXXXXXX..
+......#...
+Guard is at (7, 9) and has visited 40 locations so far!
+
+Dead ahead of guard is (7, 10)
+New direction if turning is (-1, 0)
+Out of bounds, see ya!
+
+The guard visited 41 locations
