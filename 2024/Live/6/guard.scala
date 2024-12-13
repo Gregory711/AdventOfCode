@@ -34,6 +34,14 @@ object Main {
         return true
     }
 
+    def printLab(lab: ArrayBuffer[Array[Char]], guardCoords: Coordinate, visited: Int): Unit = {
+        println("Current state of lab:")
+        lab.foreach(line =>
+            println(line.mkString)
+        )
+        println("Guard is at (" + guardCoords.x + ", " + guardCoords.y + ") and has visited " + visited + " locations so far!\n")
+    }
+
     def main(args: Array[String]): Unit = {
         val filename = "lab.txt"
         val lines = Source.fromFile(filename).getLines().toList
@@ -59,6 +67,7 @@ object Main {
         var outOfBounds: Boolean = false
         var guardDirection: Coordinate = getDirection(lab(guard.y)(guard.x)).get
         while (!outOfBounds) {
+            printLab(lab, guard, visited)
             // If on a new tile then mark it visited and increment visited
             if (lab(guard.y)(guard.x) != 'X') {
                 lab(guard.y)(guard.x) = 'X'
