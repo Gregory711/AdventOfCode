@@ -67,7 +67,7 @@ object Main {
         var outOfBounds: Boolean = false
         var guardDirection: Coordinate = getDirection(lab(guard.y)(guard.x)).get
         while (!outOfBounds) {
-            printLab(lab, guard, visited)
+            //printLab(lab, guard, visited)
             // If on a new tile then mark it visited and increment visited
             if (lab(guard.y)(guard.x) != 'X') {
                 lab(guard.y)(guard.x) = 'X'
@@ -77,24 +77,24 @@ object Main {
             val ahead = Coordinate(guard.x + guardDirection.x, guard.y + guardDirection.y)
             val newDirection = getNextDirection(guardDirection)
 
-            println("Dead ahead of guard is (" + ahead.x + ", " + ahead.y + ")")
+            /*println("Dead ahead of guard is (" + ahead.x + ", " + ahead.y + ")")
             if (inBounds(ahead, lab)) {
                 println("Which is " + lab(ahead.y)(ahead.x))
             }
-            println("New direction if turning is (" + newDirection.x + ", " + newDirection.y + ")")
+            println("New direction if turning is (" + newDirection.x + ", " + newDirection.y + ")")*/
 
             if (!inBounds(ahead, lab)) {
                 outOfBounds = true
-                println("Out of bounds, see ya!")
+                //println("Out of bounds, see ya!")
             } else if (lab(ahead.y)(ahead.x) == '#') {
                 // Ahead is obstacle so need to change direction
                 guardDirection = getNextDirection(guardDirection)
-                println("Ruh roh, the path is blocked!")
+                //println("Ruh roh, the path is blocked!")
             } else {
                 guard = ahead
-                println("Onwards!")
+                //println("Onwards!")
             }
-            println()
+            //println()
         }
         println("The guard visited " + visited + " locations")
     }
