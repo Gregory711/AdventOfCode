@@ -3,9 +3,9 @@ Stats:
   - Live: 24 Stars
 - 2024:
   - Training: 14 Stars
-  - Live: 8 Stars
+  - Live: 12 Stars
 
-Total: 46 Stars
+Total: 50 Stars
 
 <details>
 <summary>2023</summary>
