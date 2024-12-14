@@ -1,6 +1,8 @@
 import scala.io.Source
 
 object Main {
+    val OPERATOR_LIST:List[Char] = List('+', '*')
+
     def printEquation(numbs: Array[Int], operators: Array[Char]): Unit = {
         val eq: Array[String] = new Array[String](numbs.size + operators.size)
         for
@@ -29,6 +31,16 @@ object Main {
     }
 
     def solve(numbs: Array[Int], operators: Array[Char], result: Int, index: Int): Boolean = {
+        if (index == operators.size) {
+            return result == compute(numbs, operators)
+        }
+
+        OPERATOR_LIST.foreach(operator =>
+            operators(index) = operator
+            if (solve(numbs, operators, result, index + 1)) {
+                return true
+            }
+        )
         return false
     }
 
@@ -43,13 +55,13 @@ object Main {
             val numbs: Array[Int] = line.substring(colonIndex+2).split(" +").map(_.toInt)
             val operators: Array[Char] = new Array[Char](numbs.size - 1)
 
-            println("Test result: " + result)
-            println("Numbers: " + numbs.mkString(", "))
+            //println("Test result: " + result)
+            //println("Numbers: " + numbs.mkString(", "))
 
             if (solve(numbs, operators, result, 0)) {
                 resultSum = resultSum + result
             }
-            println()
+            //println()
         )
         println("The sum of results of valid bridge equations is " + resultSum)
     }
