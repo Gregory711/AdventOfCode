@@ -1,5 +1,6 @@
 import scala.io.Source
 import scala.collection.mutable.ArrayBuffer
+import scala.collection.mutable.HashMap
 
 object Main {
 
@@ -47,12 +48,23 @@ object Main {
         var visited: Int = 0
         var outOfBounds: Boolean = false
         var guardDirection: Coordinate = guardStartDirection
+        // For loop detection, maps coordinates guard has patrolled to the
+        // directions he was facing when he patrolled there
+        // If patrolling same coordinate facing same direction twice in a loop
+        var patrolled = new HashMap[Coordinate, List[Coordinate]]()
         while (!outOfBounds) {
             //printLab(lab, guard, visited)
             // If on a new tile then mark it visited and increment visited
             if (lab(guard.y)(guard.x) != 'X') {
                 lab(guard.y)(guard.x) = 'X'
                 visited = visited + 1
+            }
+
+            if (!patrolled.contains(guard)) {
+                patrolled(guard) = List.empty[Coordinate]
+            }
+            if (!patrolled(guard).contains(guardDirection)) {
+                patrolled(guard) = patrolled(guard).appended(guardDirection)
             }
 
             val ahead = Coordinate(guard.x + guardDirection.x, guard.y + guardDirection.y)
@@ -74,7 +86,7 @@ object Main {
             } else {
                 guard = ahead
                 //println("Onwards!")
-                if (guard == guardStart && guardDirection == guardStartDirection) {
+                if (patrolled.contains(guard) && patrolled(guard).contains(guardDirection)) {
                     // In a loop!
                     return -1
                 }
