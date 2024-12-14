@@ -3,7 +3,7 @@ import scala.io.Source
 object Main {
     val OPERATOR_LIST:List[Char] = List('+', '*')
 
-    def printEquation(numbs: Array[Int], operators: Array[Char]): Unit = {
+    def printEquation(numbs: Array[Long], operators: Array[Char]): Unit = {
         val eq: Array[String] = new Array[String](numbs.size + operators.size)
         for
             i <- 0 until numbs.size
@@ -16,12 +16,12 @@ object Main {
         println(eq.mkString(" "))
     }
 
-    def compute(numbs: Array[Int], operators: Array[Char]): Int = {
-        var result: Int = numbs.head
+    def compute(numbs: Array[Long], operators: Array[Char]): Long = {
+        var result: Long = numbs.head
         for
             i <- 1 until numbs.size
         do
-            val numb: Int = numbs(i)
+            val numb: Long = numbs(i)
             val operator: Char = operators(i - 1)
             result = operator match {
                 case '+' => result + numb
@@ -30,7 +30,7 @@ object Main {
         return result
     }
 
-    def solve(numbs: Array[Int], operators: Array[Char], result: Int, index: Int): Boolean = {
+    def solve(numbs: Array[Long], operators: Array[Char], result: Long, index: Int): Boolean = {
         if (index == operators.size) {
             return result == compute(numbs, operators)
         }
@@ -48,11 +48,11 @@ object Main {
         val filename = "bridge.txt"
         val lines = Source.fromFile(filename).getLines().toList
 
-        var resultSum: Int = 0
+        var resultSum: Long = 0
         lines.foreach(line =>
             val colonIndex: Int = line.indexOf(':')
-            val result: Int = line.slice(0, colonIndex).toInt
-            val numbs: Array[Int] = line.substring(colonIndex+2).split(" +").map(_.toInt)
+            val result: Long = line.slice(0, colonIndex).toLong
+            val numbs: Array[Long] = line.substring(colonIndex+2).split(" +").map(_.toLong)
             val operators: Array[Char] = new Array[Char](numbs.size - 1)
 
             //println("Test result: " + result)
