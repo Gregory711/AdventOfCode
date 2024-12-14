@@ -1,13 +1,22 @@
 import scala.io.Source
 import scala.collection.mutable.ArrayBuffer
 import scala.collection.mutable.HashMap
+import scala.collection.mutable.HashSet
 
 object Main {
-    val TOLERANCE: Double = 0.1
+    val TOLERANCE: Double = 0
 
     // Just to clarify each row of roof has different x starting with 0 (top/first line)
     // Each column has y starting with 0 leftmost
-    case class Coordinate(x: Int, y: Int)
+    case class Coordinate(x: Int, y: Int) {
+        // override methods so can use hashset
+        override def hashCode(): Int = (x, y).hashCode()
+
+        override def equals(obj: Any): Boolean = obj match {
+            case other: Coordinate => this.x == other.x && this.y == other.y
+            case _ => false
+        }
+    }
 
     def square(a: Double): Double = {
         return a * a
@@ -56,7 +65,7 @@ object Main {
 
         // Iterate over every location on roof and check if any two antennas of same frequency have one
         // that is twice as far from current location as the other
-        var antinodes: Int = 0
+        var antinodes = HashSet[Coordinate]()
         for (x <- roof.indices) {
             val row: Array[Char] = roof(x)
             for (y <- row.indices) {
@@ -66,21 +75,19 @@ object Main {
                     // Get distances from current loc to each antenna of this frequency
                     val dists: List[Double] = locs.map(ant => getDistance(loc, ant))
                     // Compare every distance against every other distance to see if any are double others
-                    var doubled: Boolean = false
                     dists.foreach(distA =>
                         dists.foreach(distB =>
                             val diff: Double = math.abs(distA - (distB * 2))
-                            if (diff < TOLERANCE) {
-                                doubled = true
+                            if (diff <= TOLERANCE && distA != 0) {
+                                antinodes += loc
+                                println("Found an antinode at (" + loc.x + ", " + loc.y + ") (diff was " + diff + ")")
+                                println("There is a antenna of freq: " + antenna + " distances " + distA + " and " + distB + " away!")
                             }
                         )
                     )
-                    if (doubled) {
-                        antinodes = antinodes + 1
-                    }
                 }
             }
         }
-        println("There are " + antinodes + " antinodes without properly checking for location uniqueness!")
+        println("There are " + antinodes.size + " locations with antinodes not perfectly in line!")
     }
 }
