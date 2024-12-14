@@ -24,6 +24,7 @@ object Main {
             result = operator match {
                 case '+' => result + numb
                 case '*' => result * numb
+                case 'C' => (result.toString + numb.toString).toLong
             }
         return result
     }
@@ -49,6 +50,7 @@ object Main {
         val partOneOperators:List[Char] = List('+', '*')
         val partTwoOperators:List[Char] = List('+', '*', 'C') // C for concatenate
         var partOneResultSum: Long = 0
+        var partTwoResultSum: Long = 0
         lines.foreach(line =>
             val colonIndex: Int = line.indexOf(':')
             val result: Long = line.slice(0, colonIndex).toLong
@@ -61,8 +63,12 @@ object Main {
             if (solve(numbs, operators, result, 0, partOneOperators)) {
                 partOneResultSum = partOneResultSum + result
             }
+            if (solve(numbs, operators, result, 0, partTwoOperators)) {
+                partTwoResultSum = partTwoResultSum + result
+            }
             //println()
         )
-        println("The sum of results of valid bridge equations is " + partOneResultSum)
+        println("Part 1: The sum of results of valid bridge equations is " + partOneResultSum)
+        println("Part 2: The sum of results of valid bridge equations is " + partTwoResultSum)
     }
 }
