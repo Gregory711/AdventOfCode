@@ -7,6 +7,14 @@ object Main {
     // Each column has y starting with 0 leftmost
     case class Coordinate(x: Int, y: Int)
 
+    def square(a: Double): Double = {
+        return a * a
+    }
+
+    def getDistance(a: Coordinate, b: Coordinate): Double = {
+        return math.sqrt(square(b.x - a.x) + square(b.y - a.y))
+    }
+
     def printRoof(roof: ArrayBuffer[Array[Char]]): Unit = {
         println("Current state of roof:")
         roof.foreach(line =>
@@ -41,5 +49,7 @@ object Main {
                 }
             }
         }
+
+        //println(getDistance(Coordinate(-2, 4), Coordinate(10, 1))) // should be ~12.369
     }
 }
