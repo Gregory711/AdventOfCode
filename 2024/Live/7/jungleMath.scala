@@ -1,6 +1,19 @@
 import scala.io.Source
 
 object Main {
+    def printEquation(numbs: Array[Int], operators: Array[Char]): Unit = {
+        val eq: Array[String] = new Array[String](numbs.size + operators.size)
+        for
+            i <- 0 until numbs.size
+        do
+            val index: Int = i * 2
+            eq(index) = numbs(i).toString
+            if ((index + 1) < eq.size) {
+                eq(index + 1) = operators(i).toString
+            }
+        println(eq.mkString(" "))
+    }
+
     def solve(numbs: Array[Int], operators: Array[Char], result: Int, index: Int): Boolean = {
         return false
     }
