@@ -3,6 +3,8 @@ import scala.collection.mutable.ArrayBuffer
 import scala.collection.mutable.HashMap
 
 object Main {
+    val TOLERANCE: Double = 0.1
+
     // Just to clarify each row of roof has different x starting with 0 (top/first line)
     // Each column has y starting with 0 leftmost
     case class Coordinate(x: Int, y: Int)
@@ -54,6 +56,7 @@ object Main {
 
         // Iterate over every location on roof and check if any two antennas of same frequency have one
         // that is twice as far from current location as the other
+        var antinodes: Int = 0
         for (x <- roof.indices) {
             val row: Array[Char] = roof(x)
             for (y <- row.indices) {
@@ -62,8 +65,22 @@ object Main {
                 antennas.foreach { case (antenna, locs) =>
                     // Get distances from current loc to each antenna of this frequency
                     val dists: List[Double] = locs.map(ant => getDistance(loc, ant))
+                    // Compare every distance against every other distance to see if any are double others
+                    var doubled: Boolean = false
+                    dists.foreach(distA =>
+                        dists.foreach(distB =>
+                            val diff: Double = math.abs(distA - (distB * 2))
+                            if (diff < TOLERANCE) {
+                                doubled = true
+                            }
+                        )
+                    )
+                    if (doubled) {
+                        antinodes = antinodes + 1
+                    }
                 }
             }
         }
+        println("There are " + antinodes + " antinodes without properly checking for location uniqueness!")
     }
 }
