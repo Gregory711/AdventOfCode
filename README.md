@@ -1,9 +1,9 @@
 Stats:
 - 2023:
-  - Live: 24 Stars
+  - Live: 24 Stars (Python 3.10)
 - 2024:
-  - Training: 14 Stars
-  - Live: 12 Stars
+  - Training: 14 Stars (Java 17)
+  - Live: 12 Stars (Scala 3.6)
 
 Total: 50 Stars
 
