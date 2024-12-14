@@ -51,5 +51,19 @@ object Main {
         }
 
         //println(getDistance(Coordinate(-2, 4), Coordinate(10, 1))) // should be ~12.369
+
+        // Iterate over every location on roof and check if any two antennas of same frequency have one
+        // that is twice as far from current location as the other
+        for (x <- roof.indices) {
+            val row: Array[Char] = roof(x)
+            for (y <- row.indices) {
+                val loc: Coordinate = Coordinate(x, y)
+                // Iterate over antennas
+                antennas.foreach { case (antenna, locs) =>
+                    // Get distances from current loc to each antenna of this frequency
+                    val dists: List[Double] = locs.map(ant => getDistance(loc, ant))
+                }
+            }
+        }
     }
 }
