@@ -14,6 +14,20 @@ object Main {
         println(eq.mkString(" "))
     }
 
+    def compute(numbs: Array[Int], operators: Array[Char]): Int = {
+        var result: Int = numbs.head
+        for
+            i <- 1 until numbs.size
+        do
+            val numb: Int = numbs(i)
+            val operator: Char = operators(i - 1)
+            result = operator match {
+                case '+' => result + numb
+                case '*' => result * numb
+            }
+        return result
+    }
+
     def solve(numbs: Array[Int], operators: Array[Char], result: Int, index: Int): Boolean = {
         return false
     }
