@@ -42,12 +42,11 @@ object Main {
         println("Guard is at (" + guardCoords.x + ", " + guardCoords.y + ") and has visited " + visited + " locations so far!\n")
     }
 
-    def getVisitCount(lab: ArrayBuffer[Array[Char]], guardStart: Coordinate): Int = {
+    def getVisitCount(lab: ArrayBuffer[Array[Char]], guardStart: Coordinate, guardStartDirection: Coordinate): Int = {
         var guard: Coordinate = guardStart
         var visited: Int = 0
         var outOfBounds: Boolean = false
-        var guardDirection: Coordinate = getDirection(lab(guard.y)(guard.x)).get
-        val guardStartDirection: Coordinate = guardDirection
+        var guardDirection: Coordinate = guardStartDirection
         while (!outOfBounds) {
             //printLab(lab, guard, visited)
             // If on a new tile then mark it visited and increment visited
@@ -106,8 +105,11 @@ object Main {
         }
         //println("Guard is initially at " + guard.x + ", " + guard.y)
 
+        // Get initial direction of guard
+        val guardDirection: Coordinate = getDirection(lab(guard.y)(guard.x)).get
+
         // Part 1
-        val visited: Int = getVisitCount(lab, guard)
+        val visited: Int = getVisitCount(lab, guard, guardDirection)
 
         // Part 2
         var loops: Int = 0
@@ -119,7 +121,7 @@ object Main {
             do
                 val before: Char = lab(i)(j)
                 lab(i)(j) = '#'
-                if (!(i == guard.y && j == guard.x) && getVisitCount(lab, guard) == -1) {
+                if (!(i == guard.y && j == guard.x) && getVisitCount(lab, guard, guardDirection) == -1) {
                     loops = loops + 1
                 }
                 lab(i)(j) = before
