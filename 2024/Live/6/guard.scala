@@ -106,8 +106,25 @@ object Main {
         }
         //println("Guard is initially at " + guard.x + ", " + guard.y)
 
+        // Part 1
         val visited: Int = getVisitCount(lab, guard)
 
+        // Part 2
+        var loops: Int = 0
+        for
+            i <- 0 until lab.size
+        do
+            for
+                j <- 0 until lab(i).size
+            do
+                val before: Char = lab(i)(j)
+                lab(i)(j) = '#'
+                if (!(i == guard.y && j == guard.x) && getVisitCount(lab, guard) == -1) {
+                    loops = loops + 1
+                }
+                lab(i)(j) = before
+
         println("The guard visited " + visited + " locations")
+        println("There are " + loops + " places to put obstacles such that it will cause guard to end up in a loop!")
     }
 }
