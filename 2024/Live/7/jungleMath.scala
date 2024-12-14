@@ -1,8 +1,6 @@
 import scala.io.Source
 
 object Main {
-    val OPERATOR_LIST:List[Char] = List('+', '*')
-
     def printEquation(numbs: Array[Long], operators: Array[Char]): Unit = {
         val eq: Array[String] = new Array[String](numbs.size + operators.size)
         for
@@ -30,14 +28,14 @@ object Main {
         return result
     }
 
-    def solve(numbs: Array[Long], operators: Array[Char], result: Long, index: Int): Boolean = {
+    def solve(numbs: Array[Long], operators: Array[Char], result: Long, index: Int, validOperators: List[Char]): Boolean = {
         if (index == operators.size) {
             return result == compute(numbs, operators)
         }
 
-        OPERATOR_LIST.foreach(operator =>
+        validOperators.foreach(operator =>
             operators(index) = operator
-            if (solve(numbs, operators, result, index + 1)) {
+            if (solve(numbs, operators, result, index + 1, validOperators)) {
                 return true
             }
         )
@@ -48,7 +46,9 @@ object Main {
         val filename = "bridge.txt"
         val lines = Source.fromFile(filename).getLines().toList
 
-        var resultSum: Long = 0
+        val partOneOperators:List[Char] = List('+', '*')
+        val partTwoOperators:List[Char] = List('+', '*', 'C') // C for concatenate
+        var partOneResultSum: Long = 0
         lines.foreach(line =>
             val colonIndex: Int = line.indexOf(':')
             val result: Long = line.slice(0, colonIndex).toLong
@@ -58,11 +58,11 @@ object Main {
             //println("Test result: " + result)
             //println("Numbers: " + numbs.mkString(", "))
 
-            if (solve(numbs, operators, result, 0)) {
-                resultSum = resultSum + result
+            if (solve(numbs, operators, result, 0, partOneOperators)) {
+                partOneResultSum = partOneResultSum + result
             }
             //println()
         )
-        println("The sum of results of valid bridge equations is " + resultSum)
+        println("The sum of results of valid bridge equations is " + partOneResultSum)
     }
 }
