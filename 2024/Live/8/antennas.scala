@@ -26,6 +26,15 @@ object Main {
         return math.sqrt(square(b.x - a.x) + square(b.y - a.y))
     }
 
+    def inLineAndDoubleDist(origin: Coordinate, a: Coordinate, b: Coordinate): Boolean = {
+        val aHorizontalDist: Int = origin.x - a.x
+        val bHorizontalDist: Int = origin.x - b.x
+        val aVerticalDist: Int = origin.y - a.y
+        val bVerticalDist: Int = origin.y - b.y
+        // Verify that b is double as far left/right and double as far up/down as a from origin
+        return bHorizontalDist == (aHorizontalDist * 2) && bVerticalDist == (aVerticalDist * 2)
+    }
+
     def printRoof(roof: ArrayBuffer[Array[Char]]): Unit = {
         println("Current state of roof:")
         roof.foreach(line =>
@@ -72,9 +81,21 @@ object Main {
                 val loc: Coordinate = Coordinate(x, y)
                 // Iterate over antennas
                 antennas.foreach { case (antenna, locs) =>
-                    // Get distances from current loc to each antenna of this frequency
-                    val dists: List[Double] = locs.map(ant => getDistance(loc, ant))
                     // Compare every distance against every other distance to see if any are double others
+                    locs.foreach(locA =>
+                        locs.foreach(locB =>
+                            if (!(locA.x == locB.x && locA.y == locB.y)) {
+                                if (inLineAndDoubleDist(loc, locA, locB)) {
+                                    antinodes += loc
+                                }
+                            }
+                        )
+                    )
+
+                    // Solution if question was just asking if antennas had one that was double distance from
+                    // the starting location than the other not accounting for being in line
+                    /*// Get distances from current loc to each antenna of this frequency
+                    val dists: List[Double] = locs.map(ant => getDistance(loc, ant))
                     dists.foreach(distA =>
                         dists.foreach(distB =>
                             val diff: Double = math.abs(distA - (distB * 2))
@@ -84,10 +105,10 @@ object Main {
                                 println("There is a antenna of freq: " + antenna + " distances " + distA + " and " + distB + " away!")
                             }
                         )
-                    )
+                    )*/
                 }
             }
         }
-        println("There are " + antinodes.size + " locations with antinodes not perfectly in line!")
+        println("There are " + antinodes.size + " locations with antinodes perfectly in line!")
     }
 }
