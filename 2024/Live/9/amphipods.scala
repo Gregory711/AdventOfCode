@@ -66,13 +66,27 @@ object Main {
                     diskPtr = diskPtr + 1
             }
         // Set original locations of files moved to the left to -1 to represent free space
+        var skipFrees: Int = 0
         for
             j <- 0 until toMove
         do
-            wideDisk(wideDisk.size - j - 1) = -1
-        println(wideDisk.mkString(" "))
+            var k: Int = wideDisk.size - j - 1 - skipFrees
+            while (wideDisk(k) == -1) {
+                skipFrees = skipFrees + 1
+                k = k - 1
+            }
+            wideDisk(k) = -1
+        //println(wideDisk.mkString(" "))
 
-        println("Initial Disk: " + disk.mkString)
+        // Calculate checksum for the new file structure
+        var sum: Int = 0
+        for
+            j <- 0 until wideDisk.size if wideDisk(j) > 0
+        do
+            sum = sum + (j * wideDisk(j))
+
+        //println("Initial Disk: " + disk.mkString)
         println("Free space = " + freeSpace)
+        println("Checksum of new file structure: " + sum)
     }
 }
