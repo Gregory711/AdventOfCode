@@ -35,6 +35,20 @@ object Main {
         return bHorizontalDist == (aHorizontalDist * 2) && bVerticalDist == (aVerticalDist * 2)
     }
 
+    def inLine(origin: Coordinate, a: Coordinate, b: Coordinate): Boolean = {
+        // To be line need same slope relative to the origin point so they are on the same line or
+        // have one of the point be the same as origin so the line is just connecting the two dots
+        // Recall: slope = rise over run = vertical diff / horizontal diff
+        val aHorizontalDist: Int = origin.x - a.x
+        val bHorizontalDist: Int = origin.x - b.x
+        val aVerticalDist: Int = origin.y - a.y
+        val bVerticalDist: Int = origin.y - b.y
+        val aSlope: Double = aVerticalDist.toDouble / aHorizontalDist
+        val bSlope: Double = bVerticalDist.toDouble / bHorizontalDist
+        //println("(" + a.x + ", " + a.y + ") and (" + b.x + ", " + b.y + ") have slopes " + aSlope + " and " + bSlope + " respectively.")
+        return aSlope == bSlope || (origin.x == a.x && origin.y == a.y) || (origin.x == b.x && origin.y == b.y)
+    }
+
     def printRoof(roof: ArrayBuffer[Array[Char]]): Unit = {
         println("Current state of roof:")
         roof.foreach(line =>
@@ -75,6 +89,7 @@ object Main {
         // Iterate over every location on roof and check if any two antennas of same frequency have one
         // that is twice as far from current location as the other
         var antinodes = HashSet[Coordinate]()
+        var harmonicAntinodes = HashSet[Coordinate]()
         for (x <- roof.indices) {
             val row: Array[Char] = roof(x)
             for (y <- row.indices) {
@@ -87,6 +102,9 @@ object Main {
                             if (!(locA.x == locB.x && locA.y == locB.y)) {
                                 if (inLineAndDoubleDist(loc, locA, locB)) {
                                     antinodes += loc
+                                }
+                                if (inLine(loc, locA, locB)) {
+                                    harmonicAntinodes += loc
                                 }
                             }
                         )
@@ -110,5 +128,6 @@ object Main {
             }
         }
         println("There are " + antinodes.size + " locations with antinodes perfectly in line!")
+        println("There are " + harmonicAntinodes.size + " locations with antinodes perfectly in line when accounting for harmonic resonations!")
     }
 }
