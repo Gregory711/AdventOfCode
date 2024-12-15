@@ -5,7 +5,9 @@ object Main {
         val filename = "disk.txt"
         val lines = Source.fromFile(filename).getLines().toList
 
-        val disk: Array[Char] = lines.head.toCharArray()
+        // ASCII addition e.g. '0' - '0' is 0 int, '1' - '0' is 1 int, and so on
+        val disk: Array[Int] = lines.head.toCharArray().map(_ - '0')
+
         println("Initial Disk: " + disk.mkString)
     }
 }
