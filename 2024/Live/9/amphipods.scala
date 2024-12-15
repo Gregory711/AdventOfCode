@@ -43,16 +43,16 @@ object Main {
         while (freeSpaceToFill > 0 && freePtr < filePtr) {
             val fileSize: Int = disk(filePtr)
             for
-                j <- 0 until math.min(fileSize, freeSpaceToFill)
+                j <- 0 until math.min(fileSize, freeSpaceToFill) if freePtr < filePtr
             do
                 fileBlocksToMove.enqueue(filePtr / 2) // id
+                spaceLeftInFreeBlock = spaceLeftInFreeBlock - 1
+                if (spaceLeftInFreeBlock == 0) {
+                    freePtr = freePtr + 2
+                    spaceLeftInFreeBlock = disk(freePtr)
+                }
+                freeSpaceToFill = freeSpaceToFill - 1
             filePtr = filePtr - 2
-            freeSpaceToFill = freeSpaceToFill - fileSize
-            spaceLeftInFreeBlock = spaceLeftInFreeBlock - fileSize // bug: could still be exceeded partially!
-            while (spaceLeftInFreeBlock < 0) {
-                freePtr = freePtr + 2
-                spaceLeftInFreeBlock = spaceLeftInFreeBlock + disk(freePtr)
-            }
         }
         println("Moving: " + fileBlocksToMove.mkString(" "))
         val fileBlockMoveCount: Int = fileBlocksToMove.size
