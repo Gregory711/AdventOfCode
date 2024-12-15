@@ -56,30 +56,7 @@ object Main {
         }
         println("Moving: " + fileBlocksToMove.mkString(" "))
         val fileBlockMoveCount: Int = fileBlocksToMove.size
-/*
-        // OLD approach (new approach being made above)
-        // Figure out what files need to be moved left into freespace by file id
-        val moving: Queue[Int] = Queue[Int]()
-        var toMove: Int = freeSpace
-        var i: Int = disk.size - 1
-        // Make sure it starts on file not freespace
-        if (i % 2 != 0) {
-            i = i - 1
-        }
-        while (toMove > 0) {
-            val fileSize: Int = disk(i)
-            for
-                j <- 0 until math.min(fileSize, toMove)
-            do
-                moving.enqueue(i / 2) // i / 2 = id
-            toMove = toMove - fileSize
-            // Makes sure you don't move files to the right to fill freespace
-            toMove = toMove - disk(i - 1) // this is the problem line
-            i = i - 2
-        }
-        toMove = moving.size
-        println("Moving: " + moving.mkString(", "))
-*/
+        
         // Create disk with space expanded and fill it with correct ids
         val wideDisk: Array[Int] = new Array[Int](fileSpace + freeSpace)
         var diskPtr: Int = 0
