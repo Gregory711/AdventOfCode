@@ -26,6 +26,13 @@ object Main {
             freeSpace = freeSpace + disk(i)
         }
 
+        // Figure out how much of the freespace can be filled and with what files
+        // To do so need to find freespace going left to right while also
+        // finding files to fill it in going right to left
+        // If at any point the files looked at for filling are to the left of the freespace needing
+        // filling then have to quit as we can only move files to the left
+
+        // OLD approach (new approach being made above)
         // Figure out what files need to be moved left into freespace by file id
         val moving: Queue[Int] = Queue[Int]()
         var toMove: Int = freeSpace
@@ -42,7 +49,7 @@ object Main {
                 moving.enqueue(i / 2) // i / 2 = id
             toMove = toMove - fileSize
             // Makes sure you don't move files to the right to fill freespace
-            toMove = toMove - disk(i - 1)
+            toMove = toMove - disk(i - 1) // this is the problem line
             i = i - 2
         }
         toMove = moving.size
