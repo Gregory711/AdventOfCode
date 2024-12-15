@@ -48,7 +48,7 @@ object Main {
                 fileBlocksToMove.enqueue(filePtr / 2) // id
             filePtr = filePtr - 2
             freeSpaceToFill = freeSpaceToFill - fileSize
-            spaceLeftInFreeBlock = spaceLeftInFreeBlock - fileSize
+            spaceLeftInFreeBlock = spaceLeftInFreeBlock - fileSize // bug: could still be exceeded partially!
             while (spaceLeftInFreeBlock < 0) {
                 freePtr = freePtr + 2
                 spaceLeftInFreeBlock = spaceLeftInFreeBlock + disk(freePtr)
@@ -56,7 +56,7 @@ object Main {
         }
         println("Moving: " + fileBlocksToMove.mkString(" "))
         val fileBlockMoveCount: Int = fileBlocksToMove.size
-        
+
         // Create disk with space expanded and fill it with correct ids
         val wideDisk: Array[Int] = new Array[Int](fileSpace + freeSpace)
         var diskPtr: Int = 0
