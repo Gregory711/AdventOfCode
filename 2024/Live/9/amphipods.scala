@@ -31,7 +31,32 @@ object Main {
         // finding files to fill it in going right to left
         // If at any point the files looked at for filling are to the left of the freespace needing
         // filling then have to quit as we can only move files to the left
-
+        val fileBlocksToMove: Queue[Int] = Queue[Int]()
+        var freeSpaceToFill: Int = freeSpace
+        var freePtr: Int = 1
+        var spaceLeftInFreeBlock: Int = disk(freePtr)
+        var filePtr: Int = disk.size -1
+        // Make sure it starts on file not freespace
+        if (filePtr % 2 != 0) {
+            filePtr = filePtr - 1
+        }
+        while (freeSpaceToFill > 0 && freePtr < filePtr) {
+            val fileSize: Int = disk(filePtr)
+            for
+                j <- 0 until math.min(fileSize, freeSpaceToFill)
+            do
+                fileBlocksToMove.enqueue(filePtr / 2) // id
+            filePtr = filePtr - 2
+            freeSpaceToFill = freeSpaceToFill - fileSize
+            spaceLeftInFreeBlock = spaceLeftInFreeBlock - fileSize
+            while (spaceLeftInFreeBlock < 0) {
+                freePtr = freePtr + 2
+                spaceLeftInFreeBlock = spaceLeftInFreeBlock + disk(freePtr)
+            }
+        }
+        println("Moving: " + fileBlocksToMove.mkString(" "))
+        val fileBlockMoveCount: Int = fileBlocksToMove.size
+/*
         // OLD approach (new approach being made above)
         // Figure out what files need to be moved left into freespace by file id
         val moving: Queue[Int] = Queue[Int]()
@@ -54,7 +79,7 @@ object Main {
         }
         toMove = moving.size
         println("Moving: " + moving.mkString(", "))
-
+*/
         // Create disk with space expanded and fill it with correct ids
         val wideDisk: Array[Int] = new Array[Int](fileSpace + freeSpace)
         var diskPtr: Int = 0
@@ -72,8 +97,8 @@ object Main {
                     k <- 0 until disk(j)
                 do
                     // Fill free space with files from the rightmost space if available
-                    if (!moving.isEmpty) {
-                        wideDisk(diskPtr) = moving.dequeue()
+                    if (!fileBlocksToMove.isEmpty) {
+                        wideDisk(diskPtr) = fileBlocksToMove.dequeue()
                     } else {
                         wideDisk(diskPtr) = -1
                     }
@@ -82,7 +107,7 @@ object Main {
         // Set original locations of files moved to the left to -1 to represent free space
         var skipFrees: Int = 0
         for
-            j <- 0 until toMove
+            j <- 0 until fileBlockMoveCount
         do
             var k: Int = wideDisk.size - j - 1 - skipFrees
             while (wideDisk(k) == -1) {
