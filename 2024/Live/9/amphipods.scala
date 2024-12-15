@@ -4,6 +4,13 @@ import scala.collection.mutable.Queue
 object Main {
     def main(args: Array[String]): Unit = {
         val filename = "disk.txt"
+        /*val filename = "randA.txt" checksum should be 624, proof:
+            9 9 2 0 2 0 9 5 2 4
+              -   -   -   -   -
+            9.........229.....2....
+            0.........1122333333333.....44
+            000000000443333333112233..............
+            4*9 + 4*10 + 3*11 + 3*12 + 3*13 + 3*14 + 3*15 + 3*16 + 3*17 + 1*18 + 1*19 + 2*20 + 2*21 + 3*22 + 3*23 = 624 */
         val lines = Source.fromFile(filename).getLines().toList
 
         // ASCII addition e.g. '0' - '0' is 0 int, '1' - '0' is 1 int, and so on
@@ -39,7 +46,7 @@ object Main {
             i = i - 2
         }
         toMove = moving.size
-        //println("Moving: " + moving.mkString(", "))
+        println("Moving: " + moving.mkString(", "))
 
         // Create disk with space expanded and fill it with correct ids
         val wideDisk: Array[Int] = new Array[Int](fileSpace + freeSpace)
@@ -76,7 +83,7 @@ object Main {
                 k = k - 1
             }
             wideDisk(k) = -1
-        //println(wideDisk.mkString(" "))
+        println(wideDisk.mkString(" "))
 
         // Calculate checksum for the new file structure
         var sum: Int = 0
