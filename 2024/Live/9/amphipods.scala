@@ -95,7 +95,7 @@ object Main {
         println(wideDisk.mkString(" "))
 
         // Calculate checksum for the new file structure
-        var sum: Int = 0
+        var sum: Long = 0
         for
             j <- 0 until wideDisk.size if wideDisk(j) > 0
         do
