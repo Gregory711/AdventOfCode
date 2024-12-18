@@ -2,30 +2,7 @@ import scala.io.Source
 import scala.collection.mutable.Queue
 
 object Main {
-    def main(args: Array[String]): Unit = {
-        val filename = "disk.txt"
-        /*val filename = "randA.txt" checksum should be 624, proof:
-            9 9 2 0 2 0 9 5 2 4
-              -   -   -   -   -
-            9.........229.....2....
-            0.........1122333333333.....44
-            000000000443333333112233..............
-            4*9 + 4*10 + 3*11 + 3*12 + 3*13 + 3*14 + 3*15 + 3*16 + 3*17 + 1*18 + 1*19 + 2*20 + 2*21 + 3*22 + 3*23 = 624 */
-        val lines = Source.fromFile(filename).getLines().toList
-
-        // ASCII addition e.g. '0' - '0' is 0 int, '1' - '0' is 1 int, and so on
-        val disk: Array[Int] = lines.head.toCharArray().map(_ - '0')
-
-        var fileSpace: Int = 0
-        for (i <- 0 until disk.size if i % 2 == 0) {
-            fileSpace = fileSpace + disk(i)
-        }
-
-        var freeSpace: Int = 0
-        for (i <- 0 until disk.size if i % 2 != 0) {
-            freeSpace = freeSpace + disk(i)
-        }
-
+    def getPart1Checksum(disk: Array[Int], fileSpace: Int, freeSpace: Int): Long = {
         // Figure out how much of the freespace can be filled and with what files
         // To do so need to find freespace going left to right while also
         // finding files to fill it in going right to left
@@ -54,7 +31,7 @@ object Main {
                 freeSpaceToFill = freeSpaceToFill - 1
             filePtr = filePtr - 2
         }
-        println("Moving: " + fileBlocksToMove.mkString(" "))
+        //println("Moving: " + fileBlocksToMove.mkString(" "))
         val fileBlockMoveCount: Int = fileBlocksToMove.size
 
         // Create disk with space expanded and fill it with correct ids
@@ -92,7 +69,7 @@ object Main {
                 k = k - 1
             }
             wideDisk(k) = -1
-        println(wideDisk.mkString(" "))
+        //println(wideDisk.mkString(" "))
 
         // Calculate checksum for the new file structure
         var sum: Long = 0
@@ -102,7 +79,34 @@ object Main {
             sum = sum + (j * wideDisk(j))
 
         //println("Initial Disk: " + disk.mkString)
-        println("Free space = " + freeSpace)
-        println("Checksum of new file structure: " + sum)
+        //println("Free space = " + freeSpace)
+        return sum
+    }
+
+    def main(args: Array[String]): Unit = {
+        val filename = "disk.txt"
+        /*val filename = "randA.txt" part 1 checksum should be 624, proof:
+            9 9 2 0 2 0 9 5 2 4
+              -   -   -   -   -
+            9.........229.....2....
+            0.........1122333333333.....44
+            000000000443333333112233..............
+            4*9 + 4*10 + 3*11 + 3*12 + 3*13 + 3*14 + 3*15 + 3*16 + 3*17 + 1*18 + 1*19 + 2*20 + 2*21 + 3*22 + 3*23 = 624 */
+        val lines = Source.fromFile(filename).getLines().toList
+
+        // ASCII addition e.g. '0' - '0' is 0 int, '1' - '0' is 1 int, and so on
+        val disk: Array[Int] = lines.head.toCharArray().map(_ - '0')
+
+        var fileSpace: Int = 0
+        for (i <- 0 until disk.size if i % 2 == 0) {
+            fileSpace = fileSpace + disk(i)
+        }
+
+        var freeSpace: Int = 0
+        for (i <- 0 until disk.size if i % 2 != 0) {
+            freeSpace = freeSpace + disk(i)
+        }
+
+        println("Part 1 checksum of new file structure: " + getPart1Checksum(disk, fileSpace, freeSpace))
     }
 }
