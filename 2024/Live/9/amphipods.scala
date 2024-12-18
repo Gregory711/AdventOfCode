@@ -83,8 +83,36 @@ object Main {
         return sum
     }
 
+    def printWideDisk(wideDisk: Array[Int]): Unit = {
+        println(
+            wideDisk.map{
+                case -1 => '.'
+                case other => other
+            }.mkString
+        )
+    }
+
+    def getWideDisk(disk: Array[Int], size: Int): Array[Int] = {
+        val wideDisk: Array[Int] = new Array[Int](size)
+        var ptr: Int = 0
+        for
+            i <- 0 until disk.size
+        do
+            val id = (i % 2) match {
+                case 0 => i / 2
+                case _ => -1
+            }
+            for
+                j <- 0 until disk(i)
+            do
+                wideDisk(ptr) = id
+                ptr = ptr + 1
+        return wideDisk
+    }
+
     def getPart2Checksum(disk: Array[Int], fileSpace: Int, freeSpace: Int): Long = {
         var sum: Long = 0
+        printWideDisk(getWideDisk(disk, fileSpace + freeSpace))
         return sum
     }
 
