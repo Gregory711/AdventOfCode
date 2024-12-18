@@ -112,7 +112,32 @@ object Main {
 
     def getPart2Checksum(disk: Array[Int], fileSpace: Int, freeSpace: Int): Long = {
         var sum: Long = 0
-        printWideDisk(getWideDisk(disk, fileSpace + freeSpace))
+        val wideDisk: Array[Int] = getWideDisk(disk, fileSpace + freeSpace)
+        printWideDisk(wideDisk)
+
+        // TODO: create diskIds array to keep track of ids for corresponding files in disk
+
+        // Starting on the right and going left try to move each file as far left as possible
+        val rightMostFile: Int = ((disk.size - 1) % 2) match {
+            case 0 => disk.size - 1
+            case _ => disk.size - 2
+        }
+        for (i <- rightMostFile to 2 by -2) {
+            // Iterate over freeSpaces until reach this file to see if any are big enough to move this file to, if so swap!
+            // To swap need to:
+                // 1. Record the size of the file
+                // 2. Set the original location of the file to 0
+                // 3. Decrement the size of the freeSpace by the fileSize
+                // 4. Insert the file before the freeSpace
+                // 5. Insert a 0 width freeSpace before the file so files are still are even blocks
+                // 6. Repeat above insertions in diskIds array!
+                // Don't actually need to copy the freespace over since it is ignored in checksum calculations!
+            for (j <- 1 to rightMostFile - 1 by -2) {
+                //if (disk(j) >= )
+            }
+        }
+
+        // TODO: calculate checksum!
         return sum
     }
 
