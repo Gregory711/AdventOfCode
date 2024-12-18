@@ -83,6 +83,11 @@ object Main {
         return sum
     }
 
+    def getPart2Checksum(disk: Array[Int], fileSpace: Int, freeSpace: Int): Long = {
+        var sum: Long = 0
+        return sum
+    }
+
     def main(args: Array[String]): Unit = {
         val filename = "disk.txt"
         /*val filename = "randA.txt" part 1 checksum should be 624, proof:
@@ -108,5 +113,6 @@ object Main {
         }
 
         println("Part 1 checksum of new file structure: " + getPart1Checksum(disk, fileSpace, freeSpace))
+        println("Part 2 checksum of new file structure: " + getPart2Checksum(disk, fileSpace, freeSpace))
     }
 }
