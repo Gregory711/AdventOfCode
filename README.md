@@ -3,9 +3,12 @@ Stats:
   - Live: 24 Stars (Python 3.10)
 - 2024:
   - Training: 14 Stars (Java 17)
-  - Live: 12 Stars (Scala 3.6)
+  - Live: 17 Stars (Scala 3.6)
 
-Total: 50 Stars
+Total: 55 Stars
+
+Jan 2025 Retro Plans:
+1. Research other approaches to (2024) day 9, mine is taking way too long to design and code
 
 <details>
 <summary>2023</summary>
