@@ -154,11 +154,11 @@ object Main {
             // To swap need to:
                 // 1. Record the size of the file
                 // 2. Set the original location of the file to 0
-                // 3. Decrement the size of the freeSpace by the fileSize
-                // 4. Insert the file before the freeSpace
-                // 5. Insert a 0 width freeSpace before the file so files are still are even blocks
-                // 6. Repeat above insertions in diskIds array!
-                // Don't actually need to copy the freespace over since it is ignored in checksum calculations!
+                // 3. Add file size to freespace before original location since affects positions for checksum
+                // 4. Decrement the size of the freeSpace by the fileSize
+                // 5. Insert the file before the freeSpace
+                // 6. Insert a 0 width freeSpace before the file so files are still are even blocks
+                // 7. Repeat above insertions in diskIds array!
 
             println("Checking id " + ids(i))
             val fileSize: Int = disk(i)
@@ -166,11 +166,12 @@ object Main {
                 if (alreadySwapped(ids(i))) {
                     break
                 }
-                for (j <- 1 to rightMostFile - 1 by 2) {
+                for (j <- 1 to i - 1 by 2) {
                     if (disk(j) >= fileSize) {
                         println("Swapping for ids(" + i + ") = " + ids(i))
                         println("Swapping cause disk("+j+")= "+disk(j)+" which is >= fileSize of "+fileSize)
                         disk(i) = 0
+                        disk(i - 1) = disk(i - 1) + fileSize
                         disk(j) = disk(j) - fileSize
                         disk.insert(j, fileSize)
                         disk.insert(j, 0)
