@@ -142,7 +142,8 @@ object Main {
             case 0 => disk.size - 1
             case _ => disk.size - 2
         }
-        for (i <- rightMostFile to 2 by -2) {
+        var i: Int = rightMostFile
+        while (i >= 2) {
             // Iterate over freeSpaces until reach this file to see if any are big enough to move this file to, if so swap!
             // To swap need to:
                 // 1. Record the size of the file
@@ -165,10 +166,14 @@ object Main {
                         ids.insert(j, i / 2)
                         ids.insert(j - 1, 0)
 
+                        // Update index to account for insertions
+                        i = i - 2
+
                         break
                     }
                 }
             }
+            i = i - 2
         }
 
         // TODO: calculate checksum!
