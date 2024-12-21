@@ -89,6 +89,7 @@ object Main {
         println(
             wideDisk.map{
                 case -1 => '.'
+                case -2 => '*'
                 case other => other
             }.mkString
         )
@@ -119,6 +120,9 @@ object Main {
                 j <- 0 until disk(i)
             do
                 wideDisk.append(ids(i))
+            if (disk(i) == 0) {
+                wideDisk.append(-2)
+            }
         return wideDisk
     }
 
@@ -160,13 +164,14 @@ object Main {
             breakable {
                 for (j <- 1 to rightMostFile - 1 by 2) {
                     if (disk(j) >= fileSize) {
+                        println("Swappging cause disk("+j+")= "+disk(j)+" which is >= fileSize of "+fileSize)
                         disk(i) = 0
                         disk(j) = disk(j) - fileSize
                         disk.insert(j, fileSize)
-                        disk.insert(j - 1, 0)
+                        disk.insert(j, 0)
 
                         ids.insert(j, ids(i))
-                        ids.insert(j - 1, 0)
+                        ids.insert(j, 0)
 
                         println("Doing swap of index " + ids(i + 2) + " resulting in disk:")
                         printWideDisk(getWideDisk(disk, ids))
