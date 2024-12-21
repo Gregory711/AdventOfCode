@@ -1,6 +1,7 @@
 import scala.io.Source
 import scala.collection.mutable.Queue
 import scala.collection.mutable.ArrayBuffer
+import scala.util.control.Breaks._
 
 object Main {
     def getPart1Checksum(disk: Array[Int], fileSpace: Int, freeSpace: Int): Long = {
@@ -153,15 +154,19 @@ object Main {
                 // Don't actually need to copy the freespace over since it is ignored in checksum calculations!
 
             val fileSize: Int = disk(i)
-            for (j <- 1 to rightMostFile - 1 by 2) {
-                if (disk(j) >= fileSize) {
-                    disk(i) = 0
-                    disk(j) = disk(j) - fileSize
-                    disk.insert(j, fileSize)
-                    disk.insert(j - 1, 0)
+            breakable {
+                for (j <- 1 to rightMostFile - 1 by 2) {
+                    if (disk(j) >= fileSize) {
+                        disk(i) = 0
+                        disk(j) = disk(j) - fileSize
+                        disk.insert(j, fileSize)
+                        disk.insert(j - 1, 0)
 
-                    ids.insert(j, i / 2)
-                    ids.insert(j - 1, 0)
+                        ids.insert(j, i / 2)
+                        ids.insert(j - 1, 0)
+
+                        break
+                    }
                 }
             }
         }
