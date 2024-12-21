@@ -114,7 +114,15 @@ object Main {
         val wideDisk: ArrayBuffer[Int] = getWideDisk(disk, fileSpace + freeSpace)
         printWideDisk(wideDisk)
 
-        // TODO: create diskIds array to keep track of ids for corresponding files in disk
+        // Creates diskIds array to keep track of ids for corresponding files in disk
+        val ids: ArrayBuffer[Int] = new ArrayBuffer[Int]()
+        for
+            i <- 0 until disk.size
+        do
+            (i % 2) match {
+                case 0 => ids.append(i / 2)
+                case _ => ids.append(-1)
+            }
 
         // Starting on the right and going left try to move each file as far left as possible
         val rightMostFile: Int = ((disk.size - 1) % 2) match {
@@ -139,6 +147,9 @@ object Main {
                     disk(j) = disk(j) - fileSize
                     disk.insert(j, fileSize)
                     disk.insert(j - 1, 0)
+
+                    ids.insert(j, i / 2)
+                    ids.insert(j - 1, 0)
                 }
             }
         }
