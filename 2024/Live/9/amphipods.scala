@@ -126,6 +126,7 @@ object Main {
         var sum: Long = 0
         val wideDisk: ArrayBuffer[Int] = getWideDisk(disk)
         printWideDisk(wideDisk)
+        println()
 
         // Creates diskIds array to keep track of ids for corresponding files in disk
         val ids: ArrayBuffer[Int] = new ArrayBuffer[Int]()
@@ -154,6 +155,7 @@ object Main {
                 // 6. Repeat above insertions in diskIds array!
                 // Don't actually need to copy the freespace over since it is ignored in checksum calculations!
 
+            println("Checking id " + ids(i))
             val fileSize: Int = disk(i)
             breakable {
                 for (j <- 1 to rightMostFile - 1 by 2) {
@@ -163,12 +165,12 @@ object Main {
                         disk.insert(j, fileSize)
                         disk.insert(j - 1, 0)
 
-                        ids.insert(j, i / 2)
+                        ids.insert(j, ids(i))
                         ids.insert(j - 1, 0)
 
-                        // Update index to account for insertions
-                        i = i - 2
-
+                        println("Doing swap of index " + ids(i + 2) + " resulting in disk:")
+                        printWideDisk(getWideDisk(disk, ids))
+                        println()
                         break
                     }
                 }
