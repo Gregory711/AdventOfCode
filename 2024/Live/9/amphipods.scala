@@ -192,9 +192,18 @@ object Main {
             i = i - 2
         }
 
-        // TODO: calculate checksum!
+        // Calculate checksum
         val finalDisk: ArrayBuffer[Int] = getWideDisk(disk, ids)
         printWideDisk(finalDisk)
+        var position: Int = 0
+        for
+            j <- 0 until finalDisk.size if finalDisk(j) != -2
+        do
+            if (finalDisk(j) > 0) {
+                sum = sum + (position * finalDisk(j))
+            }
+            position = position + 1
+        
         return sum
     }
 
