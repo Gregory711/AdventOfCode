@@ -129,8 +129,8 @@ object Main {
     def getPart2Checksum(disk: ArrayBuffer[Int], fileSpace: Int, freeSpace: Int): Long = {
         var sum: Long = 0
         val wideDisk: ArrayBuffer[Int] = getWideDisk(disk)
-        printWideDisk(wideDisk)
-        println()
+        //printWideDisk(wideDisk)
+        //println()
 
         // Creates diskIds array to keep track of ids for corresponding files in disk
         val ids: ArrayBuffer[Int] = new ArrayBuffer[Int]()
@@ -160,7 +160,7 @@ object Main {
                 // 6. Insert a 0 width freeSpace before the file so files are still are even blocks
                 // 7. Repeat above insertions in diskIds array!
 
-            println("Checking id " + ids(i))
+            //println("Checking id " + ids(i))
             val fileSize: Int = disk(i)
             breakable {
                 if (alreadySwapped(ids(i))) {
@@ -168,8 +168,8 @@ object Main {
                 }
                 for (j <- 1 to i - 1 by 2) {
                     if (disk(j) >= fileSize) {
-                        println("Swapping for ids(" + i + ") = " + ids(i))
-                        println("Swapping cause disk("+j+")= "+disk(j)+" which is >= fileSize of "+fileSize)
+                        //println("Swapping for ids(" + i + ") = " + ids(i))
+                        //println("Swapping cause disk("+j+")= "+disk(j)+" which is >= fileSize of "+fileSize)
                         disk(i) = 0
                         disk(i - 1) = disk(i - 1) + fileSize
                         disk(j) = disk(j) - fileSize
@@ -178,14 +178,14 @@ object Main {
 
                         // Mark as swapped
                         alreadySwapped(ids(i)) = true
-                        println("Won't run for ids(" + i + ")= " + ids(i) + " again!")
+                        //println("Won't run for ids(" + i + ")= " + ids(i) + " again!")
 
                         ids.insert(j, ids(i))
                         ids.insert(j, 0)
 
-                        println("Doing swap of index " + ids(i + 2) + " resulting in disk:")
-                        printWideDisk(getWideDisk(disk, ids))
-                        println()
+                        //println("Doing swap of index " + ids(i + 2) + " resulting in disk:")
+                        //printWideDisk(getWideDisk(disk, ids))
+                        //println()
                         break
                     }
                 }
@@ -195,7 +195,7 @@ object Main {
 
         // Calculate checksum
         val finalDisk: ArrayBuffer[Int] = getWideDisk(disk, ids)
-        printWideDisk(finalDisk)
+        //printWideDisk(finalDisk)
         var position: Int = 0
         for
             j <- 0 until finalDisk.size if finalDisk(j) != -2
