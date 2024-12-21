@@ -186,6 +186,10 @@ object Main {
                         //println("Doing swap of index " + ids(i + 2) + " resulting in disk:")
                         //printWideDisk(getWideDisk(disk, ids))
                         //println()
+
+                        // Adjust for insertions after calculations are made so every file is examined
+                        // to see if it can be moved left
+                        i = i + 2
                         break
                     }
                 }
@@ -202,6 +206,7 @@ object Main {
         do
             if (finalDisk(j) > 0) {
                 sum = sum + (position * finalDisk(j))
+                //println("Adding " + position + " * " + finalDisk(j))
             }
             position = position + 1
         
