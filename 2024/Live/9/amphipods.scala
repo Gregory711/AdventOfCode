@@ -148,6 +148,7 @@ object Main {
             case _ => disk.size - 2
         }
         var i: Int = rightMostFile
+        val alreadySwapped: Array[Boolean] = new Array[Boolean](ids.last + 1)
         while (i >= 2) {
             // Iterate over freeSpaces until reach this file to see if any are big enough to move this file to, if so swap!
             // To swap need to:
@@ -162,13 +163,21 @@ object Main {
             println("Checking id " + ids(i))
             val fileSize: Int = disk(i)
             breakable {
+                if (alreadySwapped(ids(i))) {
+                    break
+                }
                 for (j <- 1 to rightMostFile - 1 by 2) {
                     if (disk(j) >= fileSize) {
-                        println("Swappging cause disk("+j+")= "+disk(j)+" which is >= fileSize of "+fileSize)
+                        println("Swapping for ids(" + i + ") = " + ids(i))
+                        println("Swapping cause disk("+j+")= "+disk(j)+" which is >= fileSize of "+fileSize)
                         disk(i) = 0
                         disk(j) = disk(j) - fileSize
                         disk.insert(j, fileSize)
                         disk.insert(j, 0)
+
+                        // Mark as swapped
+                        alreadySwapped(ids(i)) = true
+                        println("Won't run for ids(" + i + ")= " + ids(i) + " again!")
 
                         ids.insert(j, ids(i))
                         ids.insert(j, 0)
