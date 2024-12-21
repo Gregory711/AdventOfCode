@@ -167,6 +167,8 @@ object Main {
         }
 
         // TODO: calculate checksum!
+        val finalDisk: ArrayBuffer[Int] = getWideDisk(disk, ids)
+        printWideDisk(finalDisk)
         return sum
     }
 
