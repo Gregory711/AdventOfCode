@@ -1,5 +1,6 @@
 import scala.io.Source
 import scala.collection.mutable.Queue
+import scala.collection.mutable.ArrayBuffer
 
 object Main {
     def getPart1Checksum(disk: Array[Int], fileSpace: Int, freeSpace: Int): Long = {
@@ -83,7 +84,7 @@ object Main {
         return sum
     }
 
-    def printWideDisk(wideDisk: Array[Int]): Unit = {
+    def printWideDisk(wideDisk: ArrayBuffer[Int]): Unit = {
         println(
             wideDisk.map{
                 case -1 => '.'
@@ -92,9 +93,8 @@ object Main {
         )
     }
 
-    def getWideDisk(disk: Array[Int], size: Int): Array[Int] = {
-        val wideDisk: Array[Int] = new Array[Int](size)
-        var ptr: Int = 0
+    def getWideDisk(disk: ArrayBuffer[Int], size: Int): ArrayBuffer[Int] = {
+        val wideDisk: ArrayBuffer[Int] = new ArrayBuffer[Int]()
         for
             i <- 0 until disk.size
         do
@@ -105,14 +105,13 @@ object Main {
             for
                 j <- 0 until disk(i)
             do
-                wideDisk(ptr) = id
-                ptr = ptr + 1
+                wideDisk.append(id)
         return wideDisk
     }
 
-    def getPart2Checksum(disk: Array[Int], fileSpace: Int, freeSpace: Int): Long = {
+    def getPart2Checksum(disk: ArrayBuffer[Int], fileSpace: Int, freeSpace: Int): Long = {
         var sum: Long = 0
-        val wideDisk: Array[Int] = getWideDisk(disk, fileSpace + freeSpace)
+        val wideDisk: ArrayBuffer[Int] = getWideDisk(disk, fileSpace + freeSpace)
         printWideDisk(wideDisk)
 
         // TODO: create diskIds array to keep track of ids for corresponding files in disk
@@ -132,8 +131,15 @@ object Main {
                 // 5. Insert a 0 width freeSpace before the file so files are still are even blocks
                 // 6. Repeat above insertions in diskIds array!
                 // Don't actually need to copy the freespace over since it is ignored in checksum calculations!
-            for (j <- 1 to rightMostFile - 1 by -2) {
-                //if (disk(j) >= )
+
+            val fileSize: Int = disk(i)
+            for (j <- 1 to rightMostFile - 1 by 2) {
+                if (disk(j) >= fileSize) {
+                    disk(i) = 0
+                    disk(j) = disk(j) - fileSize
+                    disk.insert(j, fileSize)
+                    disk.insert(j - 1, 0)
+                }
             }
         }
 
@@ -166,6 +172,6 @@ object Main {
         }
 
         println("Part 1 checksum of new file structure: " + getPart1Checksum(disk, fileSpace, freeSpace))
-        println("Part 2 checksum of new file structure: " + getPart2Checksum(disk, fileSpace, freeSpace))
+        println("Part 2 checksum of new file structure: " + getPart2Checksum(ArrayBuffer.from(disk), fileSpace, freeSpace))
     }
 }
