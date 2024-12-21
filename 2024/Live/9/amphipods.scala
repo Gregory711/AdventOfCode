@@ -93,7 +93,7 @@ object Main {
         )
     }
 
-    def getWideDisk(disk: ArrayBuffer[Int], size: Int): ArrayBuffer[Int] = {
+    def getWideDisk(disk: ArrayBuffer[Int]): ArrayBuffer[Int] = {
         val wideDisk: ArrayBuffer[Int] = new ArrayBuffer[Int]()
         for
             i <- 0 until disk.size
@@ -109,9 +109,21 @@ object Main {
         return wideDisk
     }
 
+    def getWideDisk(disk: ArrayBuffer[Int], ids: ArrayBuffer[Int]): ArrayBuffer[Int] = {
+        val wideDisk: ArrayBuffer[Int] = new ArrayBuffer[Int]()
+        for
+            i <- 0 until disk.size
+        do
+            for
+                j <- 0 until disk(i)
+            do
+                wideDisk.append(ids(i))
+        return wideDisk
+    }
+
     def getPart2Checksum(disk: ArrayBuffer[Int], fileSpace: Int, freeSpace: Int): Long = {
         var sum: Long = 0
-        val wideDisk: ArrayBuffer[Int] = getWideDisk(disk, fileSpace + freeSpace)
+        val wideDisk: ArrayBuffer[Int] = getWideDisk(disk)
         printWideDisk(wideDisk)
 
         // Creates diskIds array to keep track of ids for corresponding files in disk
