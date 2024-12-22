@@ -79,20 +79,32 @@ object Main {
             toVisit.push(trailhead)
             while (!toVisit.isEmpty) {
                 val visiting: Coordinate = toVisit.pop
-                val elevation: Int = map(visiting.x)(visiting.y)
+                //println("Visiting: " + visiting.toString)
+                val elevation: Int = map(visiting.y)(visiting.x)
                 if (elevation == 9) {
                     score = score + 1
                 } else {
                     deltas.foreach(delta =>
                         val visit = Coordinate(visiting.x + delta.x, visiting.y + delta.y)
-                        if (!visited.contains(visit) && inBounds(visit, map) && map(visit.x)(visit.y) == (elevation + 1)) {
+                        if (!visited.contains(visit) && inBounds(visit, map) && map(visit.y)(visit.x) == (elevation + 1)) {
+                            //println("Added to toVisit: " + visit.toString)
                             toVisit.push(visit)
                             visited.add(visit)
-                        }
+                        } /*else {
+                            println("Won't visit " + visit.toString)
+                            if (visited.contains(visit)) {
+                                println("Because been there done that")
+                            } else if (!inBounds(visit, map)) {
+                                println("Because I'd fall off the edge of the world!")
+                            } else {
+                                println("Because it's the wrong elevation! Expected: " + (elevation + 1) + ", Actual: " + map(visit.y)(visit.x))
+                            }
+                        }*/
                     )
+                    //println()
                 }
             }
-            println("Score for trailhead at " + trailhead.toString + " is " + score)
+            //println("Score for trailhead at " + trailhead.toString + " is " + score)
             totalScore = totalScore + score
         )
 
