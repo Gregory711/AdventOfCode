@@ -1,6 +1,7 @@
 import scala.io.Source
 import scala.collection.mutable.ArrayBuffer
 import scala.collection.mutable.HashSet
+import scala.collection.mutable.Stack
 
 object Main {
     /**
@@ -52,7 +53,16 @@ object Main {
             }
         }
 
+        var totalScore: Int = 0
+        trailheads.foreach(trailhead =>
+            // Depth first search for max elevation via hiking
+            val visited = HashSet[Coordinate]()
+            val toVisit = Stack[Coordinate]()
+            toVisit.push(trailhead)
+        )
+
         printMap(map)
         println("Trailheads: " + trailheads.mkString(", "))
+        println("Total Score: " + totalScore)
     }
 }
