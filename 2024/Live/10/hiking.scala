@@ -28,10 +28,22 @@ object Main {
         val lines = Source.fromFile(filename).getLines().toList
 
         // Read in input
-        var map = ArrayBuffer[Array[Int]]()
+        val map = ArrayBuffer[Array[Int]]()
         lines.foreach(line =>
             map.append(line.toCharArray().map(_ - '0'))
         )
+
+        // Read in trailheads
+        val trailheads = ArrayBuffer[Coordinate]()
+        for ((row, y) <- map.zipWithIndex) {
+            for ((elevation, x) <- row.zipWithIndex) {
+                if (elevation == 0) {
+                    trailheads.append(Coordinate(x, y))
+                }
+            }
+        }
+
         printMap(map)
+        println("Trailheads: " + trailheads.mkString(", "))
     }
 }
