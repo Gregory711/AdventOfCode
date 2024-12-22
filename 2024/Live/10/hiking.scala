@@ -1,5 +1,6 @@
 import scala.io.Source
 import scala.collection.mutable.ArrayBuffer
+import scala.collection.mutable.HashSet
 
 object Main {
     /**
@@ -14,7 +15,15 @@ object Main {
       * @param x - horizontal e.g. leftmost = 0
       * @param y - vertical e.g. topmost = 0
       */
-    case class Coordinate(x: Int, y: Int)
+    case class Coordinate(x: Int, y: Int) {
+        // override methods so can use hashset
+        override def hashCode(): Int = (x, y).hashCode()
+
+        override def equals(obj: Any): Boolean = obj match {
+            case other: Coordinate => this.x == other.x && this.y == other.y
+            case _ => false
+        }
+    }
 
     def printMap(map: ArrayBuffer[Array[Int]]): Unit = {
         println("Map: ")
