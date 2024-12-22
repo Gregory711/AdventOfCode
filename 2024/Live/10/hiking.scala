@@ -2,6 +2,20 @@ import scala.io.Source
 import scala.collection.mutable.ArrayBuffer
 
 object Main {
+    /**
+      *  _____ x
+      * |1 2
+      * |3 4
+      * |
+      * y
+      * 
+      * Coordinate(x,y), (0,0) = 1, (1, 0) = 2, (0, 1) = 3, (1, 1) = 4
+      *
+      * @param x - horizontal e.g. leftmost = 0
+      * @param y - vertical e.g. topmost = 0
+      */
+    case class Coordinate(x: Int, y: Int)
+
     def printMap(map: ArrayBuffer[Array[Int]]): Unit = {
         println("Map: ")
         map.foreach(line =>
