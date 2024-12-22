@@ -43,6 +43,11 @@ object Main {
         )
     }
 
+    // Recursive backtracking solution to solve rating for individual trailhead
+    def solve(coords: Coordinate, visited: List[List[Boolean]], pathCount: Int, map: List[List[Int]]): Int = {
+        return 0
+    }
+
     def main(args: Array[String]): Unit = {
         val filename = "map.txt"
         val lines = Source.fromFile(filename).getLines().toList
