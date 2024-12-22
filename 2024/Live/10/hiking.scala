@@ -26,6 +26,16 @@ object Main {
         }
     }
 
+    def inBounds(coords: Coordinate, map: ArrayBuffer[Array[Int]]): Boolean = {
+        if (
+            coords.y < 0 || coords.x < 0 ||
+            coords.y >= map.size || coords.x >= map(coords.y).size
+        ) {
+            return false
+        }
+        return true
+    }
+
     def printMap(map: ArrayBuffer[Array[Int]]): Unit = {
         println("Map: ")
         map.foreach(line =>
@@ -53,12 +63,37 @@ object Main {
             }
         }
 
+        val deltas: List[Coordinate] = List(
+            Coordinate(0, -1), // up
+            Coordinate(1, 0), // right
+            Coordinate(0, 1), // down
+            Coordinate(-1, 0) // left
+        )
+
         var totalScore: Int = 0
         trailheads.foreach(trailhead =>
             // Depth first search for max elevation via hiking
+            var score: Int = 0
             val visited = HashSet[Coordinate]()
             val toVisit = Stack[Coordinate]()
             toVisit.push(trailhead)
+            while (!toVisit.isEmpty) {
+                val visiting: Coordinate = toVisit.pop
+                val elevation: Int = map(visiting.x)(visiting.y)
+                if (elevation == 9) {
+                    score = score + 1
+                } else {
+                    deltas.foreach(delta =>
+                        val visit = Coordinate(visiting.x + delta.x, visiting.y + delta.y)
+                        if (!visited.contains(visit) && inBounds(visit, map) && map(visit.x)(visit.y) == (elevation + 1)) {
+                            toVisit.push(visit)
+                            visited.add(visit)
+                        }
+                    )
+                }
+            }
+            println("Score for trailhead at " + trailhead.toString + " is " + score)
+            totalScore = totalScore + score
         )
 
         printMap(map)
