@@ -36,6 +36,17 @@ object Main {
         return true
     }
 
+    // Prob a better way then duplicating this code but not sure on Scala version of generics/parent classes of data structs
+    def inBounds(coords: Coordinate, map: List[List[Int]]): Boolean = {
+        if (
+            coords.y < 0 || coords.x < 0 ||
+            coords.y >= map.size || coords.x >= map(coords.y).size
+        ) {
+            return false
+        }
+        return true
+    }
+
     def printMap(map: ArrayBuffer[Array[Int]]): Unit = {
         println("Map: ")
         map.foreach(line =>
@@ -43,9 +54,29 @@ object Main {
         )
     }
 
+    val deltas: List[Coordinate] = List(
+        Coordinate(0, -1), // up
+        Coordinate(1, 0), // right
+        Coordinate(0, 1), // down
+        Coordinate(-1, 0) // left
+    )
+
     // Recursive backtracking solution to solve rating for individual trailhead
-    def solve(coords: Coordinate, visited: List[List[Boolean]], pathCount: Int, map: List[List[Int]]): Int = {
-        return 0
+    def solve(coords: Coordinate, visited: List[List[Boolean]], map: List[List[Int]]): Int = {
+        val elevation: Int = map(coords.y)(coords.x)
+        // Base case: found end of hike i.e. elevation 9
+        if (elevation == 9) {
+            return 1
+        }
+        // Try visiting each inBounds unvisited location next to current coords with correct elevation
+        var pathCount: Int = 0
+        deltas.foreach(delta =>
+            val visit = Coordinate(coords.x + delta.x, coords.y + delta.y)
+            if (inBounds(visit, map) && !visited(visit.y)(visit.x) && map(visit.y)(visit.x) == (elevation + 1)) {
+                pathCount = pathCount + solve(visit, visited.updated(visit.y, visited(visit.y).updated(visit.x, true)), map)
+            }
+        )
+        return pathCount
     }
 
     def main(args: Array[String]): Unit = {
@@ -67,13 +98,6 @@ object Main {
                 }
             }
         }
-
-        val deltas: List[Coordinate] = List(
-            Coordinate(0, -1), // up
-            Coordinate(1, 0), // right
-            Coordinate(0, 1), // down
-            Coordinate(-1, 0) // left
-        )
 
         var totalScore: Int = 0
         var totalRating: Int = 0
@@ -117,7 +141,7 @@ object Main {
             // Create initial visited list
             val ratingVisited: List[List[Boolean]] = List.fill(map.size, map.head.size)(false)
             val ratingMap: List[List[Int]] = map.map(_.toList).toList
-            val rating: Int = solve(trailhead, ratingVisited, 0, ratingMap)
+            val rating: Int = solve(trailhead, ratingVisited, ratingMap)
             totalRating = totalRating + rating
         )
 
