@@ -76,6 +76,7 @@ object Main {
         )
 
         var totalScore: Int = 0
+        var totalRating: Int = 0
         trailheads.foreach(trailhead =>
             // Depth first search for max elevation via hiking
             var score: Int = 0
@@ -111,10 +112,18 @@ object Main {
             }
             //println("Score for trailhead at " + trailhead.toString + " is " + score)
             totalScore = totalScore + score
+
+            // Calculate rating
+            // Create initial visited list
+            val ratingVisited: List[List[Boolean]] = List.fill(map.size, map.head.size)(false)
+            val ratingMap: List[List[Int]] = map.map(_.toList).toList
+            val rating: Int = solve(trailhead, ratingVisited, 0, ratingMap)
+            totalRating = totalRating + rating
         )
 
         printMap(map)
         println("Trailheads: " + trailheads.mkString(", "))
         println("Total Score: " + totalScore)
+        println("Total Rating: " + totalRating)
     }
 }
