@@ -2,8 +2,11 @@ Stats:
 - 2023:
   - Live: 24 Stars (Python 3.10)
 - 2024:
-  - Training: 14 Stars (Java 17)
+  - Training Advent 2022: 14 Stars (Java 17)
   - Live: 20 Stars (Scala 3.6)
+- 2025:
+  - Training Advent 2021: 0 Stars (Rust Edition 2024)
+  - Live: 0 Stars (Rust Edition 2024)
 
 Total: 58 Stars
 
@@ -130,6 +133,20 @@ scala CookieCutter.scala
 
 ### Part 1 vs 2
 This year I'm trying to just use the same file and have it print both answers. For day 1 it was easy to do side by side. Further down the line I'll likely have to move much of the logic into functions to keep things organized.
+
+</details>
+
+</details>
+
+<details>
+<summary>2025</summary>
+
+<details>
+<summary>Training</summary>
+
+Create a new day with command `cargo new dayXX --bin --vcs none` from Training/ directory.
+
+Run day with command `cargo run -p dayXX` from Training/ directory.
 
 </details>
 
