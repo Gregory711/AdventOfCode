@@ -8,3 +8,4 @@ target/
 .vscode
 *.class
 *.tasty
+*.swp
