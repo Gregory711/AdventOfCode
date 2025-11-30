@@ -15,6 +15,26 @@ fn part1(input: &String) {
     println!("There were {} increases!", increases);
 }
 
+fn part2(input: &String) {
+    let mut increases: i32 = 0;
+    let mut window: Vec<i64> = Vec::new();
+
+    for line in input.lines() {
+        let current_number: i64 = line.parse().unwrap();
+
+        if window.len() == 3 {
+            if current_number > window[0] {
+                increases += 1;
+            }
+            window.remove(0);
+        }
+
+        window.push(current_number);
+    }
+
+    println!("There were {} increases!", increases);
+}
+
 fn main() {
     for &file in &["test.txt", "input.txt"] {
         let input = std::fs::read_to_string(format!("day01/{}", file))
@@ -24,5 +44,7 @@ fn main() {
 
         println!("Part 1: {}:", file);
         part1(&input);
+        println!("Part 2: {}:", file);
+        part2(&input);
     }
 }
