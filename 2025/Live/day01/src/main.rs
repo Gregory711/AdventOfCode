@@ -27,19 +27,16 @@ fn print_password(input: &String, part: i32) {
         }
 
         // account for partial cycles
-        // if on part 2 we add partial cycles to password (avoiding double counting)
-        // only counts if clicked to zero not if started on zero, account for that
-        if part == 2 && dial_started_at_zero && (dial < 0 || dial > 99) {
-            password -= 1;
-        }
+        // if on part 2 we add partial cycles to password (avoiding double counting via dial != 0 since incrementing in that case for both parts)
+        // only counts if clicked to zero not if started on zero, account for that via dial_started_at_zero
         if dial < 0 {
             dial += 100;
-            if part == 2 && dial != 0 {
+            if part == 2 && !dial_started_at_zero && dial != 0 {
                 password += 1;
             }
         } else if dial > 99 {
             dial -= 100;
-            if part == 2 && dial != 0 {
+            if part == 2 && !dial_started_at_zero && dial != 0 {
                 password += 1;
             }
         }
