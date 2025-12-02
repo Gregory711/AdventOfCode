@@ -20,9 +20,12 @@ fn part1(input: &String) {
         //println!("{}", range);
         let range_parts: Vec<&str> = range.split("-").collect();
         let start: i64 = range_parts[0].parse().unwrap();
-        let end: i64 = range_parts[0].parse().unwrap();
+        let end: i64 = range_parts[1].parse().unwrap();
+        println!("Going to check nubmers from {} to {}", start, end);
         for i in start..=end {
+            println!("Checking if {} is a palindrome...", i);
             if is_palindrome(i) {
+                println!("{} is a palindrome!", i);
                 sum += i;
             }
         }
@@ -31,7 +34,8 @@ fn part1(input: &String) {
 }
 
 fn main() {
-    for &file in &["test.txt", "input.txt"] {
+    //for &file in &["test.txt", "input.txt"] {
+    for &file in &["test.txt"] {
         let input = std::fs::read_to_string(format!("day02/{}", file))
             .expect(&format!("Failed to read file: {}", file))
             .trim_end()
