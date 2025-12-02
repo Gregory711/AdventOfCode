@@ -25,6 +25,15 @@ fn is_repeated_twice(number: i64) -> bool {
     true
 }
 
+fn is_repeated_any(number: i64) -> bool {
+    // for each number 1 through length/2 that the total length is evenly divisible
+    // by check if the string is made up of that many identical repeated strings
+    // once it is found that string can be made up of any identical strings return true
+    // if none are found return false
+    // TODO: implement
+    false
+}
+
 fn print_sum(input: &String, is_repeated: fn(i64) -> bool) {
     let mut sum: i64 = 0;
     // all input is on the first line
@@ -53,9 +62,13 @@ fn part1(input: &String) {
     print_sum(input, is_repeated_twice);
 }
 
+fn part2(input: &String) {
+    print_sum(input, is_repeated_any);
+}
+
 fn main() {
-    for &file in &["test.txt", "input.txt"] {
-    //for &file in &["test.txt"] {
+    //for &file in &["test.txt", "input.txt"] {
+    for &file in &["test.txt"] {
         let input = std::fs::read_to_string(format!("day02/{}", file))
             .expect(&format!("Failed to read file: {}", file))
             .trim_end()
@@ -63,5 +76,8 @@ fn main() {
 
         println!("Part 1: {}:", file);
         part1(&input);
+
+        println!("Part 2: {}:", file);
+        part2(&input);
     }
 }
