@@ -10,7 +10,7 @@ fn is_palindrome(number: i64) -> bool {
     true
 }
 
-fn is_repeated(number: i64) -> bool {
+fn is_repeated_twice(number: i64) -> bool {
     let str_number: String = number.to_string();
     let char_array: Vec<char> = str_number.chars().collect();
     // if odd length than cannot be a repeat of the same two strings
@@ -25,7 +25,7 @@ fn is_repeated(number: i64) -> bool {
     true
 }
 
-fn part1(input: &String) {
+fn print_sum(input: &String, is_repeated: fn(i64) -> bool) {
     let mut sum: i64 = 0;
     // all input is on the first line
     let line = input.lines().next().unwrap();
@@ -47,6 +47,10 @@ fn part1(input: &String) {
         }
     }
     println!("Sum is {}", sum);
+}
+
+fn part1(input: &String) {
+    print_sum(input, is_repeated_twice);
 }
 
 fn main() {
