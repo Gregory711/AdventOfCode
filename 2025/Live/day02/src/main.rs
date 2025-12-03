@@ -30,7 +30,31 @@ fn is_repeated_any(number: i64) -> bool {
     // by check if the string is made up of that many identical repeated strings
     // once it is found that string can be made up of any identical strings return true
     // if none are found return false
-    // TODO: implement
+    let str_number: String = number.to_string();
+    let char_array: Vec<char> = str_number.chars().collect();
+    for pattern_length in 1..=char_array.len()/2 {
+        // check if can be evenly divided with this pattern_length
+        if (char_array.len() % pattern_length) != 0 {
+            continue;
+        }
+        // calculate how many times this pattern will be repeated
+        let repeats: usize = char_array.len() / pattern_length;
+        // make sure every repeat is identical to the first
+        let mut repeated_all_the_way: bool = true;
+        for i in 1..repeats {
+            // check pattern char by char
+            for c in 0..pattern_length {
+                //println!("checking index {} for {}", c + (pattern_length * i), number);
+                //println!("repeat {} and pattern len {} and c {}", i, pattern_length, c);
+                if char_array[c] != char_array[c + (pattern_length * i)] {
+                    repeated_all_the_way = false;
+                }
+            }
+        }
+        if repeated_all_the_way {
+            return true;
+        }
+    }
     false
 }
 
@@ -67,8 +91,8 @@ fn part2(input: &String) {
 }
 
 fn main() {
-    //for &file in &["test.txt", "input.txt"] {
-    for &file in &["test.txt"] {
+    for &file in &["test.txt", "input.txt"] {
+    //for &file in &["test.txt"] {
         let input = std::fs::read_to_string(format!("day02/{}", file))
             .expect(&format!("Failed to read file: {}", file))
             .trim_end()
