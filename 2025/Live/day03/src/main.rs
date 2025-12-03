@@ -26,8 +26,34 @@ fn part1(input: &String) {
     println!("The total joltage is: {}", total_joltage);
 }
 
+fn part2(input: &String) {
+    let mut total_joltage: u64 = 0;
+
+    for line in input.lines() {
+        let mut index = 0;
+        for place_value in (1..13).rev() { // 12 down to 1s place
+            // nth_place will be biggest digit left of farthest right digit by number of remaining digits
+            // e.g. if deciding on 8s place it is farthest right digit that leaves 7 digits to the right of it
+            // (first instance of that big digit so have most options for rest)
+            let digits: Vec<char> = line.chars().collect();
+            let mut nth_place: u64 = u64::from(digits[index].to_digit(10).unwrap());
+            index += 1;
+            for i in index..(digits.len() - place_value + 1) {
+                if u64::from(digits[i].to_digit(10).unwrap()) > nth_place {
+                    nth_place = u64::from(digits[i].to_digit(10).unwrap());
+                    index = i + 1;
+                }
+            }
+            //println!("index is: {}, adding: {}", index, nth_place * 10_u64.pow((place_value - 1).try_into().unwrap()));
+            total_joltage += nth_place * 10_u64.pow((place_value - 1).try_into().unwrap());
+        }
+    }
+    println!("The total joltage is: {}", total_joltage);
+}
+
 fn main() {
     for &file in &["test.txt", "input.txt"] {
+    //for &file in &["test.txt"] {
         let input = std::fs::read_to_string(format!("day03/{}", file))
             .expect(&format!("Failed to read file: {}", file))
             .trim_end()
@@ -35,5 +61,8 @@ fn main() {
 
         println!("Part 1: {}:", file);
         part1(&input);
+
+        println!("Part 2: {}:", file);
+        part2(&input);
     }
 }
