@@ -66,7 +66,13 @@ fn part2(input: &String) {
             // e.g. if ranges 3-5 and 4-6 then change to 3-6
             //println!("Comparing {} to {}", ranges[i+1].start, ranges[i].end);
             if ranges[i + 1].start <= ranges[i].end {
-                ranges[i].end = ranges[i + 1].end;
+                //println!("Merging {}-{}, {}-{} into {}-{}", ranges[i].start, ranges[i].end, ranges[i+1].start, ranges[i+1].end, ranges[i].start, ranges[i+1].end);
+                // sorting organizes them by start so ranges[i] has earlier start
+                // but 2nd end could be earlier in case of complete overlap e.g.
+                // 1-10 and 2-8 so account for that by only editing end[i] if > end[i+1]
+                if ranges[i].end < ranges[i + 1].end {
+                    ranges[i].end = ranges[i + 1].end;
+                }
                 ranges.remove(i + 1);
                 removed = true;
             }
