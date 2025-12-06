@@ -57,11 +57,13 @@ fn part2(input: &String) {
         if number_str.is_empty() {
             continue;
         }
+        //println!("Pushing number: {}", number_str);
         numbers.push(number_str.parse().unwrap());
         // If ops column then calculate subtotal and clear numbers vector
         if ops[col] != ' ' {
             let mut subtotal: i64 = numbers[0];
             for i in 1..numbers.len() {
+                //println!("Subtotal is {} and going to {} it with {}", subtotal, ops[col], numbers[i]);
                 if ops[col] == '*' {
                     subtotal *= numbers[i];
                 } else {
@@ -77,9 +79,10 @@ fn part2(input: &String) {
 
 fn main() {
     for &file in &["test.txt", "input.txt"] {
+    //for &file in &["test.txt"] {
         let input = std::fs::read_to_string(format!("day06/{}", file))
             .expect(&format!("Failed to read file: {}", file))
-            .trim_end()
+            //.trim_end() don't do this I need those in this problem!!!
             .to_string();
 
         println!("Part 1: {}:", file);
