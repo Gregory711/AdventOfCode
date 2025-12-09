@@ -59,17 +59,18 @@ fn part1(input: &String, boxes_to_connect_count: usize) {
 
     // create circuits using the cheapest boxes_to_connect_count number of connections
     let mut circuits: Vec<HashSet<Point>> = vec!();
-    let mut added_circuits_count: usize = 0;
+    let mut added_connections_count: usize = 0;
     let mut i: usize = 0;
-    while added_circuits_count < boxes_to_connect_count {
+    while added_connections_count < boxes_to_connect_count {
         // add ith connection to existing circuit if possible i.e. if one point in connection
         // already in the circuit
         let mut added_to_circuit: bool = false;
         for circuit in &mut circuits {
-            // skip over case where both connections already in circuits
+            // TODO: account for case where you combine two existing circuits!!!
+            // case where both connections already in circuits
             if circuit.contains(&connections[i].a) && circuit.contains(&connections[i].b) {
-                i += 1;
-                continue;
+                added_to_circuit = true;
+                break;
             }
             if circuit.contains(&connections[i].a) || circuit.contains(&connections[i].b) {
                 if circuit.contains(&connections[i].a) {
@@ -88,7 +89,7 @@ fn part1(input: &String, boxes_to_connect_count: usize) {
             circuits.push(HashSet::from([connections[i].a.clone(), connections[i].b.clone()]));
         }
         i += 1;
-        added_circuits_count += 1;
+        added_connections_count += 1;
     }
 
     // calculate the size of the circuits
@@ -102,7 +103,11 @@ fn part1(input: &String, boxes_to_connect_count: usize) {
     circuits_sizes.reverse();
     
     let product = circuits_sizes[0] * circuits_sizes[1] * circuits_sizes[2];
-    //println!("The biggest circuits are: {}, {}, {}", circuits_sizes[0], circuits_sizes[1], circuits_sizes[2]);
+    println!("There are {} circuits total", circuits.len());
+    println!("From biggest to smallest the circuits have sizes:");
+    for circuit_size in circuits_sizes {
+        println!("{}", circuit_size);
+    }
     println!("The result of multiplying the sizes of the three biggest circuits is: {}", product);
 }
 
@@ -117,8 +122,8 @@ fn main() {
         println!("ruh roh, my distance function is broken, expected 14, got: {}", a.distance_to(&b));
     }
 
-    //let runs = vec![(&"test.txt", 10 as usize)];
-    let runs = vec![(&"test.txt", 10 as usize), (&"input.txt", 1000 as usize)]; // literal vector of tuples :)
+    let runs = vec![(&"test.txt", 10 as usize)];
+    //let runs = vec![(&"test.txt", 10 as usize), (&"input.txt", 1000 as usize)]; // literal vector of tuples :)
         for (file, boxes_to_connect_count) in &runs {
         let input = std::fs::read_to_string(format!("day08/{}", file))
             .expect(&format!("Failed to read file: {}", file))
