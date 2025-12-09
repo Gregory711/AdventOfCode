@@ -10,6 +10,12 @@ impl Point {
     }
 }
 
+struct Connection {
+    cost: i64,
+    a: Point,
+    b: Point
+}
+
 fn part1(input: &String, boxes_to_connect_count: i64) {
     let mut points: Vec<Point> = vec!();
     for line in input.lines() {
