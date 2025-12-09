@@ -1,4 +1,6 @@
-#[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd)]
+use std::collections::HashSet;
+
+#[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd, Hash)]
 struct Point {
   x: i64,
   y: i64,
@@ -18,7 +20,7 @@ struct Connection {
     b: Point
 }
 
-fn part1(input: &String, boxes_to_connect_count: i64) {
+fn part1(input: &String, boxes_to_connect_count: usize) {
     let mut points: Vec<Point> = vec!();
     for line in input.lines() {
         let coords: Vec<&str> = line.split(',').collect();
@@ -47,6 +49,28 @@ fn part1(input: &String, boxes_to_connect_count: i64) {
     }
 
     connections.sort();
+
+    // create circuits using the cheapest boxes_to_connect_count number of connections
+    let mut circuits: Vec<HashSet<Point>> = vec!();
+    for i in 0..boxes_to_connect_count {
+        // add ith connection to existing circuit if possible i.e. if one point in connection
+        // already in the circuit
+        let mut added_to_circuit: bool = false;
+        for circuit in &mut circuits {
+            if circuit.contains(&connections[i].a) || circuit.contains(&connections[i].b) {
+                if circuit.contains(&connections[i].a) {
+                    circuit.insert(connections[i].b.clone());
+                } else {
+                    circuit.insert(connections[i].a.clone());
+                }
+                added_to_circuit = true;
+                break;
+            }
+        }
+        if !added_to_circuit {
+            circuits.push(HashSet::from([connections[i].a.clone(), connections[i].b.clone()]));
+        }
+    }
 }
 
 fn main() {
@@ -61,7 +85,7 @@ fn main() {
     }
 
     //let runs = vec![(&"test.txt", 10 as i64), (&"input.txt", 100 as i64)]; // literal vector of tuples :)
-    let runs = vec![(&"test.txt", 10 as i64)];
+    let runs = vec![(&"test.txt", 10 as usize)];
     for (file, boxes_to_connect_count) in &runs {
         let input = std::fs::read_to_string(format!("day08/{}", file))
             .expect(&format!("Failed to read file: {}", file))
