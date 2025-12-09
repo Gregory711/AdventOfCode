@@ -73,10 +73,10 @@ fn part1(input: &String, boxes_to_connect_count: usize) {
             }
             if circuit.contains(&connections[i].a) || circuit.contains(&connections[i].b) {
                 if circuit.contains(&connections[i].a) {
-                    println!("Adding {} to a circuit", connections[i].b);
+                    //println!("Adding {} to a circuit", connections[i].b);
                     circuit.insert(connections[i].b.clone());
                 } else {
-                    println!("Adding {} to a circuit", connections[i].a);
+                    //println!("Adding {} to a circuit", connections[i].a);
                     circuit.insert(connections[i].a.clone());
                 }
                 added_to_circuit = true;
@@ -84,7 +84,7 @@ fn part1(input: &String, boxes_to_connect_count: usize) {
             }
         }
         if !added_to_circuit {
-            println!("Creating a new circuit using {} and {}", connections[i].a, connections[i].b);
+            //println!("Creating a new circuit using {} and {}", connections[i].a, connections[i].b);
             circuits.push(HashSet::from([connections[i].a.clone(), connections[i].b.clone()]));
         }
         i += 1;
@@ -102,7 +102,7 @@ fn part1(input: &String, boxes_to_connect_count: usize) {
     circuits_sizes.reverse();
     
     let product = circuits_sizes[0] * circuits_sizes[1] * circuits_sizes[2];
-    println!("The biggest circuits are: {}, {}, {}", circuits_sizes[0], circuits_sizes[1], circuits_sizes[2]);
+    //println!("The biggest circuits are: {}, {}, {}", circuits_sizes[0], circuits_sizes[1], circuits_sizes[2]);
     println!("The result of multiplying the sizes of the three biggest circuits is: {}", product);
 }
 
@@ -117,9 +117,9 @@ fn main() {
         println!("ruh roh, my distance function is broken, expected 14, got: {}", a.distance_to(&b));
     }
 
-    //let runs = vec![(&"test.txt", 10 as i64), (&"input.txt", 100 as i64)]; // literal vector of tuples :)
-    let runs = vec![(&"test.txt", 10 as usize)];
-    for (file, boxes_to_connect_count) in &runs {
+    //let runs = vec![(&"test.txt", 10 as usize)];
+    let runs = vec![(&"test.txt", 10 as usize), (&"input.txt", 1000 as usize)]; // literal vector of tuples :)
+        for (file, boxes_to_connect_count) in &runs {
         let input = std::fs::read_to_string(format!("day08/{}", file))
             .expect(&format!("Failed to read file: {}", file))
             .trim_end()
