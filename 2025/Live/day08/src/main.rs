@@ -71,6 +71,20 @@ fn part1(input: &String, boxes_to_connect_count: usize) {
             circuits.push(HashSet::from([connections[i].a.clone(), connections[i].b.clone()]));
         }
     }
+
+    // calculate the size of the circuits
+    let mut circuits_sizes: Vec<usize> = vec!();
+    for circuit in &circuits {
+        circuits_sizes.push(circuit.len());
+    }
+
+    // sort biggest to smallest
+    circuits_sizes.sort();
+    circuits_sizes.reverse();
+    
+    let product = circuits_sizes[0] * circuits_sizes[1] * circuits_sizes[2];
+    println!("The biggest circuits are: {}, {}, {}", circuits_sizes[0], circuits_sizes[1], circuits_sizes[2]);
+    println!("The result of multiplying the sizes of the three biggest circuits is: {}", product);
 }
 
 fn main() {
