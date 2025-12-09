@@ -59,11 +59,18 @@ fn part1(input: &String, boxes_to_connect_count: usize) {
 
     // create circuits using the cheapest boxes_to_connect_count number of connections
     let mut circuits: Vec<HashSet<Point>> = vec!();
-    for i in 0..boxes_to_connect_count {
+    let mut added_circuits_count: usize = 0;
+    let mut i: usize = 0;
+    while added_circuits_count < boxes_to_connect_count {
         // add ith connection to existing circuit if possible i.e. if one point in connection
         // already in the circuit
         let mut added_to_circuit: bool = false;
         for circuit in &mut circuits {
+            // skip over case where both connections already in circuits
+            if circuit.contains(&connections[i].a) && circuit.contains(&connections[i].b) {
+                i += 1;
+                continue;
+            }
             if circuit.contains(&connections[i].a) || circuit.contains(&connections[i].b) {
                 if circuit.contains(&connections[i].a) {
                     println!("Adding {} to a circuit", connections[i].b);
@@ -80,6 +87,8 @@ fn part1(input: &String, boxes_to_connect_count: usize) {
             println!("Creating a new circuit using {} and {}", connections[i].a, connections[i].b);
             circuits.push(HashSet::from([connections[i].a.clone(), connections[i].b.clone()]));
         }
+        i += 1;
+        added_circuits_count += 1;
     }
 
     // calculate the size of the circuits
