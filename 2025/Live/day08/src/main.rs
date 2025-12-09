@@ -1,4 +1,4 @@
-#[derive(Clone)]
+#[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd)]
 struct Point {
   x: i64,
   y: i64,
@@ -11,6 +11,7 @@ impl Point {
     }
 }
 
+#[derive(Debug, Eq, Ord, PartialEq, PartialOrd)]
 struct Connection {
     cost: i64,
     a: Point,
@@ -44,6 +45,8 @@ fn part1(input: &String, boxes_to_connect_count: i64) {
             );
         }
     }
+
+    connections.sort();
 }
 
 fn main() {
