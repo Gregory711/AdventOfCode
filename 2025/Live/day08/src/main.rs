@@ -27,6 +27,15 @@ struct Connection {
     b: Point
 }
 
+fn print_circuits(circuits: &Vec<HashSet<Point>>) {
+    for circuit in circuits {
+        println!("Circuit contains:");
+        for point in circuit {
+            println!("{}", point);
+        }
+    }
+}
+
 fn part1(input: &String, boxes_to_connect_count: usize) {
     let mut points: Vec<Point> = vec!();
     for line in input.lines() {
@@ -105,6 +114,8 @@ fn part1(input: &String, boxes_to_connect_count: usize) {
         }
         i += 1;
         added_connections_count += 1;
+        println!("After the {}th loop:", i);
+        print_circuits(&circuits);
     }
 
     // calculate the size of the circuits
