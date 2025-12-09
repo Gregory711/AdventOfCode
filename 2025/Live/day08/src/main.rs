@@ -65,14 +65,21 @@ fn part1(input: &String, boxes_to_connect_count: usize) {
         // add ith connection to existing circuit if possible i.e. if one point in connection
         // already in the circuit
         let mut added_to_circuit: bool = false;
-        for circuit in &mut circuits {
-            // TODO: account for case where you combine two existing circuits!!!
-            // case where both connections already in circuits
+        let mut combine_circuits: Vec<usize> = vec!();
+        for (index, circuit) in circuits.iter_mut().enumerate() {
             if circuit.contains(&connections[i].a) && circuit.contains(&connections[i].b) {
+                // case where both connections already in circuits
                 added_to_circuit = true;
-                break;
-            }
-            if circuit.contains(&connections[i].a) || circuit.contains(&connections[i].b) {
+                combine_circuits.push(index);
+            } else if added_to_circuit && (circuit.contains(&connections[i].a) || circuit.contains(&connections[i].b)) {
+                // case where we already connected one of these points to a circuit so we can now
+                // combine these circuits into one big circuit!
+                // We'll do this by adding everything from this circuit to the prior circuit and
+                // clear this circuit
+                combine_circuits.push(index);
+            } else if circuit.contains(&connections[i].a) || circuit.contains(&connections[i].b) {
+                // case where we are just adding this connection to an existing circuit because it
+                // shares a point
                 if circuit.contains(&connections[i].a) {
                     //println!("Adding {} to a circuit", connections[i].b);
                     circuit.insert(connections[i].b.clone());
@@ -81,12 +88,20 @@ fn part1(input: &String, boxes_to_connect_count: usize) {
                     circuit.insert(connections[i].a.clone());
                 }
                 added_to_circuit = true;
-                break;
+                combine_circuits.push(index);
             }
         }
         if !added_to_circuit {
             //println!("Creating a new circuit using {} and {}", connections[i].a, connections[i].b);
             circuits.push(HashSet::from([connections[i].a.clone(), connections[i].b.clone()]));
+        }
+        // combine circuits!
+        for index in 1..combine_circuits.len() {
+            let circuits_clone = circuits[index].clone();
+            for point in circuits_clone.iter().enumerate() {
+                circuits[combine_circuits[0]].insert(point.1.clone());
+            }
+            circuits[index].clear();
         }
         i += 1;
         added_connections_count += 1;
