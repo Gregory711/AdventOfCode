@@ -1,4 +1,5 @@
 use std::collections::HashSet;
+use std::fmt;
 
 #[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd, Hash)]
 struct Point {
@@ -10,6 +11,12 @@ struct Point {
 impl Point {
     fn distance_to(&self, other: &Point) -> i64 {
         return (other.x - self.x).pow(2) + (other.y - self.y).pow(2) + (other.z - self.z).pow(2);
+    }
+}
+
+impl fmt::Display for Point {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "({}, {}, {})", self.x, self.y, self.z)
     }
 }
 
@@ -59,8 +66,10 @@ fn part1(input: &String, boxes_to_connect_count: usize) {
         for circuit in &mut circuits {
             if circuit.contains(&connections[i].a) || circuit.contains(&connections[i].b) {
                 if circuit.contains(&connections[i].a) {
+                    println!("Adding {} to a circuit", connections[i].b);
                     circuit.insert(connections[i].b.clone());
                 } else {
+                    println!("Adding {} to a circuit", connections[i].a);
                     circuit.insert(connections[i].a.clone());
                 }
                 added_to_circuit = true;
@@ -68,6 +77,7 @@ fn part1(input: &String, boxes_to_connect_count: usize) {
             }
         }
         if !added_to_circuit {
+            println!("Creating a new circuit using {} and {}", connections[i].a, connections[i].b);
             circuits.push(HashSet::from([connections[i].a.clone(), connections[i].b.clone()]));
         }
     }
