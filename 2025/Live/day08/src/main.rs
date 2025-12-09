@@ -1,3 +1,4 @@
+#[derive(Clone)]
 struct Point {
   x: i64,
   y: i64,
@@ -27,6 +28,21 @@ fn part1(input: &String, boxes_to_connect_count: i64) {
                 z: coords[2].parse().unwrap()
             }
         );
+    }
+
+    // create vector containing all possible point pair combinations along with their cost for
+    // sorting to find the cheapest boxes to connect
+    let mut connections: Vec<Connection> = vec!();
+    for i in 0..points.len() {
+        for j in (i + 1)..points.len() {
+            connections.push(
+                Connection{
+                    cost: points[i].distance_to(&points[j]),
+                    a: points[i].clone(),
+                    b: points[j].clone()
+                }
+            );
+        }
     }
 }
 
