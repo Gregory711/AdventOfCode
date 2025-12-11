@@ -108,6 +108,68 @@ fn part1(input: &String, boxes_to_connect_count: usize) {
     println!("The result of multiplying the sizes of the three biggest circuits is: {}", product);
 }
 
+fn part2(input: &String) {
+    let mut points: Vec<Point> = vec!();
+    for line in input.lines() {
+        let coords: Vec<&str> = line.split(',').collect();
+        points.push(
+            Point{
+                x: coords[0].parse().unwrap(),
+                y: coords[1].parse().unwrap(),
+                z: coords[2].parse().unwrap()
+            }
+        );
+    }
+
+    // create vector containing all possible point pair combinations along with their cost for
+    // sorting to find the cheapest boxes to connect
+    let mut connections: Vec<Connection> = vec!();
+    for i in 0..points.len() {
+        for j in (i + 1)..points.len() {
+            connections.push(
+                Connection{
+                    cost: points[i].distance_to(&points[j]),
+                    a: points[i].clone(),
+                    b: points[j].clone()
+                }
+            );
+        }
+    }
+
+    connections.sort();
+
+    // Make the cheapest connections and form circuits until all connections in one circuit using this
+    // algorithm:
+    // Iterate over the boxes_to_connect_count cheapest connections and for each one:
+    //   Combine that new connection into a new circuit with all other existing circuits that
+    //   overlap with it at all i.e. contain any of the same points, like legos snapping together
+    //   Then add this new mega circuit to list with remaining circuits and check if:
+    //     Only 1 circuit remaining and number of points in circuit == points.len then output
+    //     solution
+    // The solution is product of multiplying X coordinates of last two connected junction boxes
+    // together
+    let mut circuits: Vec<HashSet<Point>> = vec!();
+    for i in 0..connections.len() {
+        let mut new_circuit = HashSet::from([connections[i].a.clone(), connections[i].b.clone()]);
+        let mut new_circuits: Vec<HashSet<Point>> = vec!();
+        for circuit in circuits {
+            // add circuit to new_circuit if there is overlap else add it wholesale to new list
+            if !new_circuit.is_disjoint(&circuit) {
+                // add everything from circuit to new_circuit!
+                new_circuit.extend(circuit);
+            } else {
+                new_circuits.push(circuit);
+            }
+        }
+        new_circuits.push(new_circuit.clone());
+        circuits = new_circuits;
+        if circuits.len() == 1 && new_circuit.len() == points.len() {
+            println!("The product of final junction box connection to form single large circuit is {}", connections[i].a.x * connections[i].b.x);
+            return
+        }
+    }
+}
+
 fn main() {
     let a = Point{x: 0, y: 0, z: 0};
     let b = Point{x: 1, y: 2, z: 3};
@@ -129,5 +191,8 @@ fn main() {
 
         println!("Part 1: {}, {}:", file, boxes_to_connect_count);
         part1(&input, *boxes_to_connect_count);
+
+        println!("Part 2: {}:", file);
+        part2(&input);
     }
 }
