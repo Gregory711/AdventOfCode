@@ -15,6 +15,24 @@ fn rect_area(corner_a: &Point, corner_b: &Point) -> i64 {
     return (i64::abs(corner_a.x - corner_b.x) + 1) * (i64::abs(corner_a.y - corner_b.y) + 1);
 }
 
+fn on_edge(point: &Point, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>) -> bool {
+    // check if the point is on an edge in a row
+    if row_edges.contains_key(&point.y) {
+        let row_edge: &Edge = row_edges.get(&point.y).unwrap();
+        if point.x >= row_edge.start && point.x <= row_edge.end {
+            return true;
+        }
+    }
+    // check if the point is on an edge in a col
+    if col_edges.contains_key(&point.x) {
+        let col_edge: &Edge = col_edges.get(&point.x).unwrap();
+        if point.y >= col_edge.start && point.y <= col_edge.end {
+            return true;
+        }
+    }
+    false
+}
+
 fn part1(input: &String) {
     let mut points: Vec<Point> = vec!();
 
@@ -73,13 +91,25 @@ fn part2(input: &String) {
 }
 
 fn main() {
+    // make sure rect_area works as expected
     let a = Point{ x: 2, y: 2 };
     let b = Point{ x: 3, y: 3 };
     let c = Point{ x: 0, y: 0 };
     if rect_area(&a, &b) == 4 && rect_area(&a, &c) == 9 {
         println!("rect_area is working as intended!");
     } else {
-        println!("ruh roh");
+        println!("ruh roh: rect_area is not working as intended!");
+    }
+
+    // make sure on_edge works as expected
+    let mut row_edges: HashMap<i64, Edge> = HashMap::new();
+    let mut col_edges: HashMap<i64, Edge> = HashMap::new();
+    row_edges.insert(2, Edge{ start: 0, end: 2 });
+    col_edges.insert(3, Edge{ start: 3, end: 3 });
+    if on_edge(&a, &row_edges, &col_edges) && on_edge(&b, &row_edges, &col_edges) && !on_edge(&c, &row_edges, &col_edges) {
+        println!("on_edge is working as intended!");
+    } else {
+        println!("ruh roh: on_edge is not working as intended!");
     }
 
     //for &file in &["test.txt", "input.txt"] {
