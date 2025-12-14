@@ -118,6 +118,7 @@ fn part2(input: &String) {
         }
     }
 
+    println!("Starting point checks!");
     let mut max_area: i64 = 0;
     for i in 0..points.len() {
         for j in (i + 1)..points.len() {
@@ -144,6 +145,7 @@ fn part2(input: &String) {
                 }
             }
         }
+        println!("{}/{}", i, points.len());
     }
 
     println!("The max area inside red green tile area is: {}", max_area);
@@ -185,8 +187,8 @@ fn main() {
         println!("edges_hit_count for d = {}", edges_hit_count(&d, &row_edges, &col_edges));
     }
 
-    //for &file in &["test.txt", "input.txt"] {
-    for &file in &["test.txt"] {
+    for &file in &["test.txt", "input.txt"] {
+    //for &file in &["test.txt"] {
         let input = std::fs::read_to_string(format!("day09/{}", file))
             .expect(&format!("Failed to read file: {}", file))
             .trim_end()
