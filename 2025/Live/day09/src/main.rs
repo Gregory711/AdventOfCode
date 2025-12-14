@@ -33,6 +33,26 @@ fn on_edge(point: &Point, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i6
     false
 }
 
+// can imagine this function as firing a laser beam at the point from left of the grid and
+// counts how many times it intersects edges of the tile structure (including at the point itself)
+fn edges_hit_count(point: &Point, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>) -> i64 {
+    let mut count: i64 = 0;
+    // use riding_edge to avoid repeatedly counting the same edge if happen to be "riding" right
+    // along it
+    let mut riding_edge: bool = false;
+    for x in 0..(point.x + 1) {
+        if on_edge(&Point{ x: x, y: point.y }, row_edges, col_edges) {
+            if !riding_edge {
+                count += 1;
+                riding_edge = true;
+            }
+        } else {
+            riding_edge = false;
+        }
+    }
+    count
+}
+
 fn part1(input: &String) {
     let mut points: Vec<Point> = vec!();
 
@@ -95,6 +115,7 @@ fn main() {
     let a = Point{ x: 2, y: 2 };
     let b = Point{ x: 3, y: 3 };
     let c = Point{ x: 0, y: 0 };
+    let d = Point{ x: 3, y: 1 };
     if rect_area(&a, &b) == 4 && rect_area(&a, &c) == 9 {
         println!("rect_area is working as intended!");
     } else {
@@ -105,11 +126,24 @@ fn main() {
     let mut row_edges: HashMap<i64, Edge> = HashMap::new();
     let mut col_edges: HashMap<i64, Edge> = HashMap::new();
     row_edges.insert(2, Edge{ start: 0, end: 2 });
-    col_edges.insert(3, Edge{ start: 3, end: 3 });
+    col_edges.insert(3, Edge{ start: 1, end: 3 });
     if on_edge(&a, &row_edges, &col_edges) && on_edge(&b, &row_edges, &col_edges) && !on_edge(&c, &row_edges, &col_edges) {
         println!("on_edge is working as intended!");
     } else {
         println!("ruh roh: on_edge is not working as intended!");
+    }
+
+    // make sure edges_hit_count works as expected
+    col_edges.insert(1, Edge{ start: 0, end: 2 });
+    if edges_hit_count(&a, &row_edges, &col_edges) == 1 && edges_hit_count(&b, &row_edges, &col_edges) == 1 &&
+        edges_hit_count(&c, &row_edges, &col_edges) == 0 && edges_hit_count(&d, &row_edges, &col_edges) == 2 {
+        println!("edges_hit_count is working as intended!");
+    } else {
+        println!("ruh roh: edges_hit_count is not working as intended!");
+        println!("edges_hit_count for a = {}", edges_hit_count(&a, &row_edges, &col_edges));
+        println!("edges_hit_count for b = {}", edges_hit_count(&b, &row_edges, &col_edges));
+        println!("edges_hit_count for c = {}", edges_hit_count(&c, &row_edges, &col_edges));
+        println!("edges_hit_count for d = {}", edges_hit_count(&d, &row_edges, &col_edges));
     }
 
     //for &file in &["test.txt", "input.txt"] {
