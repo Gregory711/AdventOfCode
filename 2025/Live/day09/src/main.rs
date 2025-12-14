@@ -62,6 +62,29 @@ fn point_inside_red_green_tiles(point: &Point, row_edges: &HashMap<i64, Edge>, c
     return on_edge(&point, &row_edges, &col_edges) || (edges_hit_count(&point, &row_edges, &col_edges) % 2) == 1;
 }
 
+// problem: need to see if all the rectangle we are creating is completely enclosed
+// by the red green tile shape
+// algorithm:
+// 1. Consider top left corner as A, top right as B, bottom left as C, and bottom
+//    right as D
+// 2. Iterate over points between (and including) A and B:
+//  2.1. Shoot laser upwards from point and make sure count of edges intersected
+//    starting from the point going to top of grid is an odd number to verify it is
+//    enclosed by the red green shape
+// 3. Repeat above process between C and D going downwards
+// 4. Repeat between A and C going leftwards
+// 5. Repeat between B and D going rightwards
+// If at any point get even number then not enclosed and return false for entire
+// operation!
+fn rectangle_is_enclosed(a: &Point, b: &Point, c: &Point, d: &Point, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>) -> bool {
+    // A to B
+    // C to D
+    // A to C
+    // B to D
+    true
+}
+
+
 fn part1(input: &String) {
     let mut points: Vec<Point> = vec!();
 
@@ -129,25 +152,7 @@ fn part2(input: &String) {
             // verify they are all in the red_green_tiles section
             if temp_area > max_area {
                 enclose_checks_count += 1;
-                break;
                 let mut all_inside: bool = true;
-
-                // problem: need to see if all the rectangle we are creating is completely enclosed
-                // by the red green tile shape
-                // algorithm:
-                // 1. Consider top left corner as A, top right as B, bottom left as C, and bottom
-                //    right as D
-                // 2. Iterate over points between (and including) A and B:
-                //  2.1. Shoot laser upwards from point and make sure count of edges intersected
-                //    starting from the point going to top of grid is an odd number to verify it is
-                //    enclosed by the red green shape
-                // 3. Repeat above process between C and D going downwards
-                // 4. Repeat between A and C going leftwards
-                // 5. Repeat between B and D going rightwards
-                // If at any point get even number then not enclosed and return false for entire
-                // operation!
-                // Will move this logic to rectangle_is_enclosed(a: &Point, b: &Point, c: &Point, d:
-                // &Point, row_edges, col_edges) -> bool
 
                 // too slow start -----------
                 for x in cmp::min(points[i].x, points[j].x)..=cmp::max(points[i].x, points[j].x) {
@@ -213,8 +218,8 @@ fn main() {
         println!("edges_hit_count for d = {}", edges_hit_count(&d, &row_edges, &col_edges));
     }
 
-    for &file in &["test.txt", "input.txt"] {
-    //for &file in &["test.txt"] {
+    //for &file in &["test.txt", "input.txt"] {
+    for &file in &["test.txt"] {
         let input = std::fs::read_to_string(format!("day09/{}", file))
             .expect(&format!("Failed to read file: {}", file))
             .trim_end()
