@@ -62,6 +62,11 @@ fn point_inside_red_green_tiles(point: &Point, row_edges: &HashMap<i64, Edge>, c
     if point.x == 2 && point.y == 1 {
         if on_edge(&point, &row_edges, &col_edges) || (edges_hit_count(&point, &row_edges, &col_edges) % 2) == 1 {
             println!("bruh, (2,1) point is not inside rg area but is being reported as such");
+            if on_edge(&point, &row_edges, &col_edges) {
+                println!("The problem is (2,1) is being reported as actually on an edge!");
+            } else {
+                println!("(2,1) isn't reported as on an edge but having hit {} odd number of edges", edges_hit_count(&point, &row_edges, &col_edges));
+            }
         }
     }
     return on_edge(&point, &row_edges, &col_edges) || (edges_hit_count(&point, &row_edges, &col_edges) % 2) == 1;
