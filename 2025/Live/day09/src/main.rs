@@ -20,9 +20,6 @@ fn on_edge(point: &Point, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i6
     if row_edges.contains_key(&point.y) {
         let row_edge: &Edge = row_edges.get(&point.y).unwrap();
         if point.x >= row_edge.start && point.x <= row_edge.end {
-            if point.x == 2 && point.y == 1 {
-                println!("(2,1) is reported to be on row edge 1 from {} to {}", row_edge.start, row_edge.end);
-            }
             return true;
         }
     }
@@ -30,9 +27,6 @@ fn on_edge(point: &Point, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i6
     if col_edges.contains_key(&point.x) {
         let col_edge: &Edge = col_edges.get(&point.x).unwrap();
         if point.y >= col_edge.start && point.y <= col_edge.end {
-            if point.x == 2 && point.y == 1 {
-                println!("(2,1) is reported to be on col edge 2 from {} to {}", col_edge.start, col_edge.end);
-            }
             return true;
         }
     }
@@ -65,16 +59,6 @@ fn edges_hit_count(point: &Point, row_edges: &HashMap<i64, Edge>, col_edges: &Ha
 // hit e.g. going through rectangle and ends on rightmost edge still considered inside the
 // rectangle
 fn point_inside_red_green_tiles(point: &Point, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>) -> bool {
-    if point.x == 2 && point.y == 1 {
-        if on_edge(&point, &row_edges, &col_edges) || (edges_hit_count(&point, &row_edges, &col_edges) % 2) == 1 {
-            println!("bruh, (2,1) point is not inside rg area but is being reported as such");
-            if on_edge(&point, &row_edges, &col_edges) {
-                println!("The problem is (2,1) is being reported as actually on an edge!");
-            } else {
-                println!("(2,1) isn't reported as on an edge but having hit {} odd number of edges", edges_hit_count(&point, &row_edges, &col_edges));
-            }
-        }
-    }
     return on_edge(&point, &row_edges, &col_edges) || (edges_hit_count(&point, &row_edges, &col_edges) % 2) == 1;
 }
 
@@ -114,7 +98,7 @@ fn part2(input: &String) {
             row_edges.insert(point.y, Edge{ start: point.x, end: point.x });
         } else {
             let row_edge: &Edge = row_edges.get(&point.y).unwrap();
-            let updated_edge: Edge = Edge{ start: cmp::min(row_edge.start, point.y), end: cmp::max(row_edge.end, point.x) };
+            let updated_edge: Edge = Edge{ start: cmp::min(row_edge.start, point.x), end: cmp::max(row_edge.end, point.x) };
             if row_edge.start != updated_edge.start || row_edge.end != updated_edge.end {
                 row_edges.remove(&point.y);
                 row_edges.insert(point.y, updated_edge);
@@ -126,7 +110,7 @@ fn part2(input: &String) {
             col_edges.insert(point.x, Edge{ start: point.y, end: point.y });
         } else {
             let col_edge: &Edge = col_edges.get(&point.x).unwrap();
-            let updated_edge: Edge = Edge{ start: cmp::min(col_edge.start, point.x), end: cmp::max(col_edge.end, point.y) };
+            let updated_edge: Edge = Edge{ start: cmp::min(col_edge.start, point.y), end: cmp::max(col_edge.end, point.y) };
             if col_edge.start != updated_edge.start || col_edge.end != updated_edge.end {
                 col_edges.remove(&point.x);
                 col_edges.insert(point.x, updated_edge);
@@ -156,7 +140,7 @@ fn part2(input: &String) {
                 }
                 if all_inside {
                     max_area = temp_area;
-                    println!("Increasing max area to {} with ({}, {}), ({}, {})" , max_area, points[i].x, points[i].y, points[j].x, points[j].y);
+                    //println!("Increasing max area to {} with ({}, {}), ({}, {})" , max_area, points[i].x, points[i].y, points[j].x, points[j].y);
                 }
             }
         }
@@ -191,7 +175,7 @@ fn main() {
     // make sure edges_hit_count works as expected
     col_edges.insert(1, Edge{ start: 0, end: 2 });
     if edges_hit_count(&a, &row_edges, &col_edges) == 1 && edges_hit_count(&b, &row_edges, &col_edges) == 1 &&
-        edges_hit_count(&c, &row_edges, &col_edges) == 0 && edges_hit_count(&d, &row_edges, &col_edges) == 2 {
+        edges_hit_count(&c, &row_edges, &col_edges) == 0 && edges_hit_count(&d, &row_edges, &col_edges) == 1 {
         println!("edges_hit_count is working as intended!");
     } else {
         println!("ruh roh: edges_hit_count is not working as intended!");
