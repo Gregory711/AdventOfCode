@@ -20,6 +20,9 @@ fn on_edge(point: &Point, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i6
     if row_edges.contains_key(&point.y) {
         let row_edge: &Edge = row_edges.get(&point.y).unwrap();
         if point.x >= row_edge.start && point.x <= row_edge.end {
+            if point.x == 2 && point.y == 1 {
+                println!("(2,1) is reported to be on row edge 1 from {} to {}", row_edge.start, row_edge.end);
+            }
             return true;
         }
     }
@@ -27,6 +30,9 @@ fn on_edge(point: &Point, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i6
     if col_edges.contains_key(&point.x) {
         let col_edge: &Edge = col_edges.get(&point.x).unwrap();
         if point.y >= col_edge.start && point.y <= col_edge.end {
+            if point.x == 2 && point.y == 1 {
+                println!("(2,1) is reported to be on col edge 2 from {} to {}", col_edge.start, col_edge.end);
+            }
             return true;
         }
     }
