@@ -128,6 +128,8 @@ fn part2(input: &String) {
             // verify they are all in the red_green_tiles section
             if temp_area > max_area {
                 let mut all_inside: bool = true;
+
+                // too slow start -----------
                 for x in cmp::min(points[i].x, points[j].x)..=cmp::max(points[i].x, points[j].x) {
                     for y in cmp::min(points[i].y, points[j].y)..=cmp::max(points[i].y, points[j].y) {
                         if !point_inside_red_green_tiles(&Point{ x: x, y: y }, &row_edges, &col_edges) {
@@ -139,6 +141,8 @@ fn part2(input: &String) {
                         break;
                     }
                 }
+                // too slow end ----------
+
                 if all_inside {
                     max_area = temp_area;
                     //println!("Increasing max area to {} with ({}, {}), ({}, {})" , max_area, points[i].x, points[i].y, points[j].x, points[j].y);
