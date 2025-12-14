@@ -34,13 +34,13 @@ fn on_edge(point: &Point, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i6
 }
 
 // can imagine this function as firing a laser beam at the point from left of the grid and
-// counts how many times it intersects edges of the tile structure (including at the point itself)
+// counts how many times it intersects edges of the tile structure (not including the point itself)
 fn edges_hit_count(point: &Point, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>) -> i64 {
     let mut count: i64 = 0;
     // use riding_edge to avoid repeatedly counting the same edge if happen to be "riding" right
     // along it
     let mut riding_edge: bool = false;
-    for x in 0..(point.x + 1) {
+    for x in 0..point.x {
         if on_edge(&Point{ x: x, y: point.y }, row_edges, col_edges) {
             if !riding_edge {
                 count += 1;
@@ -51,6 +51,15 @@ fn edges_hit_count(point: &Point, row_edges: &HashMap<i64, Edge>, col_edges: &Ha
         }
     }
     count
+}
+
+// Uses edges_hit_count to determine if provided point is inside (counting edges as inside) the
+// red/green tiles section of the grid
+// also counts as being inside red_green tiles if it ends on an edge even if even number of edges
+// hit e.g. going through rectangle and ends on rightmost edge still considered inside the
+// rectangle
+fn point_inside_red_green_tiles(point: &Point, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>) -> bool {
+    return on_edge(&point, &row_edges, &col_edges) || (edges_hit_count(&point, &row_edges, &col_edges) % 2) == 1;
 }
 
 fn part1(input: &String) {
@@ -83,7 +92,7 @@ fn part2(input: &String) {
     // likewise col_edges are on a particular column (x) and start/stop on particular rows
     let mut row_edges: HashMap<i64, Edge> = HashMap::new();
     let mut col_edges: HashMap<i64, Edge> = HashMap::new();
-    for point in points {
+    for point in &points {
         // upsert row edge if needed
         if !row_edges.contains_key(&point.y) {
             row_edges.insert(point.y, Edge{ start: point.x, end: point.x });
@@ -108,6 +117,36 @@ fn part2(input: &String) {
             }
         }
     }
+
+    let mut max_area: i64 = 0;
+    for i in 0..points.len() {
+        for j in (i + 1)..points.len() {
+            // need to first calculate if these points would even result in a bigger area
+            let temp_area: i64 = rect_area(&points[i], &points[j]);
+            // if points would result in a bigger area than check every point in the rectangle to
+            // verify they are all in the red_green_tiles section
+            if temp_area > max_area {
+                let mut all_inside: bool = true;
+                for x in cmp::min(points[i].x, points[j].x)..=cmp::max(points[i].x, points[j].x) {
+                    for y in cmp::min(points[i].y, points[j].y)..=cmp::max(points[i].y, points[j].y) {
+                        if !point_inside_red_green_tiles(&Point{ x: x, y: y }, &row_edges, &col_edges) {
+                            all_inside = false;
+                            break;
+                        }
+                    }
+                    if !all_inside {
+                        break;
+                    }
+                }
+                if all_inside {
+                    max_area = temp_area;
+                    println!("Increasing max area to {} with ({}, {}), ({}, {})" , max_area, points[i].x, points[i].y, points[j].x, points[j].y);
+                }
+            }
+        }
+    }
+
+    println!("The max area inside red green tile area is: {}", max_area);
 }
 
 fn main() {
