@@ -77,10 +77,23 @@ fn point_inside_red_green_tiles(point: &Point, row_edges: &HashMap<i64, Edge>, c
 // If at any point get even number then not enclosed and return false for entire
 // operation!
 fn rectangle_is_enclosed(a: &Point, b: &Point, c: &Point, d: &Point, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>) -> bool {
-    // A to B
+    // A to B (so row (y) is fixed for starting points and x varies from A to B)
+    for x in a.x..=b.x {
+        //
+    }
+
     // C to D
-    // A to C
+    for x in c.x..=d.x {
+    }
+
+    // A to C (so col (x) is fixed for starting points and y varies from A to C)
+    for y in a.y..=c.y {
+    }
+
     // B to D
+    for y in b.y..=d.y {
+    }
+
     true
 }
 
