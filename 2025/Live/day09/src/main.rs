@@ -59,6 +59,11 @@ fn edges_hit_count(point: &Point, row_edges: &HashMap<i64, Edge>, col_edges: &Ha
 // hit e.g. going through rectangle and ends on rightmost edge still considered inside the
 // rectangle
 fn point_inside_red_green_tiles(point: &Point, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>) -> bool {
+    if point.x == 2 && point.y == 1 {
+        if on_edge(&point, &row_edges, &col_edges) || (edges_hit_count(&point, &row_edges, &col_edges) % 2) == 1 {
+            println!("bruh, (2,1) point is not inside rg area but is being reported as such");
+        }
+    }
     return on_edge(&point, &row_edges, &col_edges) || (edges_hit_count(&point, &row_edges, &col_edges) % 2) == 1;
 }
 
