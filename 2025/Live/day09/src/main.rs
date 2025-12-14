@@ -144,8 +144,9 @@ fn part2(input: &String) {
                     //println!("Increasing max area to {} with ({}, {}), ({}, {})" , max_area, points[i].x, points[i].y, points[j].x, points[j].y);
                 }
             }
+            println!("j: {}/{}", j, points.len());
         }
-        println!("{}/{}", i, points.len());
+        println!("i: {}/{}", i, points.len());
     }
 
     println!("The max area inside red green tile area is: {}", max_area);
