@@ -120,6 +120,7 @@ fn part2(input: &String) {
 
     println!("Starting point checks!");
     let mut max_area: i64 = 0;
+    let mut enclose_checks_count: i64 = 0;
     for i in 0..points.len() {
         for j in (i + 1)..points.len() {
             // need to first calculate if these points would even result in a bigger area
@@ -127,7 +128,26 @@ fn part2(input: &String) {
             // if points would result in a bigger area than check every point in the rectangle to
             // verify they are all in the red_green_tiles section
             if temp_area > max_area {
+                enclose_checks_count += 1;
+                break;
                 let mut all_inside: bool = true;
+
+                // problem: need to see if all the rectangle we are creating is completely enclosed
+                // by the red green tile shape
+                // algorithm:
+                // 1. Consider top left corner as A, top right as B, bottom left as C, and bottom
+                //    right as D
+                // 2. Iterate over points between (and including) A and B:
+                //  2.1. Shoot laser upwards from point and make sure count of edges intersected
+                //    starting from the point going to top of grid is an odd number to verify it is
+                //    enclosed by the red green shape
+                // 3. Repeat above process between C and D going downwards
+                // 4. Repeat between A and C going leftwards
+                // 5. Repeat between B and D going rightwards
+                // If at any point get even number then not enclosed and return false for entire
+                // operation!
+                // Will move this logic to rectangle_is_enclosed(a: &Point, b: &Point, c: &Point, d:
+                // &Point, row_edges, col_edges) -> bool
 
                 // too slow start -----------
                 for x in cmp::min(points[i].x, points[j].x)..=cmp::max(points[i].x, points[j].x) {
@@ -152,6 +172,7 @@ fn part2(input: &String) {
         }
         println!("i: {}/{}", i, points.len());
     }
+    println!("Enclose checks made: {}", enclose_checks_count);
 
     println!("The max area inside red green tile area is: {}", max_area);
 }
