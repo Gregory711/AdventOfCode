@@ -62,11 +62,34 @@ fn point_inside_red_green_tiles(point: &Point, row_edges: &HashMap<i64, Edge>, c
     return on_edge(&point, &row_edges, &col_edges) || (edges_hit_count(&point, &row_edges, &col_edges) % 2) == 1;
 }
 
+fn count_edges_intersected_by_row_edge(row_edge: &Edge, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>) -> i64 {
+    let mut count: i64 = 0;
+    // iterate over row_edges and see if any intersect with provided row_edge
+    // TODO!
+
+    // iterate over col_edges and see if any intersect with provided row_edge
+    // TODO!
+
+    count
+}
+
+fn count_edges_intersected_by_col_edge(col_edge: &Edge, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>) -> i64 {
+    let mut count: i64 = 0;
+    // iterate over row_edges and see if any intersect with provided col_edge
+    // TODO!
+
+    // iterate over col_edges and see if any intersect with provided col_edge
+    // TODO!
+
+    count
+}
+
 // problem: need to see if all the rectangle we are creating is completely enclosed
 // by the red green tile shape
 // algorithm:
 // 1. Consider top left corner as A, top right as B, bottom left as C, and bottom
 //    right as D
+//    NOTE: top is defined as row (y) 0!
 // 2. Iterate over points between (and including) A and B:
 //  2.1. Shoot laser upwards from point and make sure count of edges intersected
 //    starting from the point going to top of grid is an odd number to verify it is
@@ -79,7 +102,6 @@ fn point_inside_red_green_tiles(point: &Point, row_edges: &HashMap<i64, Edge>, c
 fn rectangle_is_enclosed(a: &Point, b: &Point, c: &Point, d: &Point, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>) -> bool {
     // A to B (so row (y) is fixed for starting points and x varies from A to B)
     for x in a.x..=b.x {
-        //
     }
 
     // C to D
