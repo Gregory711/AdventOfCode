@@ -62,13 +62,42 @@ fn point_inside_red_green_tiles(point: &Point, row_edges: &HashMap<i64, Edge>, c
     return on_edge(&point, &row_edges, &col_edges) || (edges_hit_count(&point, &row_edges, &col_edges) % 2) == 1;
 }
 
-fn count_edges_intersected_by_row_edge(row_edge: &Edge, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>) -> i64 {
+fn edges_intersect(a: &Edge, b: &Edge) -> bool {
+    if a.start <= b.end && a.end >= b.start {
+        return true;
+    }
+    false
+}
+
+fn count_edges_intersected_by_row_edge(row_edge: &Edge, row: i64, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>) -> i64 {
     let mut count: i64 = 0;
     // iterate over row_edges and see if any intersect with provided row_edge
-    // TODO!
+    if row_edges.contains_key(&row) {
+        let edge = row_edges.get(&row).unwrap();
+        if edges_intersect(row_edge, edge) {
+            count += 1;
+        }
+    }
 
     // iterate over col_edges and see if any intersect with provided row_edge
-    // TODO!
+    for (col, col_edge) in col_edges {
+        // For a row_edge to intersect with a col edge two things must be true:
+        // 1. The col that the col_edge is in intersects with part of the row_edge
+        // 2. The rows that the col_edge goes through intersects with the row_edge
+        
+        // Skip to next col_edge if the col does not intersect
+        if !edges_intersect(row_edge, &Edge{ start: col.clone(), end: col.clone() }) {
+            continue;
+        }
+
+        // Skip to next col_edge if col_edge rows don't intersect with row_edge
+        if edges_intersect(col_edge, &Edge{ start: row, end: row }) {
+            continue;
+        }
+
+        // If made it to this point then col_edge intersects with row_edge and increment counter!
+        count += 1;
+    }
 
     count
 }
