@@ -150,21 +150,38 @@ fn count_edges_intersected_by_col_edge(col_edge: &Edge, col: i64, row_edges: &Ha
 // 5. Repeat between B and D going rightwards
 // If at any point get even number then not enclosed and return false for entire
 // operation!
-fn rectangle_is_enclosed(a: &Point, b: &Point, c: &Point, d: &Point, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>) -> bool {
+//
+// Helpers:
+//  count_edges_intersected_by_col_edge(col_edge: &Edge, col: i64, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>) -> i64
+//  count_edges_intersected_by_row_edge(row_edge: &Edge, row: i64, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>) -> i64 {
+//
+fn rectangle_is_enclosed(a: &Point, b: &Point, c: &Point, d: &Point, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>, row_count: i64, col_count: i64) -> bool {
     // A to B (so row (y) is fixed for starting points and x varies from A to B)
     for x in a.x..=b.x {
+        if (count_edges_intersected_by_col_edge(&Edge{ start: 0, end: a.y }, x, row_edges, col_edges) % 2) == 0 {
+            return false;
+        }
     }
 
     // C to D
     for x in c.x..=d.x {
+        if (count_edges_intersected_by_col_edge(&Edge{ start: c.y, end: row_count }, x, row_edges, col_edges) % 2) == 0 {
+            return false;
+        }
     }
 
     // A to C (so col (x) is fixed for starting points and y varies from A to C)
     for y in a.y..=c.y {
+        if (count_edges_intersected_by_row_edge(&Edge{ start: 0, end: a.x }, y, row_edges, col_edges) % 2) == 0 {
+            return false;
+        }
     }
 
     // B to D
     for y in b.y..=d.y {
+        if (count_edges_intersected_by_row_edge(&Edge{ start: b.x, end: col_count }, y, row_edges, col_edges)  % 2) == 0 {
+            return false;
+        }
     }
 
     true
