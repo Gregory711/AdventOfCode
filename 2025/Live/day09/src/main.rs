@@ -102,13 +102,35 @@ fn count_edges_intersected_by_row_edge(row_edge: &Edge, row: i64, row_edges: &Ha
     count
 }
 
-fn count_edges_intersected_by_col_edge(col_edge: &Edge, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>) -> i64 {
+fn count_edges_intersected_by_col_edge(col_edge: &Edge, col: i64, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>) -> i64 {
     let mut count: i64 = 0;
     // iterate over row_edges and see if any intersect with provided col_edge
-    // TODO!
+    for (row, row_edge) in row_edges {
+        // For a col_edge to intersect with a row edge two things must be true:
+        // 1. The row that the row_edge is in intersects with part of the col_edge
+        // 2. The cols that the row_edge goes through intersects with the col_edge
+
+        // Skip to next row_edge if the row does not intersect
+        if !edges_intersect(col_edge, &Edge { start: row.clone(), end: row.clone() }) {
+            continue;
+        }
+
+        // Skip to next row_edge if row_edge cols don't intersect with col_edge
+        if edges_intersect(row_edge, &Edge{ start: col, end: col }) {
+            continue;
+        }
+
+        // If made it to this point then row_edge intersects with col_edge and increment counter!
+        count += 1;
+    }
 
     // iterate over col_edges and see if any intersect with provided col_edge
-    // TODO!
+    if col_edges.contains_key(&col) {
+        let edge = col_edges.get(&col).unwrap();
+        if edges_intersect(col_edge, edge) {
+            count += 1;
+        }
+    }
 
     count
 }
