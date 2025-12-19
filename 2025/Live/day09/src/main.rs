@@ -302,7 +302,7 @@ fn part2(input: &String) {
 
                 if all_inside {
                     //max_area = temp_area;
-                    println!("Old version would: increasing max area to {} with ({}, {}), ({}, {})" , max_area, points[i].x, points[i].y, points[j].x, points[j].y);
+                    println!("Old version would: increasing max area to {} with ({}, {}), ({}, {})" , temp_area, points[i].x, points[i].y, points[j].x, points[j].y);
                 }
             }
             println!("j: {}/{}", j, points.len());
