@@ -1,6 +1,7 @@
 use std::cmp;
 use std::collections::HashMap;
 
+#[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd, Hash)]
 struct Point {
     x: i64,
     y: i64
@@ -256,6 +257,19 @@ fn part2(input: &String) {
             if temp_area > max_area {
                 enclose_checks_count += 1;
                 let mut all_inside: bool = true;
+
+                // replacing the following too slow section by using this new helper function:
+                // rectangle_is_enclosed(a: &Point, b: &Point, c: &Point, d: &Point, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>, row_count: i64, col_count: i64) -> bool
+                // So first need to create the four ordered corners a,b,c,d
+                // Luckily all I'll have to do is add all four corners into a vector then just sort
+                // them and the default sorting is x (col) then y (row) (cause of struct field
+                // ordering) which will result in them being in a,b,c,d order!
+                let mut abcd: Vec<Point> = vec!();
+                abcd.push(points[i].clone());
+                abcd.push(points[j].clone());
+                abcd.push(Point{ x: points[i].x, y: points[j].y});
+                abcd.push(Point{ x: points[j].x, y: points[i].y});
+                abcd.sort();
 
                 // too slow start -----------
                 for x in cmp::min(points[i].x, points[j].x)..=cmp::max(points[i].x, points[j].x) {
