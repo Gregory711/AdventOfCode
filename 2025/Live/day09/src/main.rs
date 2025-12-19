@@ -248,6 +248,16 @@ fn part2(input: &String) {
     println!("Starting point checks!");
     let mut max_area: i64 = 0;
     let mut enclose_checks_count: i64 = 0;
+    // Next need to calculate row_count and col_count which are just max y and x
+    // respectively that any of the points happen to fall in
+    let mut row_count: i64 = 0;
+    let mut col_count: i64 = 0;
+    for point in &points {
+        row_count = cmp::max(row_count, point.y);
+        col_count = cmp::max(col_count, point.x);
+    }
+    // Now can create the biggest rectangle I can using provided points that is entirely enclosed
+    // withing the red green tile array
     for i in 0..points.len() {
         for j in (i + 1)..points.len() {
             // need to first calculate if these points would even result in a bigger area
