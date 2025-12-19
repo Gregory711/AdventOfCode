@@ -281,9 +281,12 @@ fn part2(input: &String) {
                 abcd.push(Point{ x: points[j].x, y: points[i].y});
                 abcd.sort();
 
+                println!("Checking if rect with ({}, {}) and ({}, {}) is enclosed", points[i].x, points[i].y, points[j].x, points[j].y);
                 if rectangle_is_enclosed(&abcd[0], &abcd[1], &abcd[2], &abcd[3], &row_edges, &col_edges, row_count, col_count) {
                     max_area = temp_area;
                     println!("Increasing max area to {} with ({}, {}), ({}, {})" , max_area, points[i].x, points[i].y, points[j].x, points[j].y);
+                } else {
+                    println!("Not enclosed!");
                 }
 
                 // too slow start -----------
