@@ -281,6 +281,11 @@ fn part2(input: &String) {
                 abcd.push(Point{ x: points[j].x, y: points[i].y});
                 abcd.sort();
 
+                if rectangle_is_enclosed(&abcd[0], &abcd[1], &abcd[2], &abcd[3], &row_edges, &col_edges, row_count, col_count) {
+                    max_area = temp_area;
+                    println!("Increasing max area to {} with ({}, {}), ({}, {})" , max_area, points[i].x, points[i].y, points[j].x, points[j].y);
+                }
+
                 // too slow start -----------
                 for x in cmp::min(points[i].x, points[j].x)..=cmp::max(points[i].x, points[j].x) {
                     for y in cmp::min(points[i].y, points[j].y)..=cmp::max(points[i].y, points[j].y) {
@@ -296,8 +301,8 @@ fn part2(input: &String) {
                 // too slow end ----------
 
                 if all_inside {
-                    max_area = temp_area;
-                    //println!("Increasing max area to {} with ({}, {}), ({}, {})" , max_area, points[i].x, points[i].y, points[j].x, points[j].y);
+                    //max_area = temp_area;
+                    println!("Old version would: increasing max area to {} with ({}, {}), ({}, {})" , max_area, points[i].x, points[i].y, points[j].x, points[j].y);
                 }
             }
             println!("j: {}/{}", j, points.len());
