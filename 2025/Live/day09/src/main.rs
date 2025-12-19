@@ -339,7 +339,7 @@ fn main() {
 
     // make sure edges_hit_count works as expected
     col_edges.insert(1, Edge{ start: 0, end: 2 });
-    if edges_hit_count(&a, &row_edges, &col_edges) == 1 && edges_hit_count(&b, &row_edges, &col_edges) == 1 &&
+    if edges_hit_count(&a, &row_edges, &col_edges) == 1 && edges_hit_count(&b, &row_edges, &col_edges) == 0 &&
         edges_hit_count(&c, &row_edges, &col_edges) == 0 && edges_hit_count(&d, &row_edges, &col_edges) == 1 {
         println!("edges_hit_count is working as intended!");
     } else {
