@@ -1,10 +1,17 @@
 use std::cmp;
 use std::collections::HashMap;
+use std::fmt;
 
 #[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd, Hash)]
 struct Point {
     x: i64,
     y: i64
+}
+
+impl fmt::Display for Point {
+   fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+       write!(f, "({}, {})", self.x, self.y)
+   }
 }
 
 struct Edge {
@@ -155,9 +162,14 @@ fn col_edge_is_intersected_at_col(col_edge: &Edge, col: i64, row_edges: &HashMap
 //  count_edges_intersected_by_col_edge(col_edge: &Edge, col: i64, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>) -> i64
 //  count_edges_intersected_by_row_edge(row_edge: &Edge, row: i64, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>) -> i64 {
 //
-fn rectangle_is_enclosed(a: &Point, b: &Point, c: &Point, d: &Point, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>, row_count: i64, col_count: i64) -> bool {
+fn rectangle_is_enclosed(a: &Point, c: &Point, b: &Point, d: &Point, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>, row_count: i64, col_count: i64) -> bool {
+    println!("a: {}", a);
+    println!("b: {}", b);
+    println!("c: {}", c);
+    println!("d: {}", d);
     // A to B (so row (y) is fixed for starting points and x varies from A to B)
     for x in a.x..=b.x {
+        println!("checking {} of {} to {}", x, a.x, b.x);
         let mut intersection_count: i64 = 0;
         for row in 0..=a.y {
             if col_edge_is_intersected_at_col(&Edge{ start: row, end: row }, x, row_edges, col_edges) {
