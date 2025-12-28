@@ -70,13 +70,12 @@ fn edges_intersect(a: &Edge, b: &Edge) -> bool {
     false
 }
 
-fn count_edges_intersected_by_row_edge(row_edge: &Edge, row: i64, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>) -> i64 {
-    let mut count: i64 = 0;
+fn row_edge_is_intersected_at_row(row_edge: &Edge, row: i64, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>) -> bool {
     // iterate over row_edges and see if any intersect with provided row_edge
     if row_edges.contains_key(&row) {
         let edge = row_edges.get(&row).unwrap();
         if edges_intersect(row_edge, edge) {
-            count += 1;
+            return true;
         }
     }
 
@@ -92,19 +91,19 @@ fn count_edges_intersected_by_row_edge(row_edge: &Edge, row: i64, row_edges: &Ha
         }
 
         // Skip to next col_edge if col_edge rows don't intersect with row_edge
-        if edges_intersect(col_edge, &Edge{ start: row, end: row }) {
+        if !edges_intersect(col_edge, &Edge{ start: row, end: row }) {
             continue;
         }
 
-        // If made it to this point then col_edge intersects with row_edge and increment counter!
-        count += 1;
+        // If made it to this point then col_edge intersects with row_edge
+        println!("col_edge from {} to {} in col {} intersects", col_edge.start, col_edge.end, col);
+        return true;
     }
 
-    count
+    false
 }
 
-fn count_edges_intersected_by_col_edge(col_edge: &Edge, col: i64, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>) -> i64 {
-    let mut count: i64 = 0;
+fn col_edge_is_intersected_at_col(col_edge: &Edge, col: i64, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>) -> bool {
     // iterate over row_edges and see if any intersect with provided col_edge
     for (row, row_edge) in row_edges {
         // For a col_edge to intersect with a row edge two things must be true:
@@ -117,23 +116,23 @@ fn count_edges_intersected_by_col_edge(col_edge: &Edge, col: i64, row_edges: &Ha
         }
 
         // Skip to next row_edge if row_edge cols don't intersect with col_edge
-        if edges_intersect(row_edge, &Edge{ start: col, end: col }) {
+        if !edges_intersect(row_edge, &Edge{ start: col, end: col }) {
             continue;
         }
 
-        // If made it to this point then row_edge intersects with col_edge and increment counter!
-        count += 1;
+        // If made it to this point then row_edge intersects with col_edge
+        return true
     }
 
     // iterate over col_edges and see if any intersect with provided col_edge
     if col_edges.contains_key(&col) {
         let edge = col_edges.get(&col).unwrap();
         if edges_intersect(col_edge, edge) {
-            count += 1;
+            return true
         }
     }
 
-    count
+    false
 }
 
 // problem: need to see if all the rectangle we are creating is completely enclosed
@@ -159,28 +158,58 @@ fn count_edges_intersected_by_col_edge(col_edge: &Edge, col: i64, row_edges: &Ha
 fn rectangle_is_enclosed(a: &Point, b: &Point, c: &Point, d: &Point, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>, row_count: i64, col_count: i64) -> bool {
     // A to B (so row (y) is fixed for starting points and x varies from A to B)
     for x in a.x..=b.x {
-        if (count_edges_intersected_by_col_edge(&Edge{ start: 0, end: a.y }, x, row_edges, col_edges) % 2) == 0 {
+        let mut intersection_count: i64 = 0;
+        for row in 0..=a.y {
+            if col_edge_is_intersected_at_col(&Edge{ start: row, end: row }, x, row_edges, col_edges) {
+                println!("A to B intersection at row: {}, col: {}", row, x);
+                intersection_count += 1;
+            }
+        }
+        if (intersection_count % 2) == 0 {
+            println!("Rect not enclosed due to A to B edge count being: {}", intersection_count);
             return false;
         }
     }
 
     // C to D
     for x in c.x..=d.x {
-        if (count_edges_intersected_by_col_edge(&Edge{ start: c.y, end: row_count }, x, row_edges, col_edges) % 2) == 0 {
+        let mut intersection_count: i64 = 0;
+        for row in c.y..=row_count {
+            if col_edge_is_intersected_at_col(&Edge{ start: row, end: row }, x, row_edges, col_edges) {
+                intersection_count += 1;
+            }
+        }
+        if (intersection_count % 2) == 0 {
+            println!("Rect not enclosed due to C to D edge count being: {}", intersection_count);
             return false;
         }
     }
 
     // A to C (so col (x) is fixed for starting points and y varies from A to C)
     for y in a.y..=c.y {
-        if (count_edges_intersected_by_row_edge(&Edge{ start: 0, end: a.x }, y, row_edges, col_edges) % 2) == 0 {
+        let mut intersection_count: i64 = 0;
+        for col in 0..=a.x {
+            if row_edge_is_intersected_at_row(&Edge{ start: col, end: col }, y, row_edges, col_edges) {
+                println!("A to C intersection at row: {}, col: {}", y, col);
+                intersection_count += 1;
+            }
+        }
+        if (intersection_count % 2) == 0 {
+            println!("Rect not enclosed due to A to C edge count being: {}", intersection_count);
             return false;
         }
     }
 
     // B to D
     for y in b.y..=d.y {
-        if (count_edges_intersected_by_row_edge(&Edge{ start: b.x, end: col_count }, y, row_edges, col_edges)  % 2) == 0 {
+        let mut intersection_count: i64 = 0;
+        for col in b.x..=col_count {
+            if row_edge_is_intersected_at_row(&Edge{ start: col, end: col }, y, row_edges, col_edges) {
+                intersection_count += 1;
+            }
+        }
+        if (intersection_count  % 2) == 0 {
+            println!("Rect not enclosed due to B to D edge count being: {}", intersection_count);
             return false;
         }
     }
