@@ -1,3 +1,7 @@
+use std::cmp;
+use geo::polygon;
+use geo::Area;
+
 fn part1(input: &String) {
     let mut points: Vec<(i64, i64)> = vec!();
 
@@ -9,7 +13,13 @@ fn part1(input: &String) {
     let mut max_area: i64 = 0;
     for i in 0..points.len() {
         for j in (i + 1)..points.len() {
-            //let rect = polygon
+            let rect = polygon![
+                (x: points[i].0, y: points[i].1 ),
+                (x: points[j].0, y: points[j].1),
+                (x: points[i].0, y: points[j].1),
+                (x: points[j].0, y: points[i].1)
+            ];
+            max_area = cmp::max(max_area, rect.unsigned_area().parse().unwrap());
         }
     }
 }
