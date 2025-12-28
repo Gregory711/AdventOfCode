@@ -165,7 +165,7 @@ fn rectangle_is_enclosed(a: &Point, b: &Point, c: &Point, d: &Point, row_edges: 
                 intersection_count += 1;
             }
         }
-        if (intersection_count % 2) == 0 {
+        if intersection_count == 0 || (intersection_count % 2) == 0 {
             println!("Rect not enclosed due to A to B edge count being: {}", intersection_count);
             return false;
         }
@@ -179,7 +179,7 @@ fn rectangle_is_enclosed(a: &Point, b: &Point, c: &Point, d: &Point, row_edges: 
                 intersection_count += 1;
             }
         }
-        if (intersection_count % 2) == 0 {
+        if intersection_count == 0 || (intersection_count % 2) == 0 {
             println!("Rect not enclosed due to C to D edge count being: {}", intersection_count);
             return false;
         }
@@ -194,7 +194,7 @@ fn rectangle_is_enclosed(a: &Point, b: &Point, c: &Point, d: &Point, row_edges: 
                 intersection_count += 1;
             }
         }
-        if (intersection_count % 2) == 0 {
+        if intersection_count == 0 || (intersection_count % 2) == 0 {
             println!("Rect not enclosed due to A to C edge count being: {}", intersection_count);
             return false;
         }
@@ -208,7 +208,7 @@ fn rectangle_is_enclosed(a: &Point, b: &Point, c: &Point, d: &Point, row_edges: 
                 intersection_count += 1;
             }
         }
-        if (intersection_count  % 2) == 0 {
+        if intersection_count == 0 || (intersection_count % 2) == 0 {
             println!("Rect not enclosed due to B to D edge count being: {}", intersection_count);
             return false;
         }
