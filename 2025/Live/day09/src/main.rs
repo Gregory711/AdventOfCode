@@ -103,7 +103,7 @@ fn row_edge_is_intersected_at_row(row_edge: &Edge, row: i64, row_edges: &HashMap
         }
 
         // If made it to this point then col_edge intersects with row_edge
-        println!("col_edge from {} to {} in col {} intersects", col_edge.start, col_edge.end, col);
+        //println!("col_edge from {} to {} in col {} intersects", col_edge.start, col_edge.end, col);
         return true;
     }
 
@@ -163,22 +163,22 @@ fn col_edge_is_intersected_at_col(col_edge: &Edge, col: i64, row_edges: &HashMap
 //  count_edges_intersected_by_row_edge(row_edge: &Edge, row: i64, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>) -> i64 {
 //
 fn rectangle_is_enclosed(a: &Point, c: &Point, b: &Point, d: &Point, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>, row_count: i64, col_count: i64) -> bool {
-    println!("a: {}", a);
-    println!("b: {}", b);
-    println!("c: {}", c);
-    println!("d: {}", d);
+    //println!("a: {}", a);
+    //println!("b: {}", b);
+    //println!("c: {}", c);
+    //println!("d: {}", d);
     // A to B (so row (y) is fixed for starting points and x varies from A to B)
     for x in a.x..=b.x {
-        println!("checking {} of {} to {}", x, a.x, b.x);
+        //println!("checking {} of {} to {}", x, a.x, b.x);
         let mut intersection_count: i64 = 0;
         for row in 0..=a.y {
             if col_edge_is_intersected_at_col(&Edge{ start: row, end: row }, x, row_edges, col_edges) {
-                println!("A to B intersection at row: {}, col: {}", row, x);
+                //println!("A to B intersection at row: {}, col: {}", row, x);
                 intersection_count += 1;
             }
         }
         if intersection_count == 0 || (intersection_count % 2) == 0 {
-            println!("Rect not enclosed due to A to B edge count being: {}", intersection_count);
+            //println!("Rect not enclosed due to A to B edge count being: {}", intersection_count);
             return false;
         }
     }
@@ -192,7 +192,7 @@ fn rectangle_is_enclosed(a: &Point, c: &Point, b: &Point, d: &Point, row_edges: 
             }
         }
         if intersection_count == 0 || (intersection_count % 2) == 0 {
-            println!("Rect not enclosed due to C to D edge count being: {}", intersection_count);
+            //println!("Rect not enclosed due to C to D edge count being: {}", intersection_count);
             return false;
         }
     }
@@ -202,12 +202,12 @@ fn rectangle_is_enclosed(a: &Point, c: &Point, b: &Point, d: &Point, row_edges: 
         let mut intersection_count: i64 = 0;
         for col in 0..=a.x {
             if row_edge_is_intersected_at_row(&Edge{ start: col, end: col }, y, row_edges, col_edges) {
-                println!("A to C intersection at row: {}, col: {}", y, col);
+                //println!("A to C intersection at row: {}, col: {}", y, col);
                 intersection_count += 1;
             }
         }
         if intersection_count == 0 || (intersection_count % 2) == 0 {
-            println!("Rect not enclosed due to A to C edge count being: {}", intersection_count);
+            //println!("Rect not enclosed due to A to C edge count being: {}", intersection_count);
             return false;
         }
     }
@@ -221,7 +221,7 @@ fn rectangle_is_enclosed(a: &Point, c: &Point, b: &Point, d: &Point, row_edges: 
             }
         }
         if intersection_count == 0 || (intersection_count % 2) == 0 {
-            println!("Rect not enclosed due to B to D edge count being: {}", intersection_count);
+            //println!("Rect not enclosed due to B to D edge count being: {}", intersection_count);
             return false;
         }
     }
@@ -307,7 +307,6 @@ fn part2(input: &String) {
             // verify they are all in the red_green_tiles section
             if temp_area > max_area {
                 enclose_checks_count += 1;
-                let mut all_inside: bool = true;
 
                 // replacing the following too slow section by using this new helper function:
                 // rectangle_is_enclosed(a: &Point, b: &Point, c: &Point, d: &Point, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>, row_count: i64, col_count: i64) -> bool
@@ -322,31 +321,12 @@ fn part2(input: &String) {
                 abcd.push(Point{ x: points[j].x, y: points[i].y});
                 abcd.sort();
 
-                println!("Checking if rect with ({}, {}) and ({}, {}) is enclosed", points[i].x, points[i].y, points[j].x, points[j].y);
+                //println!("Checking if rect with ({}, {}) and ({}, {}) is enclosed", points[i].x, points[i].y, points[j].x, points[j].y);
                 if rectangle_is_enclosed(&abcd[0], &abcd[1], &abcd[2], &abcd[3], &row_edges, &col_edges, row_count, col_count) {
                     max_area = temp_area;
-                    println!("Increasing max area to {} with ({}, {}), ({}, {})" , max_area, points[i].x, points[i].y, points[j].x, points[j].y);
+                    //println!("Increasing max area to {} with ({}, {}), ({}, {})" , max_area, points[i].x, points[i].y, points[j].x, points[j].y);
                 } else {
-                    println!("Not enclosed!");
-                }
-
-                // too slow start -----------
-                for x in cmp::min(points[i].x, points[j].x)..=cmp::max(points[i].x, points[j].x) {
-                    for y in cmp::min(points[i].y, points[j].y)..=cmp::max(points[i].y, points[j].y) {
-                        if !point_inside_red_green_tiles(&Point{ x: x, y: y }, &row_edges, &col_edges) {
-                            all_inside = false;
-                            break;
-                        }
-                    }
-                    if !all_inside {
-                        break;
-                    }
-                }
-                // too slow end ----------
-
-                if all_inside {
-                    //max_area = temp_area;
-                    println!("Old version would: increasing max area to {} with ({}, {}), ({}, {})" , temp_area, points[i].x, points[i].y, points[j].x, points[j].y);
+                    //println!("Not enclosed!");
                 }
             }
             println!("j: {}/{}", j, points.len());
