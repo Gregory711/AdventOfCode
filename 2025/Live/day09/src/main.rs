@@ -1,5 +1,6 @@
 use std::cmp;
 use std::collections::HashMap;
+use std::collections::HashSet;
 use std::fmt;
 
 #[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd, Hash)]
@@ -162,7 +163,7 @@ fn col_edge_is_intersected_at_col(col_edge: &Edge, col: i64, row_edges: &HashMap
 //  count_edges_intersected_by_col_edge(col_edge: &Edge, col: i64, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>) -> i64
 //  count_edges_intersected_by_row_edge(row_edge: &Edge, row: i64, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>) -> i64 {
 //
-fn rectangle_is_enclosed(a: &Point, c: &Point, b: &Point, d: &Point, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>, row_count: i64, col_count: i64) -> bool {
+fn rectangle_is_enclosed(a: &Point, c: &Point, b: &Point, d: &Point, row_edges: &HashMap<i64, Edge>, col_edges: &HashMap<i64, Edge>, row_count: i64, col_count: i64, enclosed_points: &mut HashSet<Point>, not_enclosed_points: &mut HashSet<Point>) -> bool {
     //println!("a: {}", a);
     //println!("b: {}", b);
     //println!("c: {}", c);
@@ -172,9 +173,19 @@ fn rectangle_is_enclosed(a: &Point, c: &Point, b: &Point, d: &Point, row_edges: 
         //println!("checking {} of {} to {}", x, a.x, b.x);
         let mut intersection_count: i64 = 0;
         for row in 0..=a.y {
+            // Use cached points
+            if enclosed_points.contains(&Point{ x: x, y: row }) {
+                intersection_count += 1;
+                continue;
+            } else if not_enclosed_points.contains(&Point{ x: x, y: row }) {
+                continue;
+            }
             if col_edge_is_intersected_at_col(&Edge{ start: row, end: row }, x, row_edges, col_edges) {
                 //println!("A to B intersection at row: {}, col: {}", row, x);
                 intersection_count += 1;
+                enclosed_points.insert(Point{ x: x, y: row });
+            } else {
+                not_enclosed_points.insert(Point{ x: x, y: row });
             }
         }
         if intersection_count == 0 || (intersection_count % 2) == 0 {
@@ -187,8 +198,18 @@ fn rectangle_is_enclosed(a: &Point, c: &Point, b: &Point, d: &Point, row_edges: 
     for x in c.x..=d.x {
         let mut intersection_count: i64 = 0;
         for row in c.y..=row_count {
+            // Use cached points
+            if enclosed_points.contains(&Point{ x: x, y: row }) {
+                intersection_count += 1;
+                continue;
+            } else if not_enclosed_points.contains(&Point{ x: x, y: row }) {
+                continue;
+            }
             if col_edge_is_intersected_at_col(&Edge{ start: row, end: row }, x, row_edges, col_edges) {
                 intersection_count += 1;
+                enclosed_points.insert(Point{ x: x, y: row });
+            } else {
+                not_enclosed_points.insert(Point{ x: x, y: row });
             }
         }
         if intersection_count == 0 || (intersection_count % 2) == 0 {
@@ -201,9 +222,19 @@ fn rectangle_is_enclosed(a: &Point, c: &Point, b: &Point, d: &Point, row_edges: 
     for y in a.y..=c.y {
         let mut intersection_count: i64 = 0;
         for col in 0..=a.x {
+            // Use cached points
+            if enclosed_points.contains(&Point{ x: col, y: y }) {
+                intersection_count += 1;
+                continue;
+            } else if not_enclosed_points.contains(&Point{ x: col, y: y }) {
+                continue;
+            }
             if row_edge_is_intersected_at_row(&Edge{ start: col, end: col }, y, row_edges, col_edges) {
                 //println!("A to C intersection at row: {}, col: {}", y, col);
                 intersection_count += 1;
+                enclosed_points.insert(Point{ x: col, y: y });
+            } else {
+                not_enclosed_points.insert(Point{ x: col, y: y });
             }
         }
         if intersection_count == 0 || (intersection_count % 2) == 0 {
@@ -216,8 +247,18 @@ fn rectangle_is_enclosed(a: &Point, c: &Point, b: &Point, d: &Point, row_edges: 
     for y in b.y..=d.y {
         let mut intersection_count: i64 = 0;
         for col in b.x..=col_count {
+            // Use cached points
+            if enclosed_points.contains(&Point{ x: col, y: y }) {
+                intersection_count += 1;
+                continue;
+            } else if not_enclosed_points.contains(&Point{ x: col, y: y }) {
+                continue;
+            }
             if row_edge_is_intersected_at_row(&Edge{ start: col, end: col }, y, row_edges, col_edges) {
                 intersection_count += 1;
+                enclosed_points.insert(Point{ x: col, y: y });
+            } else {
+                not_enclosed_points.insert(Point{ x: col, y: y });
             }
         }
         if intersection_count == 0 || (intersection_count % 2) == 0 {
@@ -289,6 +330,10 @@ fn part2(input: &String) {
     println!("Starting point checks!");
     let mut max_area: i64 = 0;
     let mut enclose_checks_count: i64 = 0;
+    // cache points that are in and not in red green tile array to boost
+    // performance by avoiding repeating expensive enclosed checks
+    let mut enclosed_points: HashSet<Point> = HashSet::new();
+    let mut not_enclosed_points: HashSet<Point> = HashSet::new();
     // Next need to calculate row_count and col_count which are just max y and x
     // respectively that any of the points happen to fall in
     let mut row_count: i64 = 0;
@@ -322,7 +367,7 @@ fn part2(input: &String) {
                 abcd.sort();
 
                 //println!("Checking if rect with ({}, {}) and ({}, {}) is enclosed", points[i].x, points[i].y, points[j].x, points[j].y);
-                if rectangle_is_enclosed(&abcd[0], &abcd[1], &abcd[2], &abcd[3], &row_edges, &col_edges, row_count, col_count) {
+                if rectangle_is_enclosed(&abcd[0], &abcd[1], &abcd[2], &abcd[3], &row_edges, &col_edges, row_count, col_count, &mut enclosed_points, &mut not_enclosed_points) {
                     max_area = temp_area;
                     //println!("Increasing max area to {} with ({}, {}), ({}, {})" , max_area, points[i].x, points[i].y, points[j].x, points[j].y);
                 } else {
@@ -374,8 +419,8 @@ fn main() {
         println!("edges_hit_count for d = {}", edges_hit_count(&d, &row_edges, &col_edges));
     }
 
-    //for &file in &["test.txt", "input.txt"] {
-    for &file in &["test.txt"] {
+    for &file in &["test.txt", "input.txt"] {
+    //for &file in &["test.txt"] {
         let input = std::fs::read_to_string(format!("day09/{}", file))
             .expect(&format!("Failed to read file: {}", file))
             .trim_end()
